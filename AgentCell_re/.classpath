@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/JZombies_Demo"/>
+	<classpathentry kind="con" path="REPAST_SIMPHONY_SUPPORT"/>
+	<classpathentry kind="lib" path="lib/jhdf.jar"/>
+	<classpathentry kind="lib" path="lib/jhdf4obj.jar"/>
+	<classpathentry kind="lib" path="lib/jhdf5.jar"/>
+	<classpathentry kind="lib" path="lib/jhdf5obj.jar"/>
+	<classpathentry kind="lib" path="lib/jhdfobj.jar"/>
+	<classpathentry kind="lib" path="lib/jhdfview.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-11-openjdk-amd64">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="GROOVY_DSL_SUPPORT"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

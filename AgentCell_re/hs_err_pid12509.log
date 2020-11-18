@@ -1,0 +1,95 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007fae403e5401, pid=12509, tid=12522
+#
+# JRE version: OpenJDK Runtime Environment (11.0.9+11) (build 11.0.9+11-Ubuntu-0ubuntu1.18.04.1)
+# Java VM: OpenJDK 64-Bit Server VM (11.0.9+11-Ubuntu-0ubuntu1.18.04.1, mixed mode, sharing, tiered, compressed oops, serial gc, linux-amd64)
+# Problematic frame:
+# C  [libjimage.so+0x2401]
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport %p %s %c %d %P %E" (or dumping to /home/grueters/git/AgentCell_repo/AgentCell_reloaded/core.12509)
+#
+# If you would like to submit a bug report, please visit:
+#   https://bugs.launchpad.net/ubuntu/+source/openjdk-lts
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:36365 -XX:+IgnoreUnrecognizedVMOptions --add-modules=ALL-SYSTEM --add-exports=java.base/jdk.internal.ref=ALL-UNNAMED -javaagent:/home/grueters/eclipse/configuration/org.eclipse.osgi/233/0/.cp/lib/javaagent-shaded.jar -Dfile.encoding=UTF-8 repast.simphony.runtime.RepastMain /home/grueters/git/AgentCell_repo/AgentCell_reloaded/AgentCell_reloaded.rs
+
+Host: Intel(R) Core(TM) i7-7700T CPU @ 2.90GHz, 1 cores, 7G, Ubuntu 18.04.5 LTS
+Time: Fri Nov 13 19:53:34 2020 CET elapsed time: 720.650721 seconds (0d 0h 12m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007fae3c0c2800):  JavaThread "Signal Dispatcher" daemon [_thread_in_vm, id=12522, stack(0x00007fae225c0000,0x00007fae226c1000)]
+
+Stack: [0x00007fae225c0000,0x00007fae226c1000],  sp=0x00007fae226be1e0,  free space=1016k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libjimage.so+0x2401]
+C  [libjimage.so+0x30ea]
+C  [libjimage.so+0x35c6]  JIMAGE_FindResource+0xd6
+V  [libjvm.so+0x59e86e]
+V  [libjvm.so+0x5a15d0]
+V  [libjvm.so+0xd729c5]
+V  [libjvm.so+0xd7035a]
+V  [libjvm.so+0xd72f52]
+V  [libjvm.so+0x653bad]
+V  [libjvm.so+0x84d6fc]
+j  jdk.internal.misc.Signal.dispatch(I)V+25 java.base@11.0.9
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x85cfb9]
+V  [libjvm.so+0x85bda5]
+V  [libjvm.so+0xbe3b3c]
+V  [libjvm.so+0xdab8ff]
+V  [libjvm.so+0xda815f]
+V  [libjvm.so+0xbf6ace]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  jdk.internal.misc.Signal.dispatch(I)V+25 java.base@11.0.9
+v  ~StubRoutines::call_stub
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 1 (SEGV_MAPERR), si_addr: 0x00007fae3389e270
+
+Register to memory mapping:
+
+RAX=0x0000000000001495 is an unknown value
+RBX=0x00007fae226be291 is pointing into the stack for thread: 0x00007fae3c0c2800
+RCX=0x00007fae3389901c is an unknown value
+RDX=0x0000000000001495 is an unknown value
+RSP=0x00007fae226be1e0 is pointing into the stack for thread: 0x00007fae3c0c2800
+RBP=0x00007fae226be200 is pointing into the stack for thread: 0x00007fae3c0c2800
+RSI=0x00007fae226be290 is pointing into the stack for thread: 0x00007fae3c0c2800
+RDI=0x00007fae405e8030: <offset 0x0000000000205030> in /usr/lib/jvm/java-11-openjdk-amd64/lib/libjimage.so at 0x00007fae403e3000
+R8 =0x0 is NULL
+R9 =0x0000000076100fa4 is an unknown value
+R10=0x00007fae226be2b3 is pointing into the stack for thread: 0x00007fae3c0c2800
+R11=0x6c616e6769532f63 is an unknown value
+R12=0x00007fae226be290 is pointing into the stack for thread: 0x00007fae3c0c2800
+R13=0x0000000000008412 is an unknown value
+R14=0x00007fae226bf328 is pointing into the stack for thread: 0x00007fae3c0c2800
+R15=0x00007fae3c0c32c0 points into unknown readable memory: 6a 64 6b 2f 69 6e 74 65
+
+
+Registers:
+RAX=0x0000000000001495, RBX=0x00007fae226be291, RCX=0x00007fae3389901c, RDX=0x0000000000001495
+RSP=0x00007fae226be1e0, RBP=0x00007fae226be200, RSI=0x00007fae226be290, RDI=0x00007fae405e8030
+R8 =0x0000000000000000, R9 =0x0000000076100fa4, R10=0x00007fae226be2b3, R11=0x6c616e6769532f63
+R12=0x00007fae226be290, R13=0x0000000000008412, R14=0x00007fae226bf328, R15=0x00007fae3c0c32c0
+RIP=0x00007fae403e5401, EFLAGS=0x0000000000010246, CSGSFS=0x002b000000000033, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x00007fae226be1e0)
+0x00007fae226be1e0:   0000000000000000 00007fae3c009b40
+0x00007fae226be1f0:   0000000000000000 00007fae226be290
+0x00007fae226be200:   00007fae226be270 00007fae403e60ea
+0x00007fae226be210:   0000000000000000 0000000000000000 
+
+Instructions: (pc=0x00007fae403e5401)
+0x00007fae403e5301:   c5 4c 01 e3 48 89 ce e8 d3 f3 ff ff e9 69 fd ff
+0x00007fae403e5311:   ff 89 d1 0f b7 74 08 fe 66 41 89 74 0e fe e9 7a
+0x00007fae403e5321:   fe ff ff 0f 1f 40 00 8b 08 49 8d 1c 16 41 89 0e
+0x00007fae403e5331:   89 d1 8b 74 08 fc 41 89 74 0e fc 48 8d 34 10 48
+0x00007fae403e5341:   89 75 b8 e9 0b fe ff ff 0f 1f 80 00 00 00 00 0f
+0x00007fae403e5351:   b6 17 55 
