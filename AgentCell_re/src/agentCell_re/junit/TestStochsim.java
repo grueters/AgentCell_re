@@ -10,14 +10,14 @@ import agentCell_re.molecules.Molecule;
 import agentCell_re.networks.Stochsim;
 
 public class TestStochsim {
-    public static final String DIR = "/home/emonet/docs/workspace/agentcell/runs/CHER200";
+    public static final String DIR = "/home/grueters/git/AgentCell_re_repo/AgentCell_re/data";
     
     /**
      * @param args
      */
     public static void main(String[] args) {        
         
-        Stochsim stochsim = new Stochsim("STCHSTC.INI",DIR + "/cell1/network1/Input");
+        Stochsim stochsim = new Stochsim("STCHSTC.INI",DIR);
         System.out.println("stochsim created");
         
         System.out.println("At t = " + stochsim.getTime() +":");

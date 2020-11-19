@@ -87,7 +87,7 @@ public class ChemotaxisModel  implements ContextBuilder<Object> {
 	double aspartateMax = 1.0E-2;
 
 	public Context build(Context<Object> context) {
-		context.setId("AgentCell_reloaded");
+		context.setId("AgentCell_re");
 
 		Parameters p = RunEnvironment.getInstance().getParameters();
 		acParams = AC_Parameters.getInstance(p);
@@ -143,8 +143,8 @@ public class ChemotaxisModel  implements ContextBuilder<Object> {
 			// set AbsolutePath of cell on filesytem
 			// cell.setPath( cellArrayList.get(i).toString() );
 			//cell.setPath(new File(cellArrayList.get(i).toString()).getAbsolutePath());
-			String locPath = acParams.getInputDirectory();
-			cell.setPath(new File(locPath).getAbsolutePath());
+			String path = new File(acParams.getInputDirectory()).getAbsolutePath();
+			cell.setPath(path);
 			
 			// set an equilibration time = initial period during which motion is suppress.
 			// usefull to let the initial condition differentiate from the common ancestor.
@@ -188,8 +188,8 @@ public class ChemotaxisModel  implements ContextBuilder<Object> {
 			// currently we are only supporting the Chemotaxis Stochsim Network, will be
 			// relaxed in future and each cell will have a collecition of networks
 			cell.setChemotaxisNetwork(new ChemotaxisNetwork(cell, "STCHSTC.INI",
-					new File(cell.getPath()));
-			// old: cell.setChemotaxisNetwork(new ChemotaxisNetwork(cell, "STCHSTC.INI",
+					(acParams.getInputDirectory())));
+			// old:  cell.setChemotaxisNetwork(new ChemotaxisNetwork(cell, "STCHSTC.INI",
 			//		(new File(cell.getPath(), "network1") + File.separator + "Input")));
 
 			// Set the CheYp level in the cell at the same level as in stochsim
