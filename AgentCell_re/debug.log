@@ -71,3 +71,13 @@ java.lang.NullPointerException
 	at saf.core.runtime.Boot.run(Boot.java:101)
 	at saf.core.runtime.Boot.main(Boot.java:248)
 	at repast.simphony.runtime.RepastMain.main(RepastMain.java:43)
+ERROR [main] 2020-11-19 08:58:00,097 saf.core.runtime.Boot - null
+java.lang.NullPointerException
+	at saf.core.runtime.Boot.init(Boot.java:79)
+	at saf.core.runtime.Boot.main(Boot.java:247)
+	at repast.simphony.runtime.RepastMain.main(RepastMain.java:43)
+ERROR [main] 2020-11-19 08:58:00,114 saf.core.runtime.Boot - null
+java.lang.NullPointerException
+	at saf.core.runtime.Boot.run(Boot.java:101)
+	at saf.core.runtime.Boot.main(Boot.java:248)
+	at repast.simphony.runtime.RepastMain.main(RepastMain.java:43)

@@ -19,7 +19,7 @@
 									
 		/>
 				<parameter name="inputDir" displayName="1.7 Input Directory" type="java.lang.String" 
-						defaultValue="/data" 
+						defaultValue="/data/Input" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
 									

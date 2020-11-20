@@ -10,8 +10,9 @@ import agentCell_re.molecules.Molecule;
 import agentCell_re.networks.Stochsim;
 
 public class TestStochsim {
-    public static final String DIR = "/home/grueters/git/AgentCell_re_repo/AgentCell_re/data";
-    
+    public static final String DIR = "/home/grueters/git/AgentCell_re_repo/AgentCell_re/data/Input";
+    // public static final String DIR = "/home/leonm/git/AgentCell_re/AgentCell_re/data/Input";
+   
     /**
      * @param args
      */
