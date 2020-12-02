@@ -1,0 +1,152 @@
+###############################################################################
+###############################################################################
+###################                                        ####################
+###################   StochSim, the STOCHastic SIMulator!  ####################
+###################                                        ####################
+###############################################################################
+###############################################################################
+
+
+Installation
+************
+
+Move the distribution directory to the convenient place (for instance 
+/usr/local/lib under Unices or \"program files"\ on MS Windows). 
+
+Version 1.4 of the program is split into four parts. However each of the
+four archives contains a directory "stochsim", itself divided according to the
+same set of subdirectories.
+
+In the subdirectory "bin" of the distribution there are several executable named 
+"stochsim_xxxx". Rename the one relevant to your operating system "stochsim". 
+(Win32 users can of course rename the file stochsim.exe)
+
+The files "tkstochsim.pl" and "stochsim" present in the subdirectory "bin" of the 
+distribution have to be located in a directory present in your path. Either 
+copy the programs to such a directory, or add the directory "bin" of the 
+distribution to your path, or even make a link (a shortcut) from a directory 
+present in your path. 
+
+If you plan to use StochSim with AgentCell, please follow the installation instructions
+provided in the README file of the AgentCell distribution
+
+StochSim core
+=============
+
+The stochsim core is already pre-compiled. However, if you want to compile it 
+specifically for your environment (which is an excellent idea by the way), move
+to the directory "src", and type 
+
+PROMPT> make.
+
+To remove the temporary object files, type 
+
+PROMPT> make clean
+
+Move the resulting stochsim executable in the "bin" directory of the distribution. 
+
+Some examples of configuration files are present in the subdirectory
+"config_examples". If you use StochSim directly (rather than throught the
+graphical user interface) you have to launch the program from the adequate
+"Input" subdirectory, for instance:
+
+cd /usr/local/lib/stochsim/config_examples/LotkaVoltera/Input
+stochsim
+
+Notes on wrapping the core application:
+--------------------------------------
+
+If you wish to use StochSim as a "wrapped" object in other programs,
+you can use the "SSWrapper" class interface provided in the core
+distribution.  The makefile now contains routines for compiling a
+shared object library ("libstochsim.so" - a pre-compiled version for
+linux is provided in the lib/linux_i386 directory) that you can
+dynamically link to from your application at runtime.  Just ensure
+that libstochsim.so is somewhere in your linker's search path (e.g. by
+setting its location in the LD_LIBRARY_PATH environment variable on
+Linux systems).  For more information on this interface, see the
+comments in SSWrapper.hh in the src directory.
+
+Perl/Tk interface
+=================
+
+The Perl/Tk interface requires Perl 5.004 and Perl/Tk 800.022. You can find
+them in the CPAN (e.g. http://www.perl.com/CPAN-local/README.html). MS
+Windows users would maybe prefer the ActiveState distribution, claimed to
+be simpler to install and maintain (http://www.activestate.com/). In such a
+case, download and install the current ActiveSate distribution. Then install
+the module Tk: 
+
+1) You have a direct access to the internet from the computer where StochSim
+is to be installed:
+
+Launch the programme ppm (present in the directory Perl/bin)
+Type "install Tk". (You can type "search Tk" to assess that you have access
+to a repository containing the proper archive).
+That's it.
+
+2) You do not have a direct access to the internet from the computer where 
+StochSim is to be installed:
+
+Get the file Tk.ppd (http://www.activestate.com/PPMPackages/5.6/) and put 
+it in a temporary directory, let's say c:\windows\temp
+Get the file tk.tar.gz (http://www.activestate.com/PPMPackages/5.6/x86/)
+and put it in c:\windows\temp\x86
+Launch the programme ppm (present in the directory Perl/bin)
+Type "set repository HERE c:\windows\temp"
+Type "install Tk". (You can type "search Tk" to assess that you have access
+to a repository containing the proper archive).
+That's it.
+
+(NB: the SBML export is performed by XM::Simple, which is included in the 
+distribution of Stochsim. However XML::Simple in turn depends on XML::parser,
+which is not included. According to your Perl installation, you could also 
+need to install this package).
+
+Setup the environment variable "STOCHSIM" to the main directory of the stochsim
+distribution. Under Unices put the following line in the proper configuration 
+file (/etc/profile for a system installation, and for a personnal installation
+.bashrc, .bash_profile or .profile). Note that the actual directory can be 
+different:
+
+export STOCHSIM=/usr/local/lib/stochsim        # if you use bash
+or
+setenv STOCHSIM /usr/local/lib/stochsim        # if you use csh
+
+under DOS or Windows, you can add the following line in the file 
+"c:\autoexec.bat":
+
+set STOCHSIM=c:\"program files"\stochsim
+
+Under Unix-like environment, you can move the content of the subdirectory "doc"
+to /usr/doc/stochsim for instance. However A copy of stochsim_manual.pdf has 
+to be kept in the directory $STOCHSIM/doc (or a link to the actual 
+stochsim_manual.pdf present in /usr/doc/stochsim).
+
+To launch TkStochSim, just type "tkstochsim.pl" or "perl tkstochsim.pl".
+
+If you use TkStochSim for the first time, a directory ".stochsim" will be 
+created in your HOME directory. The file "stochsimrc" of the distribution
+will be copied in ".stochsim". If you upgrade TkStochSim, you already have
+a ".stochsim" directory with a file "stochsimrc". The format of the file 
+"stochsimrc" could have changed. You should therefore copy the file "stochsimrc"
+present in the directory "lib" of the distribution in you ".stochsim" directory
+and edit it.
+
+Copyright
+*********
+
+   This program is free software; you can redistribute it and/or modify it 
+   under the terms of the GNU General Public License as published by the Free 
+   Software Foundation; either version 2 of the License, or (at your option) 
+   any later version.
+
+   This program is distributed in the hope that it will be useful, but
+   WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+   or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License 
+   for more details.
+
+   You should have received a copy of the GNU General Public License along 
+   with this program; if not, write to the Free Software Foundation, Inc., 59 
+   Temple Place, Suite 330, Boston, MA  02111-1307  USA
+

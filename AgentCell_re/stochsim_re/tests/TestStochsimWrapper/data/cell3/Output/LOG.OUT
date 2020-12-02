@@ -1,0 +1,35 @@
+Tue Nov 24 12:51:43 2020
+
+
+Using Shuffle Random Number Generator for random numbers.
+509 pseudo-complexes are being used for unimolecular reactions.
+A default concentration of 0 has been assigned to 511 states of multistate complex type ET.
+A default rate of 0 has been assigned to 384 states of multistate complex type ET for Reaction 1F.
+A default rate of 0 has been assigned to 256 states of multistate complex type ET for Reaction 3F.
+A default rate of 0 has been assigned to 496 states of multistate complex type ET for Reaction 4F.
+A default rate of 0 has been assigned to 384 states of multistate complex type ET for Reaction 4R.
+A default rate of 0 has been assigned to 504 states of multistate complex type ET for Reaction 5F.
+A default rate of 0 has been assigned to 504 states of multistate complex type ET for Reaction 6F.
+A default rate of 0 has been assigned to 504 states of multistate complex type ET for Reaction 7F.
+A default rate of 0 has been assigned to 504 states of multistate complex type ET for Reaction 8F.
+A default rate of 0 has been assigned to 496 states of multistate complex type ET for Reaction 9F.
+A default rate of 0 has been assigned to 384 states of multistate complex type ET for Reaction 9R.
+A default rate of 0 has been assigned to 504 states of multistate complex type ET for Reaction 10F.
+A default rate of 0 has been assigned to 504 states of multistate complex type ET for Reaction 11F.
+A default rate of 0 has been assigned to 504 states of multistate complex type ET for Reaction 12F.
+A default rate of 0 has been assigned to 504 states of multistate complex type ET for Reaction 13F.
+A default rate of 0 has been assigned to 256 states of multistate complex type ET for Reaction 14F.
+A default rapid equilibrium probability of 0 has been assigned to 352 states of multistate complex type ET.
+A default concentration of 0 has been assigned to 1 states of multistate complex type M.
+A default rate of 0 has been assigned to 1 states of multistate complex type M for Reaction 16F.
+A default rate of 0 has been assigned to 1 states of multistate complex type M for Reaction 16R.
+Optimising the reaction matrix...
+The time increment has been optimised. Every iteration represents 4.93e-08 seconds.
+8109560 iterations (0.40 simulation seconds) will be performed.
+Complex Type levels will be dumped every 2027390004 iterations (100.00 simulation seconds).
+Variable values will be stored every 202739 iterations (0.01 simulation seconds).
+The simulation will take approximately 0.56 seconds to complete.
+The value {asp*} has been changed in iteration 0.
+The value {asp} has been changed in iteration 0.
+Time taken to complete calculations: 2.17 sec
+StochSim completed the simulation successfully.

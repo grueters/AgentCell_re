@@ -38,10 +38,10 @@
 									
 		/>
 				<parameter name="numberOfCells" displayName="2.1 Number of cells" type="int" 
-						defaultValue="2" 
+						defaultValue="1" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
-									values="2 4 6 8 10 "
+									values="1 2 4 6 8 10 "
 						
 		/>
 				<parameter name="stopTime_s" displayName="1.5 Stop time [s]" type="double" 

@@ -1,0 +1,2935 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>STOCHSIM, the stochastic simulator</TITLE>
+<META NAME="description" CONTENT="STOCHSIM, the stochastic simulator">
+<META NAME="keywords" CONTENT="stochsim_manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="stochsim_manual.css">
+
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive"
+ SRC="/usr/share/latex2html/icons/nx_grp_g.png"> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev_g.png">   
+<BR>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<H1 ALIGN="CENTER">S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>, the stochastic simulator</H1>
+<P ALIGN="CENTER"><STRONG>Carl Firth, Nicolas Le Novère and Tom Shimizu</STRONG></P>
+<p align="center"><strong>This manuel is a little bit obsolete. See the PDF version instead</strong></p>
+<BR>
+
+<H2><A NAME="SECTION00100000000000000000">
+Contents</A>
+</H2>
+<!--Table of Contents-->
+
+<UL>
+<LI><A NAME="tex2html79"
+  HREF="stochsim_manual.html">Contents</A>
+<LI><A NAME="tex2html80"
+  HREF="stochsim_manual.html#SECTION00200000000000000000">Introduction</A>
+<UL>
+<LI><A NAME="tex2html81"
+  HREF="stochsim_manual.html#SECTION00210000000000000000">Overview</A>
+<LI><A NAME="tex2html82"
+  HREF="stochsim_manual.html#SECTION00220000000000000000">The S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> algorithm</A>
+<LI><A NAME="tex2html83"
+  HREF="stochsim_manual.html#SECTION00230000000000000000">Multistate molecules</A>
+</UL>
+<LI><A NAME="tex2html84"
+  HREF="stochsim_manual.html#SECTION00300000000000000000">The configuration files</A>
+<UL>
+<LI><A NAME="tex2html85"
+  HREF="stochsim_manual.html#SECTION00310000000000000000">The main configuration file (<TT>STCHSTC.INI</TT>)</A>
+<UL>
+<LI><A NAME="tex2html86"
+  HREF="stochsim_manual.html#SECTION00311000000000000000">[Simulation Parameters]</A>
+<LI><A NAME="tex2html87"
+  HREF="stochsim_manual.html#SECTION00312000000000000000">[Options]</A>
+<LI><A NAME="tex2html88"
+  HREF="stochsim_manual.html#SECTION00313000000000000000">[File Names]</A>
+</UL>
+<LI><A NAME="tex2html89"
+  HREF="stochsim_manual.html#SECTION00320000000000000000">The complex configuration file (<TT>COMPLEX.INI</TT>)</A>
+<UL>
+<LI><A NAME="tex2html90"
+  HREF="stochsim_manual.html#SECTION00321000000000000000">[General]</A>
+<LI><A NAME="tex2html91"
+  HREF="stochsim_manual.html#SECTION00322000000000000000">[Component <I>symbol</I>]</A>
+<LI><A NAME="tex2html92"
+  HREF="stochsim_manual.html#SECTION00323000000000000000">[Complex Types]</A>
+<LI><A NAME="tex2html93"
+  HREF="stochsim_manual.html#SECTION00324000000000000000">[Initial Levels]</A>
+<LI><A NAME="tex2html94"
+  HREF="stochsim_manual.html#SECTION00325000000000000000">[Special Complex Types]</A>
+<LI><A NAME="tex2html95"
+  HREF="stochsim_manual.html#SECTION00326000000000000000">[Display Variable <I>X</I>]</A>
+</UL>
+<LI><A NAME="tex2html96"
+  HREF="stochsim_manual.html#SECTION00330000000000000000">The configuration of reactions (<TT>REACTION.INI</TT>)</A>
+<UL>
+<LI><A NAME="tex2html97"
+  HREF="stochsim_manual.html#SECTION00331000000000000000">[General]</A>
+<LI><A NAME="tex2html98"
+  HREF="stochsim_manual.html#SECTION00332000000000000000">[Reaction <I>X</I>]</A>
+<LI><A NAME="tex2html99"
+  HREF="stochsim_manual.html#SECTION00333000000000000000">Notes on using dynamic values in this file (<TT>REACTION.INI</TT>)</A>
+</UL>
+<LI><A NAME="tex2html100"
+  HREF="stochsim_manual.html#SECTION00340000000000000000">The configuration of dynamic values (<TT>DYNAMIC.INI</TT>)</A>
+<UL>
+<LI><A NAME="tex2html101"
+  HREF="stochsim_manual.html#SECTION00341000000000000000">[General]</A>
+<LI><A NAME="tex2html102"
+  HREF="stochsim_manual.html#SECTION00342000000000000000">[Time <I>T</I>]</A>
+</UL>
+<LI><A NAME="tex2html103"
+  HREF="stochsim_manual.html#SECTION00350000000000000000">Configuration of the multistate complexes (<TT>MS_<I>X</I>.INI</TT>)</A>
+<UL>
+<LI><A NAME="tex2html104"
+  HREF="stochsim_manual.html#SECTION00351000000000000000">How multistate molecules work</A>
+<LI><A NAME="tex2html105"
+  HREF="stochsim_manual.html#SECTION00352000000000000000">[General]</A>
+<LI><A NAME="tex2html106"
+  HREF="stochsim_manual.html#SECTION00353000000000000000">[Initial States]</A>
+<LI><A NAME="tex2html107"
+  HREF="stochsim_manual.html#SECTION00354000000000000000">[Rapid Equilibrium <I>X</I>]</A>
+<LI><A NAME="tex2html108"
+  HREF="stochsim_manual.html#SECTION00355000000000000000">[Reaction <I>XD</I>]</A>
+<LI><A NAME="tex2html109"
+  HREF="stochsim_manual.html#SECTION00356000000000000000">[Display Variable <I>X</I>]</A>
+<LI><A NAME="tex2html110"
+  HREF="stochsim_manual.html#SECTION00357000000000000000">Notes on using dynamic values in this file (<TT>MS_<I>X</I>.INI</TT>)</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html111"
+  HREF="stochsim_manual.html#SECTION00400000000000000000">Spatial extensions to S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL></A>
+<UL>
+<LI><A NAME="tex2html112"
+  HREF="stochsim_manual.html#SECTION00410000000000000000">Overview</A>
+<LI><A NAME="tex2html113"
+  HREF="stochsim_manual.html#SECTION00420000000000000000">Setting up a simulation that uses 2-D complex arrays
+  (<TT>STCHSTC.INI</TT>)</A>
+<UL>
+<LI><A NAME="tex2html114"
+  HREF="stochsim_manual.html#SECTION00421000000000000000">[Options]</A>
+<LI><A NAME="tex2html115"
+  HREF="stochsim_manual.html#SECTION00422000000000000000">[File Names]</A>
+</UL>
+<LI><A NAME="tex2html116"
+  HREF="stochsim_manual.html#SECTION00430000000000000000">Definition of complex arrays (<TT>ARRAY.INI</TT>)</A>
+<UL>
+<LI><A NAME="tex2html117"
+  HREF="stochsim_manual.html#SECTION00431000000000000000">[General]</A>
+<LI><A NAME="tex2html118"
+  HREF="stochsim_manual.html#SECTION00432000000000000000">[Neighbour Sensitive Complex Types]</A>
+<LI><A NAME="tex2html119"
+  HREF="stochsim_manual.html#SECTION00433000000000000000">[<I>ARRAY_NAME</I>]</A>
+<LI><A NAME="tex2html120"
+  HREF="stochsim_manual.html#SECTION00434000000000000000">[Snapshot Variable <I>X</I>]</A>
+</UL>
+<LI><A NAME="tex2html121"
+  HREF="stochsim_manual.html#SECTION00440000000000000000">Definition of neighbour-sensitive complexes (<TT>NS_<I>X</I>.INI</TT>)</A>
+<UL>
+<LI><A NAME="tex2html122"
+  HREF="stochsim_manual.html#SECTION00441000000000000000">[General]</A>
+<LI><A NAME="tex2html123"
+  HREF="stochsim_manual.html#SECTION00442000000000000000">[Rapid Equilibrium <I>X</I>]</A>
+<LI><A NAME="tex2html124"
+  HREF="stochsim_manual.html#SECTION00443000000000000000">[Reaction <I>XD</I>]</A>
+</UL>
+<LI><A NAME="tex2html125"
+  HREF="stochsim_manual.html#SECTION00450000000000000000">Output of complex-array states</A>
+<UL>
+<LI><A NAME="tex2html126"
+  HREF="stochsim_manual.html#SECTION00451000000000000000">A note for StochSim 1.2 users</A>
+<LI><A NAME="tex2html127"
+  HREF="stochsim_manual.html#SECTION00452000000000000000">Array snapshots</A>
+<LI><A NAME="tex2html128"
+  HREF="stochsim_manual.html#SECTION00453000000000000000">Array dumps</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html129"
+  HREF="stochsim_manual.html#SECTION00500000000000000000">TkS<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>: user guide</A>
+<UL>
+<LI><A NAME="tex2html130"
+  HREF="stochsim_manual.html#SECTION00510000000000000000">Opening and saving a simulation</A>
+<LI><A NAME="tex2html131"
+  HREF="stochsim_manual.html#SECTION00520000000000000000">Setting up a simulation</A>
+<UL>
+<LI><A NAME="tex2html132"
+  HREF="stochsim_manual.html#SECTION00521000000000000000">General configuration</A>
+<LI><A NAME="tex2html133"
+  HREF="stochsim_manual.html#SECTION00522000000000000000">Creating elementary components of the simulation</A>
+<LI><A NAME="tex2html134"
+  HREF="stochsim_manual.html#SECTION00523000000000000000">Creating complexes involved in the simulation</A>
+<LI><A NAME="tex2html135"
+  HREF="stochsim_manual.html#SECTION00524000000000000000">Creating multistate complexes</A>
+<LI><A NAME="tex2html136"
+  HREF="stochsim_manual.html#SECTION00525000000000000000">Creating neighbour-sensitive complexes</A>
+<LI><A NAME="tex2html137"
+  HREF="stochsim_manual.html#SECTION00526000000000000000">Creating reactions</A>
+<LI><A NAME="tex2html999"
+  HREF="stochsim_manual.html#SECTION00529000000000000000">Setting dynamic values</A>
+</UL>
+<LI><A NAME="tex2html138"
+  HREF="stochsim_manual.html#SECTION00530000000000000000">Running a simulation</A>
+<LI><A NAME="tex2html139"
+  HREF="stochsim_manual.html#SECTION00540000000000000000">Visualisation of the results</A>
+<LI><A NAME="tex2html140"
+  HREF="stochsim_manual.html#SECTION00550000000000000000">Configuration of the interface</A>
+</UL>
+<LI><A NAME="tex2html141"
+  HREF="stochsim_manual.html#SECTION00600000000000000000">References</A>
+<LI><A NAME="tex2html142"
+  HREF="stochsim_manual.html#SECTION00700000000000000000">Comparison with the Gillespie algorithm</A>
+<UL>
+<LI><A NAME="tex2html143"
+  HREF="stochsim_manual.html#SECTION00710000000000000000">Description of the algorithm</A>
+<LI><A NAME="tex2html144"
+  HREF="stochsim_manual.html#SECTION00720000000000000000">Comparison with the Gillespie algorithm</A>
+</UL>
+<LI><A NAME="tex2html145"
+  HREF="stochsim_manual.html#SECTION00800000000000000000">About this document ...</A>
+</UL>
+<!--End of Table of Contents-->
+<H1><A NAME="SECTION00200000000000000000">
+Introduction</A>
+</H1>
+S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> is a discrete, stochastic simulator. It employs a simple,
+novel algorithm in which enzymes and other protein molecules are
+represented as individual software objects interacting according to
+probabilities derived from concentrations and rate constants.
+Formally, it is a mesoscopic simulator, meaning that it stores an
+internal representation of every molecule in the system as a unique
+object, but does not simulate diffusion.  The program was written in
+standard C++, according to the ANSI current working
+paper<A NAME="tex2html1"
+  HREF="#foot77"><SUP>1.1</SUP></A>.
+
+<P>
+
+<H1><A NAME="SECTION00210000000000000000">
+Overview</A>
+</H1>
+When a simulation is executed, the reaction system is constructed by
+creating all the necessary objects in turn. First the event manager is
+created, which is responsible for changing the system during the
+simulation; for instance, the user may wish to change the
+concentration of signalling molecules half way through the simulation.
+Then the random number generator is created, based on an algorithm
+which breaks up any sequential patterns using a shuffle table. Objects
+representing each type of molecular species in the system are
+initialised and then large numbers of objects each representing an
+individual molecule are created. It is possible to create molecules
+which have specific states, called multistate molecules; these react
+according to the state they are in and are usually used to reflect
+covalent modification, such as protein phosphorylation. A number of
+dummy, or pseudo-molecules, are also created at this time, which are
+used in the simulation of unimolecular reactions: if a molecule reacts
+with a pseudo-molecule, the former may undergo a unimolecular
+reaction. Next, a look-up table is constructed which defines all the
+possible ways in which molecules can react in the system. For every
+bimolecular reaction, the row is selected according to the first
+reactant and the column by the second reactant; the corresponding
+entry in the look-up table then gives the probability that these two
+reactants will react and what the products will be. Finally, objects
+are constructed that represent variables being output to the screen
+and saved to file. Each variable is responsible for recalculating its
+current value as necessary.
+
+<P>
+
+<H1><A NAME="SECTION00220000000000000000"></A><A NAME="algorithm"></A>
+<BR>
+The S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> algorithm
+</H1>
+Execution follows a very simple algorithm. Time is quantised into a
+series of discrete, independent time-slices. In each time-slice, one
+molecule (not a pseudo-molecule) is selected at random. Then, another
+object, in this case either a molecule or a pseudo-molecule, is
+selected at random. If two molecules were selected, any reaction that
+occurs will be bimolecular; if one molecule and a pseudo-molecule were
+selected, it will be unimolecular. Another random number is then
+generated and used to see if a reaction occurs. The probability of a
+reaction is retrieved from the look-up table: if the probability
+exceeds the random number, the particles do not react; if the
+probability is less than the random number, the particles react, and
+the system is updated accordingly.  The next time-slice then begins
+with another pair of molecules being selected.
+
+<P>
+The probabilities that a reaction will occur after the molecules have
+been selected are calculated as:
+
+<UL>
+<LI>If a first molecule A is selected and the second is a
+  pseudo-molecule, the probability that A will undergo a
+  unimolecular reaction is:
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+P = \frac{k_1\times{}n\times{}(n+n_0)\times\Delta{}t}{n_0}
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="191" HEIGHT="42" BORDER="0"
+ SRC="img1.png"
+ ALT="\begin{displaymath}
+P = \frac{k_1\times{}n\times{}(n+n_0)\times\Delta{}t}{n_0}
+\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+
+<P>
+</LI>
+<LI>If two molecules are selected, the 
+probability that they react together is:
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+P = \frac{k_2\times{}n\times{}(n+n_0)\times\Delta{}t}{2\times{}N_A\times{}V}
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="191" HEIGHT="42" BORDER="0"
+ SRC="img2.png"
+ ALT="\begin{displaymath}
+P = \frac{k_2\times{}n\times{}(n+n_0)\times\Delta{}t}{2\times{}N_A\times{}V}
+\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+</LI>
+</UL>
+
+<P>
+Where:
+
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$n$"></TD>
+<TD ALIGN="LEFT">=</TD>
+<TD ALIGN="LEFT">number of molecules in the system</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><IMG
+ WIDTH="20" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4.png"
+ ALT="$n_0$"></TD>
+<TD ALIGN="LEFT">=</TD>
+<TD ALIGN="LEFT">number of pseudo-molecules in the system</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><IMG
+ WIDTH="18" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$k_1$"></TD>
+<TD ALIGN="LEFT">=</TD>
+<TD ALIGN="LEFT">unimolecular rate constant (<IMG
+ WIDTH="28" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.png"
+ ALT="$s^{-1}$">)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><IMG
+ WIDTH="18" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.png"
+ ALT="$k_2$"></TD>
+<TD ALIGN="LEFT">=</TD>
+<TD ALIGN="LEFT">bimolecular rate constant (<IMG
+ WIDTH="59" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$M^{-1}s^{-1}$">)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><IMG
+ WIDTH="23" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$\Delta{}t$"></TD>
+<TD ALIGN="LEFT">=</TD>
+<TD ALIGN="LEFT">time-slice duration (<IMG
+ WIDTH="11" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img10.png"
+ ALT="$s$">)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><IMG
+ WIDTH="26" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img11.png"
+ ALT="$N_A$"></TD>
+<TD ALIGN="LEFT">=</TD>
+<TD ALIGN="LEFT">Avogadro constant</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><IMG
+ WIDTH="17" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img12.png"
+ ALT="$V$"></TD>
+<TD ALIGN="LEFT">=</TD>
+<TD ALIGN="LEFT">volume of the system (<IMG
+ WIDTH="9" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img13.png"
+ ALT="$l$">)</TD>
+</TR>
+</TABLE>
+
+<P>
+The number of pseudo-molecules is calculated to minimise the stiffness
+between the unimolecular and bimolecular reactions. For this we
+require that the probability of the fastest unimolecular reaction is
+as close to the probability of the fastest bimolecular reaction as
+possible. Hence, by equating the two probabilities:
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+n_0=[2\times{}N_A\times{}V\times{}\frac{k_{1,max}}{k_{2,max}}]
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="192" HEIGHT="44" BORDER="0"
+ SRC="img14.png"
+ ALT="\begin{displaymath}
+n_0=[2\times{}N_A\times{}V\times{}\frac{k_{1,max}}{k_{2,max}}]
+\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+
+<P>
+Where <IMG
+ WIDTH="24" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img15.png"
+ ALT="$[x]$"> represents the non-zero positive integer nearest to <IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img16.png"
+ ALT="$x$">.
+
+<P>
+
+<H1><A NAME="SECTION00230000000000000000"></A><A NAME="intro_multistates"></A>
+<BR>
+Multistate molecules
+</H1>
+
+<P>
+Besides its discrete, stochastic algorithm, another feature that makes
+S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> unique is its ability encapsulate <I>internal states</I> of
+molecules within each instance of a molecule object.  The activity of
+many enzymes and signalling proteins in living cells are controlled by
+numerous factors such as covalent modification, the binding of ligand
+or other subunits, and conformational changes of the protein.  It is
+possible to model such internal states of a single reacting molecule
+as separate molecular species, and this is in fact how most simulators
+handle this problem.  However, S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> provides an alternative
+method, which takes advantage of the way molecules are represented as
+individual software objects.
+<P>
+Molecules that possess many internal states can be modelled as a
+special type of molecule, called <I>multistate</I> molecules.
+Multistate molecules have a set of binary flags (flags which are
+either 'on' or 'off'), which can be used to represent the state of the
+molecule.  For example, a single flag could be used to express whether
+or not an external ligand is bound to a transmembrane receptor.
+Another flag could be used to distinguish between two functionally
+distinct conformations of the same receptor.  Another could be used to
+encode the state of a phosphorylation site on its cytoplasmic domain,
+and so on.  The combination of the states of all flags, therefore,
+defines the state of a multistate molecule, and this is readily
+expressed as bit strings (strings of 0's and 1's), e.g.  ``0010'' when
+there is four flags, and only the third one is on).  The state of each
+multistate molecule can change over the course of a simulation,
+either as a consequence of explicitly computed reactions (following
+the algorithm described in section <A HREF="stochsim_manual.html#algorithm">1.2</A>), or by means of
+<I>rapid equilibria</I>, which are a special feature of multistate
+molecules that are provided to deal with stiffness in the reaction
+system.
+
+<P>
+In short, multistate molecules provide a conceptually simpler
+alternative to defining the large number of separate molecular species
+and associated reactions that would otherwise be necessary.  With
+multistate molecules, the user can simply define how each state of a
+multistate molecule will affect a reaction rate in relative terms.  An
+additional advantage of multistate molecules is that its use can
+contribute to computational efficiency when the number of possible
+internal states are very large.  This is because S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> does not
+need to sift through a large number of possible reactions at each
+simulation interval, and only has to apply the relative effect of the
+internal state in the algorithm described above.
+
+<P>
+
+<H1><A NAME="SECTION00300000000000000000"></A><A NAME="conf_files"></A>
+<BR>
+The configuration files
+</H1>
+
+<P>
+The format of S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> configuration files follows that of Windows
+initialisation files. Sections are headed by a title between square
+brackets.  Inside each section, one parameter per line is specified in
+the form, <I>parameter = value</I>.  Comments can be added after a
+semicolon.
+
+<P>
+<PRE>
+[A Section]
+parameter1=value         ; A comment
+parameter2=value
+
+; A 
+; multiline
+; comment
+
+[Another Section]
+parameterA=value
+parameterB=value
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00310000000000000000">
+The main configuration file (<TT>STCHSTC.INI</TT>)</A>
+</H1>
+This file (<TT>STCHSTC.INI</TT>) describes the general configuration of a
+simulation, independently of the objects and the reactions.
+
+<P>
+
+<H2><A NAME="SECTION00311000000000000000">
+[Simulation Parameters]</A>
+</H2>
+<DL>
+<DT><STRONG>DisplayInterval</STRONG></DT>
+<DD>The interval between the two displays of variable values, 
+in units of seconds (floating point) or simulation
+  iterations (integer).  The units are specified by the
+  <B>TimeUnits</B> parameter in the <B>[Options]</B> section).
+
+<P>
+</DD>
+<DT><STRONG>StoreInterval</STRONG></DT>
+<DD>The interval between two storages of variable values, 
+  in units of seconds (floating point) or simulation iterations
+  (integer).  The units are specified by the <B>TimeUnits</B>
+  parameter in the <B>[Options]</B> section).
+
+<P>
+</DD>
+<DT><STRONG>TimeIncrement</STRONG></DT>
+<DD>The duration of each simulation iteration, in
+  units of seconds (floating point) or simulation iterations
+  (integer).  The units are specified by the <B>TimeUnits</B>
+  parameter in the <B>[Options]</B> section).
+
+<P>
+</DD>
+<DT><STRONG>SimulationDuration</STRONG></DT>
+<DD>The length of the simulation, in units of
+  seconds (floating point) or simulation iterations (integer).  The
+  units are specified by the <B>TimeUnits</B> parameter in the
+  <B>[Options]</B> section).
+
+<P>
+</DD>
+<DT><STRONG>ReactionVolume</STRONG></DT>
+<DD>The total volume of the reaction system, in
+  litres (floating point; the exponential form, e.g. ``1.41e-15'', can
+  also be used).
+
+<P>
+</DD>
+<DT><STRONG>MaximumNumberComplexes</STRONG></DT>
+<DD>The maximum number of complexes (not the
+  number of complex types!) allowed in the reaction system (integer).
+  Note that this number should be large enough to account for the
+  total number of complexes that may need to be represented at any
+  point in the simulation (not just the number of complexes at the
+  beginning of the simulation).
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00312000000000000000">
+[Options]</A>
+</H2>
+<DL>
+<DT><STRONG>AbortOnResolutionErr</STRONG></DT>
+<DD>Abort the simulation with an error message
+  if a reaction probability is too small for the resolution of the
+  random number generator (1 = Yes; 0 = No).
+
+<P>
+</DD>
+<DT><STRONG>DisplayAllLevels</STRONG></DT>
+<DD>Indicates whether or not all variable values
+  should be displayed during simulation (1 = Display level of every
+  defined complex type; 0 = Use only specified variables).
+
+<P>
+</DD>
+<DT><STRONG>OptimiseTimeIncrement</STRONG></DT>
+<DD>Optimise time increment for the defined
+  reaction system to the maximum value possible without compromising
+  the accuracy of simulation (1 = Yes; 0 = No, use time increment
+  specified in the <B>TimeIncrement</B> parameter of the
+  <B>[General]</B> section).
+
+<P>
+</DD>
+<DT><STRONG>RandomNumberGenerator</STRONG></DT>
+<DD>Type of random number generator to use:
+  <DL COMPACT>
+<DT>1</DT>
+<DD>= Dummy generator
+  
+</DD>
+<DT>2</DT>
+<DD>= Internal random number generator
+  
+</DD>
+<DT>3</DT>
+<DD>= Shuffle random number generator
+  
+</DD>
+<DT>4</DT>
+<DD>= Bit string random number generator
+  
+</DD>
+<DT>5</DT>
+<DD>= Quick random number generator
+  
+</DD>
+</DL>
+
+<P>
+</DD>
+<DT><STRONG>TimeUnits</STRONG></DT>
+<DD>The units to be used for parameter values
+  representing time (1 = Seconds; 0 = Iterations).
+
+<P>
+</DD>
+<DT><STRONG>CreateDumpFile</STRONG></DT>
+<DD>Create a dump file of the reaction system (1 =
+  Yes; 0 = No).  A dump file stores the state of the entire reaction
+  system, including the state of each multistate complex.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00313000000000000000">
+[File Names]</A>
+</H2>
+<DL>
+<DT><STRONG>ComplexINIFile</STRONG></DT>
+<DD>Input file containing details of the components
+  and complex types in the system.
+
+<P>
+</DD>
+<DT><STRONG>DumpOut</STRONG></DT>
+<DD>Output file to which the state of the entire reaction
+  system is to be dumped.
+
+<P>
+</DD>
+<DT><STRONG>DynamicValues</STRONG></DT>
+<DD>Input file containing information about objects
+  that change over time.
+
+<P>
+</DD>
+<DT><STRONG>LogFile</STRONG></DT>
+<DD>Output file in which all messages issued by the
+  simulator are to be saved.
+
+<P>
+</DD>
+<DT><STRONG>MessageINIFile</STRONG></DT>
+<DD>Input file containing all the constant-string
+  messages used by the system.
+
+<P>
+</DD>
+<DT><STRONG>ReactionMatrixOut</STRONG></DT>
+<DD>Output file in which the reaction matrix used
+  for this simulation is to be saved.
+
+<P>
+</DD>
+<DT><STRONG>ReactionINIFile</STRONG></DT>
+<DD>Input file containing reactions and reaction
+  constants.
+
+<P>
+</DD>
+<DT><STRONG>SeedsIn</STRONG></DT>
+<DD>Input file from which the random number seeds are to be
+  loaded; the value of this parameter should be left blank if the seeds
+  are to be generated from the internal CPU clock.
+
+<P>
+</DD>
+<DT><STRONG>SeedsOut</STRONG></DT>
+<DD>Output file in which random number seeds are to be
+  saved; the value of this parameter should be left blank if seeds
+  need not be saved.
+
+<P>
+</DD>
+<DT><STRONG>VariablesOut</STRONG></DT>
+<DD>Output file in which variable values are saved.
+</DD>
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION00320000000000000000">
+The complex configuration file (<TT>COMPLEX.INI</TT>)</A>
+</H1>
+
+<P>
+This file (<TT>COMPLEX.INI</TT>) defines the complexes which can take part in
+the reactions.  The components of the complexes must be defined first,
+then the complexes can be defined. Finally, the initial concentrations
+of the complexes must be set. For multistate complexes, additional
+information must be defined in a specific INI file for each multistate
+complex type.
+
+<P>
+
+<H2><A NAME="SECTION00321000000000000000">
+[General]</A>
+</H2>
+<DL>
+<DT><STRONG>Symbols</STRONG></DT>
+<DD>A comma-separated list of symbols to be used to denote
+components and complex types.  They are not reacting entities, but are the
+constituents of the complexes which react.
+
+<P>
+</DD>
+<DT><STRONG>NumDisplayVariables</STRONG></DT>
+<DD>Number of variables (excluding those for
+  multistate complex types) which will be displayed during the
+  simulation.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00322000000000000000">
+[Component <I>symbol</I>]</A>
+</H2>
+This section specifies information about the components, i.e. the
+elementary blocks of the simulation. Each component must have a
+section headed [Component <I>symbol</I>], where <I>symbol</I> is a
+unique string of less than 8 characters. The
+maximum number of components allowed is 24.
+
+<P>
+<DL>
+<DT><STRONG>Name</STRONG></DT>
+<DD>The name of the component (must be less than
+32 characters).
+
+<P>
+</DD>
+<DT><STRONG>Description</STRONG></DT>
+<DD>The description of the component.  This parameter
+is not mandatory, since it is not used by the S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> simulator
+itself.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00323000000000000000">
+[Complex Types]</A>
+</H2>
+This section specifies information about the complexes (excluding
+multistate complexes).
+
+<P>
+<DL>
+<DT><STRONG>NumberOfSets</STRONG></DT>
+<DD>This number indicates how many lines of complex
+  types follow;
+
+<P>
+</DD>
+<DT><STRONG>Set<I>x</I></STRONG></DT>
+<DD>Each line defining a complex type must start with
+  Set<I>x</I>, where <I>x</I> is the line number. Note that the
+  numbers have to be consecutive, and must start with <B>1</B>.  You
+  can put one complex symbol per line, or a list of complex symbols,
+  joined with commas (<B>strongly discouraged</B>. This feature is
+  not handled by the Tk interface).  The maximum number of
+  complex types that can be defined in a simulation is
+  128. The symbol of the complex is a concatenated
+  string consisting of the symbols representing components of the
+  complex type.  The maximum number of components per complex is
+  16.
+
+<P>
+</DD>
+<DT><STRONG>Comp<I>x</I></STRONG></DT>
+<DD>These lines are not read by the S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> simulator
+  itself, but by the helper programs (text and Tk based interfaces).
+  Each line contains a list of component symbols that form one complex
+  type.  Note the order is important here! (e.g. A,B,C,D forms a
+  different complex from B,C,D,A)
+
+<P>
+</DD>
+<DT><STRONG>Description<I>x</I></STRONG></DT>
+<DD>The description of the complex.  This parameter
+is not mandatory, since it is not used by the S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> simulator
+itself.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00324000000000000000">
+[Initial Levels]</A>
+</H2>
+This section specifies initial levels of each complex. Levels are
+expressed in number of molecules, <I>not a concentration</I>, so
+values must be given in <B>integers</B>.  Note that for multistate
+complex types, only the total level is specified here (the level of
+each state is specified in the multistate configuration file).  One
+line of the following format per complex must be defined in this
+section: <BR><I>Symbol</I>=<I>Level</I>
+<BR>
+where <I>Symbol</I> is the symbol for a complex type, and <I>Level</I>
+is its initial level.
+
+<P>
+
+<H2><A NAME="SECTION00325000000000000000">
+[Special Complex Types]</A>
+</H2>
+This section specifies what special complex types are being used
+(currently, only multistate complex types fall under this category).
+
+<P>
+<DL>
+<DT><STRONG>SpecialTypes</STRONG></DT>
+<DD>Define any special complex types to be used in the
+  simulation. Currently, the value of this parameter can be either
+  ``Multistate_Complex'' or empty.
+
+<P>
+</DD>
+<DT><STRONG>Multistate_Complex</STRONG></DT>
+<DD>A comma-separated list of symbols, one for
+  each multistate complex type in the reaction system.
+
+<P>
+</DD>
+<DT><STRONG><I>S</I>INIFile</STRONG></DT>
+<DD>The file containing the specifications of the multistate
+       complex <I>S</I>. Define one line of this format per multistate
+       complex being used.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00326000000000000000">
+[Display Variable <I>X</I>]</A>
+</H2>
+If the parameter <B>DisplayAllLevels</B> (in the <B>[Options]</B>
+section of <TT>STCHSTC.INI</TT>) has been set to 0, you must specify the
+variables to be displayed here. Each display variable must have a
+section headed [Display Variable <I>X</I>], where <I>X</I> is a unique
+numerical identifier for each display variable for this complex type,
+starting with <B>1</B>.
+
+<P>
+<DL>
+<DT><STRONG>Name</STRONG></DT>
+<DD>Name of the variable.
+</DD>
+<DT><STRONG>Types</STRONG></DT>
+<DD>A comma-separated list of the complex type(s) this
+  variable represents.
+</DD>
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION00330000000000000000"></A>
+<A NAME="reaction_ini"></A>
+<BR>
+The configuration of reactions (<TT>REACTION.INI</TT>)
+</H1>
+This file (<TT>REACTION.INI</TT>) contains the description of the reactions
+which can take place during the simulation. Each reaction is
+considered to be a reversible reaction with separate forward and
+reverse rate constants. For an irreversible reaction, set the reverse
+rate to zero. The rate constants are expressed in standard units,
+according to the order of the reaction (s-1 is used
+for unimolecular reactions, and
+M-1s-1 for bimolecular reactions
+).
+
+<P>
+
+<H2><A NAME="SECTION00331000000000000000">
+[General]</A>
+</H2>
+This section contains only one parameter.
+
+<P>
+<DL>
+<DT><STRONG>NumberOfReactions</STRONG></DT>
+<DD>The number of reactions in the simulation
+(integer).
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00332000000000000000">
+[Reaction <I>X</I>]</A>
+</H2>
+The section for each reaction should start with a title [Reaction
+<I>X</I>] where <I>X</I> is the reaction number.
+<DL>
+<DT><STRONG>Description</STRONG></DT>
+<DD>An explicit description of the reaction. This
+  parameter is not mandatory, since it is not used by the S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>
+  simulator itself.
+
+<P>
+</DD>
+<DT><STRONG>Substrates</STRONG></DT>
+<DD>A comma-separated list of substrates.
+
+<P>
+</DD>
+<DT><STRONG>Products</STRONG></DT>
+<DD>A comma-separated list of products.
+
+<P>
+</DD>
+<DT><STRONG>kf</STRONG></DT>
+<DD>Forward rate constant (floating point). If a dynamic value
+  is being used, use the form, <I>X</I>@<I>Code</I> (see section
+  <A HREF="stochsim_manual.html#r_dv_notes">2.3.3</A>).
+
+<P>
+</DD>
+<DT><STRONG>kr</STRONG></DT>
+<DD>Reverse rate constant (floating point). If a dynamic value
+  is being used, use the form, <I>X</I>@<I>Code</I> (see section
+  <A HREF="stochsim_manual.html#r_dv_notes">2.3.3</A>).
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00333000000000000000"></A>
+<A NAME="r_dv_notes"></A>
+<BR>
+Notes on using dynamic values in this file (<TT>REACTION.INI</TT>)
+</H2>
+If the rate constants can change over time, dynamic values must be
+used.  To specify a reaction rate using a dynamic value, use the
+following form:
+<BR><I>X</I>@<I>Code</I> where <I>X</I> is the maximum rate the reaction
+can achieve and <I>Code</I> is the symbolic code identifying this rate
+constant in the file controlling the value dynamically changing over
+time. eg 15@Reaction1.  The actual behaviour of dynamic values are
+configured in a separate configuration file (DYNAMIC.INI).
+
+<P>
+
+<H1><A NAME="SECTION00340000000000000000">
+The configuration of dynamic values (<TT>DYNAMIC.INI</TT>)</A>
+</H1>
+This file (<TT>DYNAMIC.INI</TT>) contains the configuration of the dynamic
+values, i.e.  the details of the objects which change over time. There
+are three types of objects which can change over time:
+
+<P>
+
+<UL>
+<LI>Reaction rates (see section <A HREF="stochsim_manual.html#reaction_ini">2.3</A>)
+</LI>
+<LI>Rapid equilibrium probabilities for multistate complexes
+</LI>
+<LI>Reaction rates for multistate complexes (see section
+  <A HREF="stochsim_manual.html#ms_ini">2.5</A>)
+</LI>
+</UL>
+
+<P>
+A number of time points are listed in the <B>[General]</B> section
+of this file. The value of all dynamic values must be assigned for
+each time point.  All times are either in seconds or iterations
+depending on what was specified for units in the main configuration
+file.
+
+<P>
+
+<H2><A NAME="SECTION00341000000000000000">
+[General]</A>
+</H2>
+<DL>
+<DT><STRONG>NumberOfSets</STRONG></DT>
+<DD>The number of time points in the simulation at
+  which the dynamic values change.
+
+<P>
+</DD>
+<DT><STRONG>Set<I>X</I></STRONG></DT>
+<DD>Each set contains a list of time-points at which
+  dynamic values change.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00342000000000000000">
+[Time <I>T</I>]</A>
+</H2>
+Each <B>[Time <I>T</I>]</B> section must contain a line for each
+dynamic value, with its value at time <I>T</I>. Each line of this
+section has the form:
+<BR><I>Code</I>=<I>Value</I>
+<BR>
+where <I>Code</I> is the code of the dynamic value and
+<I>Value</I> is its actual value at time <I>T</I>.  <I>Value</I> may
+be left blank for dynamic values that do not change at time <I>T</I>.
+
+<P>
+
+<H1><A NAME="SECTION00350000000000000000"></A>
+<A NAME="ms_ini"></A>
+<BR>
+Configuration of the multistate complexes (<TT>MS_<I>X</I>.INI</TT>)
+</H1>
+
+<P>
+If multistate complexes are to be used in a simulation, a separate
+configuration file must be defined for each multistate complex type.
+These files can take any name, as long as it matches that specified in
+the complex configuration file (<TT>COMPLEX.INI</TT>).  However, we recommend
+using file names of the following form, which both the Perl/Tk and
+MFC GUIs recognise as multistate configuration files:
+``<TT>MS_<I>X</I>.INI</TT>'', where <I>X</I> is a unique numerical identifier
+for each multistate complex type in the system, starting with
+<B>1</B>.
+<P>
+The multistate configuration file contains all the additional
+information about multistate complexes (MS-Complexes), multistate
+reactions (MS-Reactions) and multistate rapid equilibria
+(MS-RapidEqm's) needed by S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>, which has not already been given
+in the other four configuration files (<TT>STCHSTC.INI</TT>, <TT>COMPLEX.INI</TT>,
+<TT>REACTION.INI</TT> and <TT>DYNAMIC.INI</TT>).  For example, the initial level (or
+more precisely, the initial <I>total</I> level) of an MS-Complex type
+is already given in the complex configuration file (<TT>COMPLEX.INI</TT>), but
+the initial levels for each state of the multistate complex must be
+defined here (in MS_<I>X</I>.INI).  Similarly, all simple
+unimolecular and bimolecular reaction rates are given in the reaction
+configuration file (<TT>REACTION.INI</TT>), but information specific to
+MS-Reactions (i.e. all reactions involving MS-Complexes), such as how
+the different states of an MS-Complex will affect reaction rates, and
+the effect that an MS-Reaction has on the state flags of product
+MS-Complexes, must be specified here.
+
+<P>
+
+<H2><A NAME="SECTION00351000000000000000">
+How multistate molecules work</A>
+</H2>
+In S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>, the state of an MS-Complex can affect two things:
+
+<P>
+<DL>
+<DT><STRONG>Reaction Rates</STRONG></DT>
+<DD>S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> reactions and their rates are defined
+  in the reaction configuration file (<TT>REACTION.INI</TT>).  However,
+  reactions involving MS-Complexes (we will call these reactions
+  MS-Reactions) are treated differently by the simulator, and
+  therefore require some additional information before the simulation
+  can begin.  The difference between MS-Reactions and normal S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>
+  reactions are:
+  <DL>
+<DT><STRONG>How reaction rates are computed</STRONG></DT>
+<DD>Normal S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> reaction
+    rates are determined only by the information in the reaction
+    configuration file (<TT>REACTION.INI</TT>).  The rate of MS-Reactions can
+    be affected by the state(s) of participating MS-Complex(es).
+
+<P>
+</DD>
+<DT><STRONG>How the system is updated afterwards</STRONG></DT>
+<DD>After normal S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>
+    reactions occur, the reaction system must be updated by adding
+    product complexes, or removing substrate complexes as necessary.
+    When MS-Reactions occur, it may also be necessary to update the
+    state of individual MS-Complexes, i.e. certain state flags of
+    participating MS-Complexes may have to be turned on or off.
+
+<P>
+</DD>
+</DL>
+
+<P>
+</DD>
+<DT><STRONG>Rapid Equilibrium Probabilities</STRONG></DT>
+<DD>MS-RapidEqm's are a facility of
+  MS-Complexes which helps to deal with stiffness in a reaction
+  system.  If certain state flags are controlled by very fast
+  processes (such as conformational changes of a protein), defining
+  these state changes as MS-Reactions would force the time-increment
+  of the simulation to be made very small.  This can cause a very
+  large increase in simulation time.
+<P>
+Instead, S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> allows such flags to be controlled by
+  MS-RapidEqm's.  When a complex is chosen for reaction, S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> will
+  first ``equilibrate'' any rapid equilibria defined for the complex.
+  Here, to ``equilibrate'' a binary flag simply means to decide
+  whether it is in the on or off state, according to a predefined
+  <I>rapid equilibrium probability</I>.
+<P>
+Now, a rapid equilibrium probability can itself be affected by the
+  state of other flags within the same MS-Complex.  For example, the
+  conformational equilibrium of a protein may be affected by the
+  binding of a ligand molecule, or covalent modification at a certain
+  site.  By using MS-RapidEqm's effectively, such protein complexes in
+  signalling pathways can be modelled with relative ease.
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00352000000000000000">
+[General]</A>
+</H2>
+<DL>
+<DT><STRONG>StateFlags</STRONG></DT>
+<DD>A comma-separated list of state flag names (the
+  maximum length for the name of each flag is 8
+  characters).
+
+<P>
+</DD>
+<DT><STRONG>NumRapidEqm</STRONG></DT>
+<DD>The number of flags controlled by rapid equilibria
+  (integer).
+
+<P>
+</DD>
+<DT><STRONG>Reactions</STRONG></DT>
+<DD>A comma-separated list of all reactions involving
+  this MS-Complex. Reaction names are given in the form ``<I>XD</I>'',
+  where <I>X</I> is the reaction number and <I>D</I> is the direction
+  (`F' for forward and `R' for reverse).  For example, ``4F'' for the
+  forward sub-reaction of reaction 4, as it appears in the reaction
+  configuration file (<TT>REACTION.INI</TT>).
+
+<P>
+</DD>
+<DT><STRONG>NumDisplayVariables</STRONG></DT>
+<DD>The number of multistate variables
+  (MS-Variables) which will be displayed (see section
+  <A HREF="stochsim_manual.html#ms_variables">2.5.6</A>).
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00353000000000000000">
+[Initial States]</A>
+</H2>
+This section defines the initial states of the MS-Complex.
+<DL>
+<DT><STRONG>Wildcards</STRONG></DT>
+<DD>A comma-separated list of all bit strings below which
+  contain one or more of the wildcard character, '?'. Wildcards
+  represent <I>both</I> 0 and 1.
+
+<P>
+</DD>
+<DT><STRONG><I>BitString</I></STRONG></DT>
+<DD>As many lines as necessary of the
+following form can be written here to define the initial level of each
+state of the MS-Complex:
+<BR><I>BitString</I>=<I>Value</I>
+<BR>
+where <I>BitString</I> is a bit string that specifies a particular
+state, and <I>Value</I> is the number of MS-Complexes in that state.
+Note that wildcard strings can be used in place of bit strings here to
+specify initial levels of multiple states in a single line.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00354000000000000000">
+[Rapid Equilibrium <I>X</I>]</A>
+</H2>
+Each MS-RapidEqm must have a section headed [Rapid Equilibrium
+<I>X</I>] where <I>X</I> is a unique numerical identifier for each
+MS-RapidEqm of this MS-Complex, starting with <B>1</B>.
+
+<P>
+<DL>
+<DT><STRONG>Flag</STRONG></DT>
+<DD>The name of the state flag which is controlled by the
+  rapid equilibrium. ``State'' is also accepted for backward compatibility but
+  is deprecated.
+
+<P>
+</DD>
+<DT><STRONG>Wildcards</STRONG></DT>
+<DD>Comma-separated list of all bit strings below which
+  contain one or more of the wildcard character, '?'. Wildcards
+  represent <I>both</I> 0 and 1.
+
+<P>
+</DD>
+<DT><STRONG><I>BitString</I></STRONG></DT>
+<DD>As many lines as necessary of the following
+  form can be written here to define the MS-RapidEqm probabilities
+  (i.e. the probability that the flag controlled by this MS-Rapid Eqm
+  will be on)
+  associated with particular states of this MS-Complex:
+<BR>  <I>BitString</I>=<I>Value</I>
+  <BR>
+where <I>BitString</I> is a bit string that specifies a particular
+  state (note that wildcard strings can be used in place of bit
+  strings in these lines to specify initial levels of multiple states
+  in a single line).  <I>Value</I> is the probability expression,
+  which can take one of two forms:
+<BR>  <I>Pon</I>
+<BR>
+where <I>Pon</I> is simply the probability of the flag
+  being on (floating point), or
+<BR>  <I>Toff</I>,<I>Ton</I>
+<BR>
+where <I>Toff</I>:<I>Ton</I> is the ratio, (time
+  spent in the off state):(time spent in the on state).  For
+  example, the following two lines are equivalent:
+<BR>  ????=0.75
+<BR>  ????=1.0,3.0
+<BR>
+So you can use either a single floating point value, or a ratio of
+  two floating point values.
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00355000000000000000">
+[Reaction <I>XD</I>]</A>
+</H2>
+Each reaction involving a multistate complex (an MS-Reaction) must
+have a [Reaction <I>XD</I>] section where <I>X</I> is the reaction
+number and <I>D</I> is direction ('F' or 'R').  MS-Reactions are
+computed by using <I>relative rates</I> specific to certain states of
+an MS-Complex.  Relative rates are simply factors by which the maximum
+rate of reaction (defined in <TT>REACTION.INI</TT>) are multiplied to obtain a
+final reaction probability.  The effect of an MS-Reaction on the
+product MS-Complex must also be defined here.
+<DL>
+<DT><STRONG>Effect</STRONG></DT>
+<DD>A comma-separated list of the effects that this
+  MS-Reaction has on the state flags of this MS-Complex.  A '+'
+  character indicates that a flag is set (0 =&gt; 1); a '-' indicates
+  that a flag is cleared (1 =&gt; 0).
+
+<P>
+</DD>
+<DT><STRONG>Wildcards</STRONG></DT>
+<DD>Comma-separated list of all bit strings below which
+  contain one or more of the wildcard character, '?'. Wildcards represent <I>both</I> 0 and 1.
+</DD>
+<DT><STRONG><I>BitString</I></STRONG></DT>
+<DD>As many lines as necessary of the following
+  form can be written here to define the relative rates of this
+  MS-Reaction associated to particular states of this
+  MS-Complex:
+<BR>  <I>BitString</I>=<I>Value</I>
+  <BR>
+where <I>BitString</I> is a bit string that specifies a particular
+  state, and <I>Value</I> is the relative rate associated with that
+  state.  Note that wildcard strings can be used in place of bit
+  strings here to specify relative rates for multiple states in a
+  single line.
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00356000000000000000"></A><A NAME="ms_variables"></A>
+<BR>
+[Display Variable <I>X</I>]
+</H2>
+If the parameter <B>DisplayAllLevels</B> (in the <B>[Options]</B>
+section of <TT>STCHSTC.INI</TT>) has been set to 0, you must specify the
+multistate variables (MS-Variables) to display here.  Each MS-Variable
+must have a section headed [Display Variable <I>X</I>], where <I>X</I>
+is a distinct number assigned to each variable.  Note that these
+numbers have to be consecutive, and must start with <B>1</B>.
+
+<P>
+<DL>
+<DT><STRONG>Name</STRONG></DT>
+<DD>Name of the variable.
+</DD>
+<DT><STRONG>States</STRONG></DT>
+<DD>A comma-separated list of the states of this MS-Complex
+  that this variable represents.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00357000000000000000">
+Notes on using dynamic values in this file (<TT>MS_<I>X</I>.INI</TT>)</A>
+</H2>
+
+<UL>
+<LI>If the relative rates associated with an MS-Reaction can change
+  over time, then they should be specified as (for each bit
+  string or wildcard string):
+<BR>  <I>X</I>@<I>Code</I> where <I>X</I> is the maximum relative rate
+  associated with this dynamic value (floating point), and <I>Code</I>
+  is the symbolic code identifying this rate constant in <TT>DYNAMIC.INI</TT>
+  (e.g.  0.8@Reaction1).
+<P>
+</LI>
+<LI>If an MS-RapidEqm probability can change over time, then it can
+  be specified in one of two ways (for each bit string or
+  wildcard string): <BR>  <I>X</I>,<I>Y</I>@<I>Code</I> where <I>X</I> is the probability that
+  the state flag is off and <I>Y</I> is the probability that the state
+  flag is on and <I>Code</I> is a symbolic code identifying this value
+  in the dynamic values configuration file (<TT>DYNAMIC.INI</TT>).  e.g.
+  1,1@RE1.
+<P>
+Alternatively,
+<BR>  <I>X</I>@<I>Code</I> where <I>X</I> is the probability that the
+  state flag is on and <I>Code</I> is a symbolic code identifying this
+  value in the dynamic values configuration file (<TT>DYNAMIC.INI</TT>).  e.g.
+  0.5@RE1;
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION00400000000000000000"></A><A NAME="spatial_extensions"></A>
+<BR>
+Spatial extensions to S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>
+</H1>
+
+<P>
+The original version of S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> (1.0) treated the entire reaction
+system as a uniformly mixed solution.  Although this is clearly not
+how molecules are arranged within living cells, the omission of spatial
+heterogeneity has been a norm in biochemical simulations because it
+greatly facilitates modelling and reduces the computational load of
+simulation.  However, as the resolution of our understanding of
+biochemical processes increases, it is becoming clear that even in
+bacteria, the simplest of cells, the spatial organisation of molecules
+often play an important role.  We have therefore undertaken extending
+S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> to incorporate a spatial representation.
+
+<P>
+In versions of S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> later than 1.2, a simple two-dimensional
+spatial structure is implemented, in which nearest-neighbour
+interactions of molecules (such as clustered receptors on a membrane)
+can be simulated.  This was motivated by studies of the bacterial
+chemotaxis receptor complex which suggested that signal amplification
+could be achieved in this complex if lateral interactions between
+neighbouring receptors exist (Bray et al, 1998; Duke &amp; Bray, 1999).
+The original implementation of this spatial structure only allowed
+geometries composed of square units with four nearest neighbours, but
+as of version 1.4, two additional geometries, one composed of
+triangles and the other of hexagons, are supported.  These three are
+the only three regular tesselations which can cover a two-dimensional
+surface.  The new geometries can be used, for example, to reflect the
+recent predection of the structural arrangement of the chemotaxis
+receptor complex (Shimizu et al, 2000).
+
+<P>
+This chapter will describe how to use S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> 1.2
+and later versions in order to simulate nearest-neighbour interactions
+in a two-dimensional lattice.  Note that at present, GUI support for
+specifying parameters specific to this spatial structure is still
+incomplete.  The user is therefore required to write one of the
+configuration files by hand.  However, most simulation parameters can
+now be written using the Perl/Tk GUI.
+
+<P>
+
+<H1><A NAME="SECTION00410000000000000000"></A><A NAME="se_overview"></A>
+<BR>
+Overview
+</H1>
+
+<P>
+In addition to the standard configuration files (documented in Chapter
+<A HREF="stochsim_manual.html#conf_files">2</A>), at least two additional configuration files must be
+set up for S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> simulations using the 2-D complex arrays.  The
+first file is the complex array file (usually named
+<TT>ARRAY.INI</TT>).  This file specifies the number of complex arrays
+to be used, their names, dimensions, their component complex types, as
+well as several other options.  The formatting of this file is not yet
+supported in the GUI, so it must be written by hand.  At present, each
+array can contain only one complex type, which must be a
+<B>neighbour-sensitive complex (NS-Complex)</B>.  For each type of
+NS-Complex used in the simulation, an additional configuration file
+(usually named <TT>NS_<I>X</I>.INI</TT>, where <I>X</I> is a number)
+must be defined, which specifies the details of its behaviour.  The
+neighbour-sensitive configuration files can now be set up using the
+Perl/Tk GUI.
+
+<P>
+NS-Complexes are similar to multistate complexes, but can additionally
+take part in <B>neighbour-sensitive reactions (NS-Reactions)</B> and
+<B>neighbour-sensitive rapid equilibria (NS-RapidEqm's)</B>.  These
+are similar to multistate reactions and rapid equilibria, but the
+actual reaction rate or rapid equilibrium probability depends not only
+on the state of the chosen complex, but also on the states of its
+nearest neighbours within the complex array.  The NS-Reactions and
+NS-RapidEqm's are defined within the neighbour-sensitive configuration
+file for each NS-Complex.  Of course, NS-Complexes can take part in
+normal S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> reactions and RapidEqm's which are not sensitive to
+the state of neighbours.  These are defined as usual in the standard
+configuration files <TT>REACTION.INI</TT> and
+<TT>MS_<I>X</I>.INI</TT>.
+
+<P>
+The primary purpose of this spatial structure implementation so far
+has been to study various properties of complex arrays of fixed size
+and geometry.  Therefore, it does not presently support movement of
+NS-Complexes, neither between nodes within the array or into and out
+of the array.  The binding of other complexes in the reaction system
+to complexes within the complex array is permitted, but does not alter
+the size or geometry of the array.  In all complex arrays, each node
+has exactly one complex.  Each node in turn has three, four or six
+nearest-neighbour nodes, depending on the geometry of the array, which
+can be made up of either triangles, squares or hexagons (see Figure
+<A HREF="stochsim_manual.html#fig-geometry">3.1</A>).  Boundaries can be either real (i.e. nodes at
+the edges of the array have fewer neighbours) or toroidal (i.e. a
+coordinate system representing a doughnut shape; nodes at the opposite
+extremity of each axis are treated as nearest neighbours).
+
+<P>
+
+<P></P>
+<A NAME="fig-geometry"></A><A NAME="866"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.1:</STRONG>
+The complex arrays in S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> 1.4 can have geometries
+  based on (a) squares, (b) triangles or (c) hexagons.  Images such as
+  these can be generated from the snapshot output of S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> by
+  using the script <TT>arraydraw.py</TT> to generate images such as
+  these.</CAPTION>
+<TR>
+<TD><img src="array_snapshot_square.jpg"></td>
+<TD><img src="array_snapshot_trig.jpg"></td>
+<td><img src="array_snapshot_hex.jpg"></td>
+</tr>
+<tr><td>(a)</td><td>(b)</td><td>(c)</td>
+</tr>
+</TABLE>
+
+
+<P>
+
+<H1><A NAME="SECTION00420000000000000000">
+Setting up a simulation that uses 2-D complex arrays
+  (<TT>STCHSTC.INI</TT>)</A>
+</H1>
+
+<P>
+In order to tell the S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> program that 2-D complex arrays will be
+used in a simulation, the following optional parameters must be
+specified in the main simulation configuration file (<TT>STCHSTC.INI</TT>).
+
+<P>
+
+<H2><A NAME="SECTION00421000000000000000">
+[Options]</A>
+</H2>
+<DL>
+<DT><STRONG>UseSpatialExtensions</STRONG></DT>
+<DD>This parameter specifies whether or not
+  S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>'s spatial extensions will be used in a simulation.  This
+  value must be set to 1 when using 2-D complex arrays. When this is
+  set to 0, S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> ignores the following two parameters and behaves
+  exactly like S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> 1.0.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00422000000000000000">
+[File Names]</A>
+</H2>
+<DL>
+<DT><STRONG>ArrayINIFile</STRONG></DT>
+<DD>The path name specifying the location of the
+  complex array configuration file (e.g. ``<TT>./ARRAY.INI</TT>'').
+
+<P>
+</DD>
+<DT><STRONG>ArrayOutPrefix</STRONG></DT>
+<DD>A path name which will be the prefix of all
+  array output files (e.g. ``<TT>../Output/</TT>'').  The final name
+  of each complex array output file (e.g. 
+<BR>  ``<TT>../Output/ARRAY_SNAPS<I>X</I>.OUT</TT>'') will consist of a suffix
+  appended to this prefix.
+</DD>
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION00430000000000000000"></A><A NAME="array_ini"></A>
+<BR>
+Definition of complex arrays (<TT>ARRAY.INI</TT>)
+</H1>
+
+<P>
+The complex array configuration file can take any name, as long as it
+matches the name specified in the simulation configuration file, but
+we recommend using something fairly obvious (e.g.
+``<TT>ARRAY.INI</TT>'').  This file consists of three or more
+sections: one <B>[General]</B> section, one <B>[Neighbour
+  Sensitive Complex Types]</B> section<A NAME="tex2html3"
+  HREF="#foot870"><SUP>3.1</SUP></A>, one or more
+<B>[<I>ARRAY_NAME</I>]</B> (where <I>ARRAY_NAME</I> is the name of
+the array) sections, and zero or more <B>[Snapshot Variable
+  <I>X</I>]</B> (where <I>X</I> is a number) sections.  An
+<B>[<I>ARRAY_NAME</I>]</B> section must be defined for each complex
+array to be used in the model, and a <B>[Snapshot Variable
+  <I>X</I>]</B> section must be defined for each snapshot output that is
+desired (see section <A HREF="stochsim_manual.html#se_output">3.5</A>). The parameters which must be
+specified in each section are as follows:
+
+<P>
+
+<H2><A NAME="SECTION00431000000000000000">
+[General]</A>
+</H2>
+<DL>
+<DT><STRONG>Arrays</STRONG></DT>
+<DD>The list of complex arrays to be used.  The name of each
+  array must be given here as a comma-separated list.
+
+<P>
+</DD>
+<DT><STRONG>DumpInterval</STRONG></DT>
+<DD>The interval between times at which complex array
+  dumps should be stored (floating point).
+
+<P>
+</DD>
+<DT><STRONG>NumSnapshotVariables</STRONG></DT>
+<DD>The number of snapshot variables that are
+  defined in this file (integer).
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00432000000000000000">
+[Neighbour Sensitive Complex Types]</A>
+</H2>
+Note that as of version 1.4, the preferred location of this section is
+in the complex configuration file (<TT>COMPLEX.INI</TT>).  If it is
+defined in both files, the definition in the complex array
+configuration file (<TT>ARRAY.INI</TT>) will be ignored.
+
+<P>
+<DL>
+<DT><STRONG>NeighbourSensitiveComplexes</STRONG></DT>
+<DD>A comma-separated list of symbols,
+  one for each neighbour-sensitive complex type in the reaction
+  system.
+
+<P>
+</DD>
+<DT><STRONG><I>S</I>_NS_INIFile</STRONG></DT>
+<DD>For each NS-Complex type in the model, a
+  line of the following form must be specified here:
+<BR>  <I>S</I>_NS_INIFile = <I>Path</I>
+<BR>
+where <I>Path</I> is the path name of the configuration file for the
+  NS-Complex type <I>S</I> (usually named <TT>NS_<I>X</I>.INI</TT>,
+  where <I>X</I> is a number).
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00433000000000000000">
+[<I>ARRAY_NAME</I>]</A>
+</H2>
+<DL>
+<DT><STRONG>Complex</STRONG></DT>
+<DD>The name of the complex type that constitutes this
+  complex array.
+
+<P>
+</DD>
+<DT><STRONG>NeighbourSensitive</STRONG></DT>
+<DD>Whether the complex type that constitutes
+  this complex array is neighbour sensitive (must always be set to 1
+  in present implementation).
+
+<P>
+</DD>
+<DT><STRONG>Geometry</STRONG></DT>
+<DD>The geometry of the complex array (must be one of
+  ``Square'', ``Triangle'' or ``Hexagon'').
+
+<P>
+</DD>
+<DT><STRONG>BoundaryCondition</STRONG></DT>
+<DD>The boundary condition to be used for this
+  complex array (0 = Toroidal, 1 = Real boundaries).
+
+<P>
+</DD>
+<DT><STRONG>XDimension</STRONG></DT>
+<DD>The length of the X-axis of the complex array (integer).
+
+<P>
+</DD>
+<DT><STRONG>YDimension</STRONG></DT>
+<DD>The length of the Y-axis of the complex array (integer).
+
+<P>
+</DD>
+<DT><STRONG>CreateDumpFile</STRONG></DT>
+<DD>Whether or not the state of this complex array
+  should be dumped to a file during simulation (1 = Yes, 0 = No).
+  Note that array dumps are different from array snapshots!
+
+<P>
+</DD>
+<DT><STRONG>EquilibrationInterval</STRONG></DT>
+<DD>The interval between times at which this
+  complex array is to be equilibrated (floating point).  All rapid
+  equilibria defined for each complex within the complex array will be
+  equilibrated at this frequency.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00434000000000000000">
+[Snapshot Variable <I>X</I>]</A>
+</H2>
+<DL>
+<DT><STRONG>Array</STRONG></DT>
+<DD>The name of the array that this snapshot variable represents.
+</DD>
+<DT><STRONG>States</STRONG></DT>
+<DD>A comma-separated list of bit strings (or wildcard
+  strings) that represent all the states that this snapshot variable
+  will represent.  It is convenient to use wildcard strings here, if
+  you want to monitor the state of specific flags (e.g.  ``1?0?'', for
+  a complex with four state flags when you want to highlight all
+  complexes with the first flag on and the third flag off).
+
+<P>
+</DD>
+<DT><STRONG>StoreInterval</STRONG></DT>
+<DD>The interval between the times at which values
+  of this snapshot variable are to be stored (floating point).
+
+<P>
+</DD>
+<DT><STRONG>AveragedOutput</STRONG></DT>
+<DD>Specifies whether snapshot output of array
+  states should be be instantaneous or time-lapse (0 = instantaneous,
+  1 = time-lapse).
+
+<P>
+</DD>
+<DT><STRONG>AverageInterval</STRONG></DT>
+<DD>If time-lapse snapshots are desired, give the
+  length of the interval to use for averaging (floating point; must be
+  smaller than value specified for <B>StoreInterval</B>).  This
+  parameter is ignored if <B>AveragedOutput</B> is set to 0.
+
+<P>
+</DD>
+<DT><STRONG>SampleInterval</STRONG></DT>
+<DD>If time-lapse snapshots are desired, give the
+  interval between times at which values should be sampled for
+  averaging (floating point; must be smaller than value specified for
+  <B>AverageInterval</B>).  This parameter is ignored if
+  <B>AveragedOutput</B> is set to 0.
+</DD>
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION00440000000000000000">
+Definition of neighbour-sensitive complexes (<TT>NS_<I>X</I>.INI</TT>)</A>
+</H1>
+
+<H2><A NAME="SECTION00441000000000000000">
+[General]</A>
+</H2>
+<DL>
+<DT><STRONG>NumRapidEqm</STRONG></DT>
+<DD>The number of state flags of this NS-Complex that
+  are controlled by NS-RapidEqm's (integer).  Note that this number
+  should only include the number of NS-RapidEqm's, and not normal
+  RapidEqm's, which are be defined separately in the multistate
+  complex configuration file (<TT>MS_<I>X</I>.INI</TT>).
+
+<P>
+</DD>
+<DT><STRONG>Reactions</STRONG></DT>
+<DD>A comma-separated list of reaction identifiers for
+  NS-Reactions.  Be careful to use the same identifiers as specified
+  in the reaction configuration file (<TT>REACTION.INI</TT>) and multistate
+  configuration file.
+
+<P>
+</DD>
+<DT><STRONG>NumNeighbours</STRONG></DT>
+<DD>The number of nearest neighbours that this
+  NS-Complex has in the complex array (integer). Note that
+  this number must correctly match the geometry of the complex array
+  that this NS-Complex will be inserted into (3 for ``Triangle'', 4
+  for ``Square'' and 6 for ``Hexagon'').  
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00442000000000000000">
+[Rapid Equilibrium <I>X</I>]</A>
+</H2>
+Each NS-RapidEqm must have a section headed [Rapid Equilibrium
+<I>X</I>] where <I>X</I> is the number of the rapid eqm
+<DL>
+<DT><STRONG>Flag</STRONG></DT>
+<DD>The name of the state flag which is controlled by an
+NS-RapidEqm. ``State'' is also accepted for backward compatibility but
+  is deprecated.
+
+<P>
+</DD>
+<DT><STRONG>CoupledStates</STRONG></DT>
+<DD>A comma separated list of wildcard strings (do
+not use whitespaces), representing the states of nearest neighbours
+that are coupled to this NS-RapidEqm.
+
+<P>
+</DD>
+<DT><STRONG>Wildcards</STRONG></DT>
+<DD>A comma-separated list of all bit strings below which
+  contain one or more of the wildcard character, '?'. Wildcards
+  represent <I>both</I> 0 and 1.
+
+<P>
+</DD>
+<DT><STRONG><I>BitString</I></STRONG></DT>
+<DD>Defines the NS-RapidEqm probabilities
+  associated to specific states.  The parameter name,
+  <I>BitString</I>, can be a bit string representing a single state,
+  or a wildcard string representing multiple states.  If wildcard
+  strings are used, they must also be declared in the
+  <B>Wildcards</B> parameter described above.  The probabilities
+  defined in each line are applied only when the complex is in a state
+  which matches that (those) specified in the parameter name.  The
+  value of this parameter must be a comma separated list of
+  rapid-equilibrium probabilities.  The number of probabilities in
+  this list must be exactly <B>NumNeighbours</B> + 1. These
+  correspond to the rapid-equilibrium probabilities of the flag
+  (specified by the <B>Flag</B> parameter in this section) when
+  zero to <B>NumNeighbours</B> neighbours are in a coupled state.
+  Multiple instances of this line should be defined, if necessary.
+  For states that are not defined here, a default probability of zero
+  is assigned automatically.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00443000000000000000">
+[Reaction <I>XD</I>]</A>
+</H2>
+Each reaction involving a NS-Complex must have a section [Reaction
+<I>XD</I>] where X is the reaction number and D is direction ('F' or
+'R').
+<DL>
+<DT><STRONG>ReactNeighbourID</STRONG></DT>
+<DD>A numerical identifier specifying the reacting
+  neighbour (e.g. for the ``Square'' geometry, 0 = North, 1 = East, 2
+  = South, 3 = West).
+
+<P>
+</DD>
+<DT><STRONG>EffectOnNeighbour</STRONG></DT>
+<DD>A comma-separated list of state changes on
+the reacting neighbour resulting from this reaction.  A '+' character
+before the name of the affected flag indicates that the flag is set (0
+-&gt; 1); a '-' character indicates that the flag is cleared (1 -&gt; 0);
+
+<P>
+</DD>
+<DT><STRONG>Wildcards</STRONG></DT>
+<DD>A comma-separated list of all bit strings below which
+  contain one or more of the wildcard character, '?'. Wildcards
+  represent <I>both</I> 0 and 1.
+
+<P>
+</DD>
+<DT><STRONG><I>BitString</I></STRONG></DT>
+<DD>Defines the NS-Reaction relative rate
+(floating point; 0 &lt;= <I>p</I> &lt;= 1) associated to specific states.
+The parameter name, <I>BitString</I>, can be a bit string representing
+a single state, or a wildcard string representing multiple states.
+The probability defined in each line are applied only when the complex
+is in a state which matches that (those) specified in the parameter
+name.  Multiple instances of this line should be defined, if
+necessary. For states that are not defined here, a default probability
+of zero is assigned automatically.
+</DD>
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION00450000000000000000"></A><A NAME="se_output"></A>
+<BR>
+Output of complex-array states
+</H1> 
+
+<P>
+
+<H2><A NAME="SECTION00451000000000000000">
+A note for StochSim 1.2 users</A>
+</H2>
+Before reading this section, please note that the way in which the
+output of complex-array states are specified in the INI files has
+undergone considerable changes between S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> 1.2 and 1.4.  In
+this section we will only describe the new way of specifying the
+output which only applies to S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> 1.4 and later.  If you are
+still using S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> 1.2, we recommend that you upgrade to
+S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> 1.4, which incorporates various new features and also has
+been further optimised for speed.  However, if for some reason you
+wish to keep using S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> 1.2, please refer to the older versions
+of this manual.
+
+<P>
+
+<H2><A NAME="SECTION00452000000000000000">
+Array snapshots</A>
+</H2>
+S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> 1.2 and later versions can output the state of an entire
+complex array at any given time during simulation as graphical
+representations called <I>snapshots</I>.  In a snapshot, each
+NS-Complex in the complex array is represented by a polygon
+(corresponding to that specified for the array geometry<A NAME="tex2html4"
+  HREF="#foot882"><SUP>3.2</SUP></A>), so the entire image representing the array will be a
+tesselation of polygons.  You can specify a single state
+or a combination of states of the NS-Complex that you want highlighted
+in the snapshot, so that the spatial distribution of specific states
+that you are interested in can be visualised.
+
+<P>
+There are two types of snapshots that can be created,
+<I>instantaneous</I> and <I>time-lapse</I> (see Figure
+<A HREF="stochsim_manual.html#fig-snapshots">3.2</A>).  Instantaneous snapshots are snapshots in which
+the instantaneous state of the complex array is recorded (i.e. the
+value of each pixel is either 0 or 1).  Time-lapse snapshots are
+snapshots in which the value of every pixel in the snapshot is
+averaged over time (i.e. the value of each pixel is between 0 and 1).
+
+<P>
+
+<P></P>
+<A NAME="fig-snapshots"></A><A NAME="885"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.2:</STRONG>
+S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> 1.2 and later versions can output
+  (a) instantaneous snapshots, or (b) time-lapse snapshots of an array
+  of NS-Complexes.  The tiled polygons of an instantaneous snapshot
+  are either white or black.  The polygons of a time-lapse snapshot
+  have grey level somewhere between white and black, depending on the
+  proportion of time that the corresponding NS-Complex spent in the
+  highlighted state.</CAPTION>
+<TR>
+<TD><img src="array_snapshot_inst.jpg"></td>
+<td><img src="array_snapshot_ave.jpg"></td>
+</tr>
+<tr><td>(a)</td><td>(b)
+</TR>
+</TABLE>
+
+<P>
+In the instantaneous snapshots, white pixels represent NS-Complexes
+which are in the highlighted state, and black pixels represent
+NS-Complexes in all other states.  In the time-lapse snapshots, grey
+levels are assigned to the pixels according to the proportion of time
+each NS-Complex object has spent in the highlighted state (i.e.
+NS-Complexes which were in the highlighted state 100% of the time
+will show up white, and NS-Complexes which were never in the
+highlighted state will show up black).
+
+<P>
+Snapshots are recorded at a user-specified frequency during the
+simulation.  Time series of snapshots are recorded in output files
+named <TT>ARRAY_SNAPS<I>X</I>.OUT</TT>, where <TT><I>X</I></TT> is a
+numerical identifier for each series of snapshots.  Each file contains
+snapshots with different highlighted states.  Each of these snapshot
+files is essentially a concatenated series of X Pixmap (XPM) format
+image files.  To view each snapshot, the snapshot file must be split
+into separate image files.  As of version 1.4, a novel utility program
+called <TT>arrayview.py</TT> for this purpose is providedin the
+<TT>bin</TT> directory of the S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> distribution.  This program
+can generate a series of GIF files from a StochSim snapshot file.  It
+will also automatically determine the geometry of the array from the
+snapshot file, and draw triangles, squares or hexagons as necessary
+(see Figure <A HREF="stochsim_manual.html#fig-geometry">3.1</A>).  <TT>arraydraw.py</TT> is written in
+Python, which works on just about all modern operating systems, and
+comes installed as standard on most UNIX operatins systems these days.
+To run <TT>arrayview.py</TT>, simply type
+<BR><TT> % arraydraw.py <I>snapshot_file</I> [edge_length] </TT>
+<BR>
+at the UNIX command-line. <TT>[edge-length]</TT> is an optional
+argument which tells <TT>arraydraw.py</TT> how long you want the edges
+of the polygon to be.  If you are using Microsoft Windows or a UNIX
+operating system without python installed, you must first download and
+install the python interpreter (available from
+<TT><A NAME="tex2html6"
+  HREF="http://www.python.org">http://www.python.org</A></TT>).  Once the images have been generaged,
+any image viewer can be used to view the images.
+
+<P>
+If you want to created animations from the image files, you can use
+external programs such as <TT>gifsicle</TT> (available from
+<TT><A NAME="tex2html7"
+  HREF="http://www.lcdf.org/gifsicle/">http://www.lcdf.org/gifsicle/</A></TT>), which can generate GIF
+animations from a series of GIF image files.
+
+<P>
+
+<H3><A NAME="SECTION00452100000000000000">
+Example: How to set up the output of snapshots</A>
+</H3>
+Let's say you have an array of receptors named ``ARRAY1''. The
+NS-Complex which makes up this array has two state flags.  The first
+flag, named ``L'', represents the state of the ligand binding site (1
+= bound; 0 = unbound). The second flag, named ``X'', represents the
+conformational state of the receptor (1 = active conformation; 0 =
+inactive conformation).  Now, let us suppose that you want to monitor
+both the changes in activity and ligand binding of all the receptors
+in the array, averaged over time.  For this you will need two series
+of time-lapse snapshots, one to monitor the activity, and one to
+monitor the state of the ligand binding site.
+
+<P>
+To specify the snapshots you want, you must set up a <B>Snapshopt
+  Variable</B> for each snapshot.  These are defined in the complex array
+configuration file (<TT>ARRAY.INI</TT>).  Each snapshot variable must
+be defined in its own <B>[Snapshot Variable <I>X</I>]</B> section,
+which has seven parameters (see section <A HREF="stochsim_manual.html#array_ini">3.3</A> for formatting
+details).  The first five parameters must be defined for all snapshots
+.  The first parameter, <B>Array</B> specifies the name of the array
+that the snapshot variable will represent.  The next parameter,
+<B>State</B> specifies the states of the NS-Complex that this
+variable will highlight in the snapshot output, using a
+  comma-separated list of bit strings (or wildcard strings).
+<B>StoreInterval</B> specifies how often snapshots from this
+variable are to be output during the simulation, and
+<B>AveragedOutput</B> is a boolean parameter specifying whether or
+not the output snapshots should be averaged over time (set to 1 if
+averaging is desired, and 0 otherwise).  If <B>AveragedOutput</B> is
+set to 1, the parameters <B>AverageInterval</B> and
+<B>SampleInterval</B> must also be set.  <B>AverageInterval</B> is
+the length of the interval over which the snapshot values will be
+averaged, and <B>SampleInterval</B> is the inverval between times at
+which values are sampled for averaging.  For this example, we will use
+0.1 for the store and average intervals, and 0.001 for the sample
+interval.  Note that the value of <B>AverageInterval</B> cannot be
+larger than <B>StoreInterval</B>, and <B>SampleInterval</B> cannot
+be larger than <B>AverageInterval</B>.
+
+<P>
+So, for the example here, you would define two Snapshot Variables.
+The two sections defining these variables would like this:
+<PRE>
+[Snapshot Variable 1]    ;; Snapshot variables must be numbered sequentially
+Array           = ARRAY1 ;; Specify the name of the array here
+States          = 1?     ;; States matching this wildcard string are hi-lited
+Name            = RL     ;; You can name variables as you like
+StoreInterval   = 0.1    ;; Interval between storage times (s)
+AveragedOutput  = 1      ;; Indicates whether output should be averaged
+AverageInterval = 0.1    ;; Length of averaging interval (s)
+SampleInterval  = 0.001  ;; How often values are sampled for averaging (s)
+
+[Snapshot Variable 2]    
+Array           = ARRAY1 
+States          = ?1     
+Name            = RX     
+StoreInterval   = 0.1    
+AveragedOutput  = 1      
+AverageInterval = 0.1    
+SampleInterval  = 0.001
+</PRE>
+
+<P>
+The wildcard strings specified for the <B>State</B> parameters,
+``1?'' (matches both ``10'' and ``11'') tells S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> to create a
+series of snapshots that highlight NS-Complexes with the first flag on
+(receptors with ligand bound), and ``?1'' (matches both ``01'' and
+``11'') tells S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> to create another series of snapshots that
+highlight NS-Complexes with the second flag on (active receptors).
+
+<P>
+That's it!  You should find two new output files after the
+simulation, one named <TT>ARRAY_SNAPS1.OUT</TT> (with the
+ligand-bound receptors highlighted) and another named
+<TT>ARRAY_SNAPS2.OUT</TT> (with the active receptors highlighted).
+
+<P>
+
+<H2><A NAME="SECTION00453000000000000000">
+Array dumps</A>
+</H2>
+As of version 1.4, S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> can output the complete state of the
+complex array in ``dump files'' which can later be used to resume the
+simulation from the time at which the state was dumped.  If such an
+output is desired for an array, the parameter <B>CreateDumpFile</B>
+in the <B>[<I>ARRAY_NAME</I>]</B> section must be set to 1.  The
+frequency at which all array dumps will be output to dump files must
+be specified using the parameter <B>DumpInterval</B> in the
+<B>[General]</B> section of the complex array configuration file
+(<TT>ARRAY.INI</TT>).
+
+<P>
+
+<H1><A NAME="SECTION00500000000000000000">
+TkS<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>: user guide</A>
+</H1>
+
+<P>
+The original S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> simulator was written for Microsoft Windows and was
+provided with a graphical user interface (GUI) based on the Microsoft MFC
+widgets.  Although the core simulation engine was written an ANSI C++, and
+therefore could be ported to other operating systems with relative ease, the
+widgets used for the GUI were not compatible with other operating systems such
+as UNIX, Linux, or MacOS.  Therefore to run S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> under such operating
+systems, the user was required to write the simulation initialisation files
+manually. This is tedious and error-prone. In order to ease the creation and
+modification of simulation configurations under a large number of operating
+environments, a novel interface written in Perl using the Tk widgets was
+developed. This interface has been written and tested under Debian/GNU Linux,
+but should run under most modern operating systems for which a perl/Tk exists
+(It has also been tested under Microsoft Windows98). Note that at present, this
+graphical interface should be considered as an alpha version, since not all of
+the functionality of S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> are covered. In particular, the configuration
+of dynamic values have yet to be implemented.  The configuration of models using
+the spatial extensions to S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> (see chapter <A HREF="stochsim_manual.html#spatial_extensions">3</A>) are
+also still partially supported. If the configuration of neighbour sensitive
+complexes is complete the user has to directly write the file
+<TT>ARRAY.INI</TT>, following the instructions given in chapter chapter
+<A HREF="stochsim_manual.html#spatial_extensions">3</A>.  See the chapter <A HREF="stochsim_manual.html#conf_files">2</A> about the dynamic
+values. Note however that TkS<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> can read, write and launch those complex
+simulations.
+
+<P>
+<img src="main.jpg">
+ When TkS<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> is
+launched, the main window appears on the screen.  TkS<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> can be
+controlled with either the mouse or the keyboard.  When using the keyboard,
+pressing the &lt;tab&gt; key allows you to switch the focus between the various
+widgets (buttons, text boxes, etc.) of the interface.  A focused widget can be
+activated by pressing the &lt;space&gt; bar or the &lt;return&gt; key. The menus can also be
+activated via the keyboard by the sequences &lt;Alt-f&gt; (``File'' menu),
+&lt;Alt-s&gt; (``Simulation'' menu), &lt;Alt-o&gt; (``Option'' menu) and
+&lt;Alt-h&gt; (``Help'' menu). You can quit the program by clicking on the
+``quit'' button or pressing &lt;Ctrl-q&gt;.
+
+<P>
+
+<P>
+<img src="filemenu.jpg">
+ The ``File'' menu is
+used to open an existing simulation (accelerator: &lt;Ctrl-o&gt;), to save the
+current configuration (accelerator: &lt;Ctrl-s&gt;), to create a new simulation
+or to rename the current simulation (accelerator: &lt;Ctrl-a&gt;) or to quit
+(accelerator: &lt;Ctrl-q&gt;). You can import or export the simple simulations
+using the SBML language level1<A NAME="tex2html8"
+  HREF="#foot1245"><SUP>4.1</SUP></A>designed by the <SMALL>ERATO</SMALL> project on systems biology.  The ``File'' menu
+also presents a history of past simulations, providing easy access to them. Note
+that the current configuration is automatically saved when a simulation is
+launched.
+
+<P>
+The ``Simulation'' menu currently presents only two options, one to run a
+simulation (accelerator: &lt;Ctrl-r&gt;) and one to stop the simulation
+(accelerator: &lt;Ctrl-w&gt;). This last option is not activated under MS Windows.
+
+<P>
+The ``Options'' menu permits to activate or deactivate the helping balloons.
+Those balloons present a short explanation on the use of the different items of
+the interface. It is a good idea to explore the graphical interface at least
+once with the balloons activated.
+
+<P>
+Finally, the ``help'' menu provides the legal informations about the programs
+and access to a PDF version of the present manual. The
+first time you'll ask for the PDF version, the program shall ask you to point
+the location of your favourite PDF reader. It will normally remind it afterward.
+All the accelerators described should be directly available from the main
+window, without the need to open the menus.
+
+<P>
+
+<H1><A NAME="SECTION00510000000000000000">
+Opening and saving a simulation</A>
+</H1>
+
+<P>
+All the simulations are stored in a specific directory. Under Unix-like systems,
+this directory is <TT>$HOME/.stochsim</TT>. Under Microsoft Windows9x the
+simulations are stored in the subdirectory <TT>config_examples</TT> of the
+S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> distribution. Each simulation is stored in a subdirectory, the name
+of which is specified by the user. The structure of this directory is constant.
+It contains two subdirectories, <TT>Input</TT> and <TT>Output</TT>, containing
+the <TT>*.INI</TT> and <TT>*.OUT</TT> files respectively.
+
+<P>
+To open an existing simulation, you can go to the menu-bar and select
+``File-&gt;Open...'', or type &lt;Ctrl-o&gt;. Then select an existing simulation
+configuration file (usually named <TT>STCHSTC.INI</TT>). The usage of the file
+selector could be lightly different according to the running operating system.
+However, since it is the usual file selector of your system, its description is
+out of the scope of the present manual.
+
+<P>
+To save a configuration, you can go to the menu-bar and select ``File-&gt;Save'' or
+type &lt;Ctrl-s&gt;.
+
+<P>
+To create a new configuration or to save the current configuration under a
+different name, you can to the menu-bar and select ``File-&gt;Save as...'' or type
+&lt;Ctrl-a&gt;, and then select an existing <TT>STCHSTC.INI</TT> (in the
+subdirectory <TT>Input</TT> of an existing simulation) or type the name of the
+new <I>main</I> directory.
+
+<P>
+
+<H1><A NAME="SECTION00520000000000000000">
+Setting up a simulation</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00521000000000000000"></A><A NAME="genconfig"></A>
+<BR>
+General configuration
+</H2>
+
+<P>
+<img src="mainconf.jpg">
+ To setup a new
+simulation, you need to setup the general configuration. To do so, click on the
+button labelled ``General configuration''. The <I>General configuration</I>
+window is then opened, where you can modify several options of the simulation.
+The explanation of the various options is given in the chapter <A HREF="stochsim_manual.html#conf_files">2</A>.
+Note that the ``interval between display'' does affect only the data sent to
+the standard output. It does not affect the graphical display (see below), which
+is based on the stored data.
+
+<P>
+If you choose to display only some selected variables, answer ``no'' to the
+question ``Display all variables'' and click on the button labelled ``Which
+variables''. You need to setup the complexes to be used in the simulation before
+playing with the variables to display (see sections <A HREF="stochsim_manual.html#make_complexes">4.2.3</A> and
+<A HREF="stochsim_manual.html#make_multistates">4.2.4</A>). It is advisable to setup the output only when the
+simulation is entirely written.
+
+<P>
+<img src="vardispl.jpg">
+ A new window appears,
+presenting the current variables to display. You can create a new variable or
+select existing ones. To delete a variable, select it and click while pressing
+the &lt;Ctrl&gt; key. Once a variable is chosen, its name appears in the middle entry
+widget and its composition appears in the middle-list. A variable can represent
+several complexes. You can add complexes to the selected variable by dragging
+and dropping them from the right list. To delete a complex from a variable,
+select it and click while pressing the &lt;Ctrl&gt; key. A variable can represent
+specific states of a multistate complex. In such a case, the variable can
+include only one complex type. To configure the states to be displayed, select
+the complex and click on the button ``setup states''. If you add another complex
+to a variable already containing a multistate complex, this multistate is then
+considered as a regular complex and the variable is supposed to display all its
+states. Therefore you cannot configure the states anymore. This possibility
+reappears if you delete all the other complexes but the multistate from the
+variable.
+
+<P>
+<img src="displstates.jpg">
+ When you decide to
+choose which states of a multistate complex you want to display, a new window
+pops-up. A state is defined by a certain configuration of all the flags ('set'
+or 1, 'unset' or 0 and undefined or '?'). You can create new states with the
+``new'' button. The various flags of the multistate complex can be configured
+with the radiobuttons. Do not forget to click on the ``update'' button to commit
+the changes of the flags.  As usual, after having selected a state, you can
+click while pressing the &lt;Ctrl&gt; key to delete it. 
+
+<P>
+Once your variables are set, you can record the changes you made and close the
+<I>variables to display</I> window by clicking the ``accept'' button. The
+``cancel'' button will close the window without changing your configuration.
+
+<P>
+When you close the <I>General configuration</I> window, the changes are
+recorded. Be careful to undo all the changes you made if you want to ignore
+them. Indeed there is currently no ``cancel'' button.
+
+<P>
+<BR>
+
+<P>
+
+<H2><A NAME="SECTION00522000000000000000">
+Creating elementary components of the simulation</A>
+</H2>
+
+<P>
+The elementary building blocks of the simulation are the components, which
+permit to make up the complexes, i.e. the actually reacting entities.
+
+<P>
+<img src="component.jpg">
+ You can select an
+existing component with the browsing list, or clicking on the nearby ``new''
+button to create a new one. Up to 24 components can be created per simulation.
+A <I>Component</I> window pops-up, allowing the configuration of the component.
+In this window, you can enter a symbol for the component, a name, and a
+description. The symbol is important since it will be used to construct the name
+of the complexes including this component(maximal length
+8 characters. The name can be longer and more explicit
+(maximal length 32 characters). For instance the symbol can
+be `p' and the name ``phosphate''. You can close the window, either recording
+the changes, cancelling them or totally removing the component.
+
+<P>
+
+<H2><A NAME="SECTION00523000000000000000"></A><A NAME="make_complexes"></A>
+<BR>
+Creating complexes involved in the simulation
+</H2>
+
+<P>
+The complexes are the actual reacting entities of the simulation. You can select
+an existing complex with the browsing list, or create a new one clicking on the
+nearby ``new'' button. Up to 128 complexes can be created per
+simulation.
+
+<P>
+<img src="complex.jpg">
+ A <I>Complex</I> window
+pops-up, allowing the configuration of the complex. To add a component to the
+current complex, drag it from the rightmost list to the left one. To
+remove a component from the current complex, select it from the leftmost list and
+click while pressing the &lt;Ctrl&gt; key. <I>The order of the components is important. A
+  complex made of A then B is different from a complex made of B then A</I>. This
+allows the definition of complexes which include the same component, but in
+different places. Up to 16 components can be part of a complex.
+In the left entry widget, enter the initial quantity of this
+complex, at the beginning of the simulation.  Note that this must be expressed
+in number of molecules, not in concentration. If you check the tickbox
+``Constant?'', the concentration of that complex will be maintained
+constant<A NAME="tex2html10"
+  HREF="#foot1251"><SUP>4.2</SUP></A>. Be careful not to fix the
+concentration of a complex involved in unimolecular reactions, or to fix the
+concentration of a multistate complex.
+
+<P>
+Clicking the three lowest buttons will close the <I>Complex</I> window, either
+recording the changes, cancelling them or totally removing the complex.
+
+<P>
+
+<H2><A NAME="SECTION00524000000000000000"></A><A NAME="make_multistates"></A>
+<BR>
+Creating multistate complexes
+</H2>
+
+<P>
+<img src="multistate.jpg">
+ The multistate
+complexes are a special kind of reacting entities which possess several binary
+flags describing their various possible states (see section
+<A HREF="stochsim_manual.html#intro_multistates">1.3</A>). You can select an existing multistate complex with the
+browsing list, or create a new one clicking on the nearby ``new'' button.
+
+<P>
+A <I>MS-complex</I> window pops-up, allowing the configuration of the complex.
+Each multistate complex has to be one of the complexes previously defined (see
+section <A HREF="stochsim_manual.html#make_complexes">4.2.3</A>). If a complex is already defined as multistate,
+you cannot use it for another multistate configuration (delete the previous
+configuration first).
+
+<P>
+You can create a new flag, choose its name and add it to
+the complex (``update'' button). The name of a flag cannot have more than
+8 characters. To remove a flag from the complex, select it
+and click while pressing the &lt;Ctrl&gt; key.
+
+<P>
+The state of each flag can be controlled either by a standard reaction (see the
+section <A HREF="stochsim_manual.html#reactions">4.2.6</A>), or by a rapid equilibrium (if you are using the
+spatial extensiosn, there are actually two different kinds of rapid equilibria,
+see section <A HREF="stochsim_manual.html#neighboursensitive">4.2.5</A>). You can change the mode of control of
+each flag.  However, be careful and take a break before to do so. Indeed, a
+quite complex configuration of a rapid equilibrium can be easily wiped-out. To
+change the control mode from ``reactions'' to ``rapid equilibrium'', all the
+reactions involved have to be suppressed before.
+
+<P>
+<img src="MSrap_equil.jpg">
+ If a flag has to be
+controlled by a classical multistate rapid equilibrium, you have to setup the
+probability that it is ON, depending on the state of the entire complex. You can
+create new states with the ``new'' button, and specifies the configuration of
+each flag with the radiobuttons. The probability to set the controlled flag,
+depending on the state of the other flags, can be entered in the right entry
+widget. Do not forget to click on the ``update'' button to commit the changes
+you've made to the state.  After selecting a state, you can click while pressing
+the &lt;Ctrl&gt; key to delete it.
+
+<P>
+Once your probabilities are set, you can record the changes you made and close
+the <I>rapid equilibrium</I> window by clicking the ``accept'' button. The
+``cancel'' button will close the window without changing your configuration.
+
+<P>
+<BR>
+
+<P>
+<img src="ms_states.jpg">
+ Once all the flags are
+defined, the initial quantity of the complex in the various states at the
+beginning of the simulation can be setup. A
+click on the button ``Set initial values'' will cause a new window to pops-up.
+Several states can be defined by setting up the various flags of the multistate
+complex. You can create new states with the ``new'' button. The various flags of
+the multistate complex can be set-up to define the state. For each state, you
+can specify the number of complexes in this state at the beginning of the
+simulation. The sum of all states cannot be superior to the total initial number
+of the current complex, defined previously (see <A HREF="stochsim_manual.html#make_complexes">4.2.3</A>). Do not
+forget to click on the ``update'' button to commit the changes of the flags.  As
+usual after selecting a state you can click while pressing the &lt;Ctrl&gt; key to
+delete it.  Once all the desired initial values are set, you can commit the
+changes and quit (``accept'' button) or quit without recording changes
+(``cancel'' button).
+
+<P>
+Clicking the three lowest buttons of the <I>MS-complex</I> window will close it,
+either recording the changes, cancelling them or totally removing the complex.
+
+<P>
+<BR>
+
+<H2><A NAME="SECTION00525000000000000000"></A><A NAME="neighboursensitive"></A>
+<BR>
+Creating neighbour-sensitive complexes
+</H2>
+
+<P>
+<img src="neighboursensitive.jpg">
+ The
+neighbour-sensitive complexes are a special kind of multistate complexes which
+can react according to the state of their nearest neighbours. You can select an
+existing multistate complex with the browsing list, or create a new one clicking
+on the nearby ``new'' button.
+
+<P>
+A <I>NS-complex</I> window pops-up, allowing the configuration of the complex.
+Each neighbour-sensitive complex has to be one of the multistate complexes
+previously defined (see section <A HREF="stochsim_manual.html#make_multistates">4.2.4</A>). 
+
+<P>
+The state of each flag can be controlled either by a standard reaction (see the
+section <A HREF="stochsim_manual.html#reactions">4.2.6</A>), or by a rapid equilibrium (if you are using the
+spatial extensiosn, there are actually two different kinds of rapid equilibria,
+see section <A HREF="stochsim_manual.html#neighboursensitive">4.2.5</A>). You can change the mode of control of
+each flag.  However, be careful and take a break before to do so. Indeed, a
+quite complex configuration of a rapid equilibrium can be easily wiped-out. To
+change the control mode from ``reactions'' to ``rapid equilibrium'', all the
+reactions involved have to be suppressed before.
+
+<P>
+<img src="NSrap_equil.jpg">
+ If a flag has to be
+controled by a neighbour-sensitive rapid equilibrium, you have to setup the
+probabilities that it is ON (rightmost frame), depending on the state of the
+entire complex, <I>as well as the states of its nearest-neighbours</I>.  If a
+complex has N neighbours (N depending on the geometry of the lattice containing
+this neighbour-sensitive complex).  , N+1 probabilities have to be set,
+corresponding to 0,1 ...N neighbours existing in particular states. Those
+states are defined in the leftmost frame.
+
+<P>
+In both frames you can create new states with the ``new'' button, and specifies
+the configuration of each flag with the radiobuttons. The probabilities to set
+the controled flag, depending on the state of the other flags, can be entered in
+the right entry widgets. In each frame, do not forget to click on the ``update''
+button to commit the changes you've made to the state.  After selecting a state,
+you can click while pressing the &lt;Ctrl&gt; key to delete it.
+
+<P>
+Once your probabilities are set, you can record the changes you made and close
+the <I>rapid equilibrium</I> window by clicking the ``accept'' button. The
+``cancel'' button will close the window without changing your configuration.
+
+<P>
+Clicking the three lowest buttons of the <I>NS-complex</I> window will close it,
+either recording the changes, cancelling them or totally removing the complex.
+
+<P>
+
+<H2><A NAME="SECTION00526000000000000000"></A><A NAME="reactions"></A>
+<BR>
+Creating reactions
+</H2>
+
+<P>
+You can select an existing reaction with the browsing list, or create a new one
+by clicking on the nearby ``new'' button.
+
+<P>
+<img src="reaction.jpg">
+ A <I>Reaction</I> window
+pops-up, allowing the configuration of the reaction. To add a complex as a
+substrate or a product, select it in the list on the right, and drag it either in
+the substrate list or the product list.  To remove a complex from either the
+substrates or the products, select it from the appropriate list and click while
+pressing the &lt;Ctrl&gt; key. Note that a reaction has to contain at least one
+non-constant substrate and one non-constant product.
+
+<P>
+Enter the forward and reverse rate in units of s-1 or
+M-1<IMG
+ WIDTH="8" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img36.png"
+ ALT="$\cdot$">s-1 (according to the order of the
+reaction). If a substrate or a product is a multistate complex, you can further
+refined the effect of the reaction on the complex, and the effect of the states
+on the rate constants.
+
+<P>
+<img src="MSreaction.jpg">
+ A click on the button
+``set states'' (activated when you select a multistate complex) will pops-up a
+new window. Two tabs are present ``self'' and ``neighbour''. The second tab is
+activated only when the spatial extensions are used. 
+
+<P>
+The ``self'' tab permits to configure the classical involvement of a multistate
+complex in a reaction.  The left frame permits to set-up the effect of the
+reaction on the complex, i.e. to set or clear particular flags. A flag which is
+set up by a rapid equilibrium (either multistate or neighbour-sensitive) cannot
+be modified here. Change its status first, as explained in the section
+<A HREF="stochsim_manual.html#make_multistates">4.2.4</A>.  The right frame permits to define several states (i.e.
+sets of flag values) and their effects on the basal reaction rate.  
+
+<P>
+<BR>
+
+<P>
+<img src="NSreaction.jpg">
+ The ``neighbour'' tab
+permits to configure the effect of a neighbour-sensitive complex on the reaction
+involving one of its neighbours. The left-top frame permits to set-up the effect
+of the reaction on the neighbouring complex, i.e. to set or clear particular
+flags. A flag which is set up by a rapid equilibrium (either multistate or
+neighbour-sensitive) cannot be modified here. Change its status first, as
+explained in the section <A HREF="stochsim_manual.html#make_multistates">4.2.4</A>.  The right frame permits to
+define several states (i.e.  sets of flag values) of the complex and their
+effects on the basal rate of the reaction that its neighbour undergoes. Finally
+the left-bottom frame allow to choose which neighbour is affected. The number of
+possible neighbours depends on the geometry of the lattice containing these
+neighbour-sensitive complexes.
+
+<P>
+Once all the desired values are set, you can commit the changes and quit
+(``accept'' button) or quit without recording changes (``cancel'' button).
+
+<P>
+Clicking the three lowest buttons will close the <I>Reaction</I> window, either
+recording the changes, cancelling them or totally removing the reaction.
+
+<P>
+<H2><A NAME="SECTION00529000000000000000"></A><A NAME="dynvalues"></A>
+<BR>
+Setting-up the dynamic values
+</H2>
+
+<p>
+<img src="dynvalues.jpg" /> Dynamic values permit to abruptly change a
+parameter of the simulation, such as a reaction rates and rapid
+equilibriums. A click on the button dynamic values" of the main window
+should open a pop-up window, where one can create, modify or delete a
+dynamic value. Entering a value, then clicking on add time, will add a
+new column corresponding to an instant where some dynamic values should
+be changed. Entering a value, then clicking on add value, will add a new
+row column corresponding to a new dynamic parameter. In the cells you
+can then enter the values that the dynamic parameters are to take at
+each timepoint. Clicking on the "del" button in beside a row or below a
+column will remove the corresponding dynamic value timepoint.</p>
+
+<p>Once all the desired values are set, you can commit the changes and quit
+(``accept'' button) or quit without recording changes (``cancel'' button).</p>
+
+<H1><A NAME="SECTION00530000000000000000">
+Running a simulation</A>
+</H1>
+
+<P>
+Once setup, the simulation can be launched from TkS<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> by choosing using
+``run'' from the ``simulation'' menu, or by typing &lt;ctrl-r&gt;. <I>Be
+  careful, as the configuration is automatically saved before the simulation is
+  run</I>.
+
+<P>
+Note that once S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> is launched, it is independent of the Tk interface.
+To quit TkS<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> <I>will not kill</I> S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>.  You can modify the
+configuration while a simulation is running. However <I>wait for the
+  completion of a simulation before to launch another one</I>. If the various
+S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> processes write in the same file, the result will be an absolute
+mess!
+
+<P>
+To quit TkS<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>, use the menu ``File-&gt;Quit'', click the ``quit'' button or
+type &lt;Ctrl-q&gt;.
+
+<P>
+
+<H1><A NAME="SECTION00540000000000000000">
+Visualisation of the results</A>
+</H1>
+
+<P>
+
+<P>
+You can visualise the result of a simulation, stored in the file
+<TT>VAR.OUT</TT>. To do so, click on the button ``view data'' and a text window
+will pops-up. The same result can be achieved with the accelerator &lt;Ctrl-v&gt;.
+
+<P>
+<img src="viewdata.jpg">
+
+<P>
+If the button ``show data'' is disabled, either no simulation are loaded, either
+the file <TT>VAR.OUT</TT> does not exist (i.e. the simulation was never run).
+Note that you can visualise the results while the simulation is running since
+S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> periodically update the file <TT>VAR.OUT</TT>.
+
+<P>
+<img src="plot.jpg">
+ The results can also be
+visualised graphically by clicking the button ``plot''. A graph window will then
+pops-up, showing the time course of the variables you chose to display, or of
+all the complexes, see section <A HREF="stochsim_manual.html#genconfig">4.2.1</A>. The same result can be achieved
+with the accelerator &lt;Ctrl-p&gt;. The graphs will not automatically refresh.
+However you can update them by clicking on the relevant button. The colors of
+the curves are chosen by default. You can choose your own by editing the file
+<TT>stochsimrc</TT> (see next section). You can zoom-in and zoom-out the graph,
+independently for both axis. You can record snapshots of the graph at any time,
+by saving it in a postscript file.
+
+<P>
+You can monitor the progress of the simulation with a progress bar
+launched by the button ``monitor''. The progress bar will refresh itself
+automatically. However this consumes memory and cpu time. Therefore it is better
+to launch it periodically to probe the simulation progress but to kill it
+otherwise.
+
+<P>
+
+<H1><A NAME="SECTION00550000000000000000">
+Configuration of the interface</A>
+</H1>
+
+<P>
+A file, <TT>stochsimrc</TT>, is present in the directory ``lib'' of the
+distribution. It contains information about the setup of the Perl/Tk interface.
+A copy of this file is normally installed in the personal directory
+<TT>.stochsim</TT> of each user (or in the directory <TT>config_examples</TT>
+under Microsoft Windows9x). This file can be manually edited to customise
+TkS<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>.
+
+<P>
+
+<P>
+
+<H1><A NAME="SECTION00600000000000000000">
+References</A>
+</H1>
+
+<UL>
+<LI>Bray, D., Levin, M. D. &amp; Morton-Firth, C. J. (1998).  Receptor
+clustering as a cellular mechanism to control sensitivity. Nature 393,
+85-88.
+
+<P>
+</LI>
+<LI>Duke, T. A. J. &amp; Bray, D.  (1999).  Heightened sensitivity of a
+lattice of membrane receptors.  Proc. Natl. Acad. Sci. USA 96,
+10104-10108.
+
+<P>
+</LI>
+<LI>Gillespie, D. T. (1976). A general method for numerically
+simulating the stochastic time evolution of coupled chemical
+reactions. J. Comput. Phys. 22, 403-434.
+
+<P>
+</LI>
+<LI>Gillespie, D. T. (1977). Exact stochastic simulation of coupled
+chemical reactions. J. Phys. Chem. 81, 2340-2361.
+
+<P>
+</LI>
+<LI>McAdams, H. H. &amp; Arkin, A. (1997). Stochastic mechanisms in
+gene expression. Proc. Natl. Acad. Sci .USA 94, 814-819.
+
+<P>
+</LI>
+<LI>Morton-Firth, C. J. (1998). Stochastic simulation of cell
+signalling pathways. Ph.D. Thesis, University of Cambridge.
+
+<P>
+</LI>
+<LI>Morton-Firth, C. J. &amp; Bray, D. (1998). Predicting temporal
+fluctuations in an intracellular signalling pathway. J. Theor. Biol.
+192, 117-128.
+
+<P>
+</LI>
+<LI>Morton-Firth, C. J., Shimizu, T. S. &amp; Bray, D. (1999). A
+free-energy-based stochastic simulation of the Tar receptor complex.
+J. Mol. Biol.286, 1059-1074.
+
+<P>
+</LI>
+<LI>Shimizu, T.&nbsp;S., Le&nbsp;Nov&#232;re, N., Levin, M.&nbsp;D., Beavil, A.&nbsp;J.,
+  Sutton, B.&nbsp;J., and Bray, D. (2000).  Molecular model of a lattice of
+  signalling proteins involved in bacterial chemotaxis. Nat. Cell
+  Biol. 2, 792-796.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+
+<H1><A NAME="SECTION00700000000000000000">
+S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>: general description and comparison with the Gillespie algorithm</A>
+</H1>
+
+<P>
+The computer program S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> was written by Carl Firth as part of his
+PhD work at the University of Cambridge (Morton-Firth, 1998). It was
+developed as part of a study of bacterial chemotaxis as a more
+realistic way to represent the stochastic features of this signalling
+pathway and also as a means to handle the large numbers of individual
+reactions encountered (Morton-Firth &amp; Bray, 1998; Morton-Firth et
+al., 1999). The program provides a general purpose biochemical
+simulator in which individual molecules or molecular complexes are
+represented as individual software objects. Reactions between
+molecules occur stochastically, according to probabilities derived
+from known rate constants.  An important feature of the program is its
+ability to represent multiple post-translational modifications and
+conformational states of protein molecules.
+
+<P>
+S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> consists of a platform-independent core simulation engine 
+encapsulating the algorithm described above and separate graphical user 
+interfaces.   
+
+<P>
+
+<H1><A NAME="SECTION00710000000000000000">
+Description of the algorithm</A>
+</H1>
+
+<P>
+Each molecule or molecular species is represented as a separate software object
+in S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>, and the simulation also includes dummy molecules, or 
+``pseudo-molecule'' used in the simulation of unimolecular reactions. Time is 
+quantised into a series of discrete, independent time-slices, the size of 
+which is determined by the most rapid reaction in the system. In each 
+time-slice, one molecule (not a pseudo-molecule) is selected at random. Then, 
+another object, in this case either a molecule or a pseudo-molecule, is 
+selected at random. If two molecules are selected, any reaction that occurs 
+will be bimolecular, whereas if one molecule and a pseudo-molecule are 
+selected, it will be unimolecular. Another random number is then generated and 
+used to see if a reaction occurs; the probability of a reaction is retrieved 
+from a look-up table and if the probability exceeds the random number, the 
+particles do not react. On the other hand, if the probability is less than the 
+random number, the particles react, and the system is updated accordingly. The 
+next time-slice then begins with another pair of molecules being selected. 
+
+<P>
+Whenever a molecule in the system can exist in more than one state then the 
+program encodes it as a ``multistate molecule'' with a series of binary flags. 
+Each flag represents a state or property of the molecule, such as a 
+conformational state; ligand binding; phosphorylation, methylation, or other 
+covalent modification. The flags specify the instantaneous state of the 
+molecule and may modify the reactions it can perform. For instance, a 
+multistate molecule may participate in a reaction at an increased rate as a
+result of phosphorylation, or fail to react because it is in an inactive 
+conformation. The flags themselves can be modified in each time step as a 
+result of a reaction, or they can be instantaneously equilibrated according to 
+a fixed probability. The latter tactic is used with processes such as ligand 
+binding or conformational change that occur several orders of magnitude faster 
+than other chemical reactions in the system. 
+
+<P>
+If, in a particular time step, S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> selects one or more multistate 
+molecules, then it proceeds in the following manner. First any 
+rapidly-equilibrated ``fast flags'' on the molecule are assigned to be on or 
+off according to a weighted probability. A protein conformation flag, for 
+example, can be set to be active or inactive, according to which other flags 
+of the molecules are currently on. A ligand binding flag can, if desired, be 
+set in a similar fashion, based on the concentration of ligand and the Kd. 
+
+<P>
+Once the fast flags have been set, then the program inspects the reactions 
+available to species A and B. The chemical change associated with each type of 
+reaction (binding, phosphotransfer, methylation, etc.) is represented in the 
+program together with a "base values" of the reaction rate constants. The 
+particular instantiation of the reaction, determined by the current state of 
+the flags on A and B, is accessed from an array of values calculated at the 
+beginning of the program, when the reaction system is being initialised. 
+Values in the array modify the reaction probability according to the particular
+set of binary flags. In this manner, the S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> calculates a set of 
+probabilities, corresponding to the reactions available to the particular 
+states of molecules A and B, and then uses a random number to select which 
+reaction (if any) will be executed in the next step. The reaction will be 
+performed, if appropriate, and the relevant slow flag flipped. 
+
+<P>
+Although it sounds complicated, the above sequence of events within an 
+individual iteration takes place very quickly and even a relatively slow 
+computer can carry out hundreds of thousands of iterations every second. 
+Moreover, the strategy has the advantage of being intuitively simple and close 
+to physical reality. For example, it is easy, if required, to label selected
+molecules and to follow their changes with time. Lastly, the speed of the 
+program depends not on the number of reactions but on the numbers of molecular 
+species in the simulation (with a time of execution proportional to N squared).
+
+<P>
+
+<H1><A NAME="SECTION00720000000000000000">
+Comparison with the Gillespie algorithm</A>
+</H1>
+
+<P>
+The stochastic simulation of biochemical reactions was pioneered by
+Gillespie, who developed an elegant and efficient algorithm for this
+purpose (Gillespie, 1976; Gillespie, 1977). Gillespie showed in
+rigorous fashion, that his algorithm gives the same result, on
+average, as conventional kinetic treatments. In ensuing years, the
+algorithm has been widely used to analyse biochemical kinetics and,
+most recently, to simulate the stochastic events in lambda lysogeny
+(McAdams &amp; Arkin, 1997). In view of its evident success, the question
+therefore arises: Why in our work we did not use the Gillespie
+algorithm but chose to develop our own formulation?
+
+<P>
+The Gillespie algorithm makes time steps of variable length, based on
+the rate constants and population size of each chemical species. The
+probability of one reaction occurring relative to another is obtained
+by multiplying the rate constant of each reaction with the numbers of
+its substrate molecules. A random number is then used to choose which
+reaction will occur, based on relative probabilities, and another
+random number determines how long the step will last. The chemical
+populations are altered according to the stoichiometry of the reaction
+and the process is repeated. Perhaps because the algorithm was
+developed at a time when computers were several thousand times slower
+than they are today, it makes extremely efficient use of CPU time. At
+each iteration it selects the reaction most likely to occur and
+chooses a time step that optimises that reaction, so that the
+simulation proceeds extremely efficiently.
+
+<P>
+However, the efficiency of the Gillespie algorithm comes at a cost.
+The elegant algorithm that selects which reaction to perform, and what
+time interval to take, cannot represent individual molecular events in
+the reaction. With regard to the reactions of a typical cell
+signalling pathway, for example, it cannot associate physical
+quantities with each molecule, nor trace the fate of particular
+molecules over a period of time. This means that it is not possible to
+extend this algorithm to a more thermodynamically realistic model in
+which energies and conformational states are associated with each
+molecule.  Similarly, without the ability to associate positional and
+velocity information with each particle, the algorithm cannot be
+adapted to simulate diffusion, localisation or spatial heterogeneity.
+
+<P>
+A second deficiency of the Gillespie algorithm (from a cell biological
+standpoint) is that it cannot easily handle the reactions of
+multi-state molecules. Protein molecules are very frequently modified
+in the cell so as to alter their catalytic activity, binding affinity
+and so on. Cell signalling pathways, for example, carry information in
+the form of chemical changes such as phosphorylation or methylation,
+or as conformational state. A multi-protein complex may contain
+upwards of twenty sites, each of which can often be modified
+independently and each of which can, in principle, influence how the
+complex will participate in chemical reactions. With twenty sites, a
+complex can exist in a total of 220, or one million,
+unique states, each of which could react in a slightly different way.
+If our multi-protein complex interacts with only ten other chemical
+species, a detailed model may contain as many as ten million distinct
+chemical reactions,  a combinatorial explosion.  Any program in which
+the time taken increases in proportion to the number of reactions, as
+in a conventional, deterministic model, or in the Gillespie method,
+will come to a halt under these conditions.
+
+<P>
+To summarise, S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> is likely to be slower than the Gillespie
+algorithm in calculating the eventual outcome of a small set of simple
+biochemical reactions, especially when the numbers of molecules is
+large. However, if the system contains molecules that can exist in
+multiple states, then S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> will not only be faster but also
+closer to physical reality. It is easy, if required, to label selected
+molecules in this program and to follow their changes with time,
+including changes to their detailed post-translational modification
+and conformational state. Although the program does not, in its
+present form, incorporate spatial information regarding the positions
+of molecules, we have found that such modification can be made in a
+straightforward manner.
+
+<P>
+
+<H1><A NAME="SECTION00800000000000000000">
+About this document ...</A>
+</H1>
+ <STRONG>S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL>, the stochastic simulator</STRONG><P>
+This document was generated using the
+<A HREF="http://www-dsed.llnl.gov/files/programs/unix/latex2html/manual/"><STRONG>LaTeX</STRONG>2<tt>HTML</tt></A> translator Version 99.2beta6 (1.42)
+<P>
+Copyright &#169; 1993, 1994, 1995, 1996,
+<A HREF="http://cbl.leeds.ac.uk/nikos/personal.html">Nikos Drakos</A>, 
+Computer Based Learning Unit, University of Leeds.
+<BR>
+Copyright &#169; 1997, 1998, 1999,
+<A HREF="http://www.maths.mq.edu.au/~ross/">Ross Moore</A>, 
+Mathematics Department, Macquarie University, Sydney.
+<P>
+The command line arguments were: <BR>
+ <STRONG>latex2html</STRONG> <TT>-split 0 stochsim_manual.tex</TT>
+<P>
+The translation was initiated by Nicolas Le Novere on 2001-06-26
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot77">...
+paper</A><A NAME="foot77"
+ HREF="stochsim_manual.html#tex2html1"><SUP>1.1</SUP></A>
+<DD>This paragraph was written in 1998
+
+<DT><A NAME="foot870">... section</A><A NAME="foot870"
+ HREF="stochsim_manual.html#tex2html3"><SUP>3.1</SUP></A>
+<DD>As of version 1.4, the
+  preferred location of this section is in the complex configuration
+  file (<TT>COMPLEX.INI</TT>).
+
+<DT><A NAME="foot882">... geometry</A><A NAME="foot882"
+ HREF="stochsim_manual.html#tex2html4"><SUP>3.2</SUP></A>
+<DD>Note
+  that in S<SMALL>TOCH</SMALL>S<SMALL>IM</SMALL> 1.2, only the ``Square'' geometry was
+  supported.
+
+<DT><A NAME="foot1245">... level1</A><A NAME="foot1245"
+ HREF="stochsim_manual.html#tex2html8"><SUP>4.1</SUP></A>
+<DD>See
+  <TT><A NAME="tex2html9"
+  HREF="http://www.cds.caltech.edu/erato/sbml-level-1/sbml-level-1.html">http://www.cds.caltech.edu/erato/sbml-level-1/sbml-level-1.html</A></TT>.
+
+<DT><A NAME="foot1251">...
+constant</A><A NAME="foot1251"
+ HREF="stochsim_manual.html#tex2html10"><SUP>4.2</SUP></A>
+<DD>In order to do that, the GUI tranforms all the bimolecular
+  reactions into unimolecular reactions, merging the rate constants and the
+  concentrations of the constant substrates. Compare for instance the values of
+  the kf rate constant for the reaction <!-- MATH
+ $X+Y_1\rightarrow2Y_1$
+ -->
+<IMG
+ WIDTH="102" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img29.png"
+ ALT="$X+Y_1\rightarrow2Y_1$"> shown in the GUI
+  and in the file <TT>REACTION.INI</TT>.
+
+</DL><HR>
+<!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive"
+ SRC="/usr/share/latex2html/icons/nx_grp_g.png"> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev_g.png">   
+<BR>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Nicolas Le Novere
+2001-06-26
+</ADDRESS>
+</BODY>
+</HTML>

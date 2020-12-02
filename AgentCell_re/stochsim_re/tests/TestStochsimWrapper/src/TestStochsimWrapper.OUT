@@ -1,0 +1,11 @@
+ 
+TEST RESULTS
+ 
+We are comparing results from stochsim standalone runs
+with runs done using the Wrapper. The diff between the two
+outputs are listed between the two lines of stars below.
+The test is passed if there are no differences.
+ 
+************************************************
+ 
+************************************************

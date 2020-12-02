@@ -1,0 +1,242 @@
+###############################################################################
+#                          Makefile for StochSim                              #
+# Original author of stochsim (Win32 version) and its graphical interface     #
+#                               1995-1998 : Carl Morton-Firth                 #
+# Original port to Linux and spatial extensions                               #
+#                               1998-2003 : Thomas Simon Shimizu              #
+# Corrections and Perl/Tk interface                                           #
+#				1999-2003 : Nicolas Le Novere                                 #
+# Modified and cleaned up version of the makefile for use with both           #
+# standalone and wrapped versions of the code                                 #
+#				2005: T. Emonet, M. North, T. Shimizu                         #
+# See examples of Makefile:                                                   #   
+#  http://www.cs.washington.edu/orgs/acm/tutorials/dev-in-unix/makefiles.html #
+#  http://theory.uwinnipeg.ca/gnu/make/make_43.html                           #
+###############################################################################
+
+
+
+
+###################################################### 
+# Options to build the release version with 
+#Standard C++ Library (e.g. RedHat Linux 8.0 and later)
+######################################################
+### Shell
+SHELL = /bin/sh
+
+### Copy
+CP = cp
+
+### Remove
+RM = rm -f
+
+#JAVA_HOME = /usr/java/jdk1.5.0_08
+
+### Compiler
+CXX = g++
+OPTS = -D_STD_CPP -D_UNIX -D_DYNAMIC_UPDATE
+CXXFLAGS = -O3 -Wno-deprecated -Wall -fPIC 
+#-I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux
+
+
+
+### Linker
+LD = g++
+LDFLAGS = -lm
+BINDIR = ../bin/
+STOCHSIM_EXE = stochsim
+
+### Library 
+MKLIB = g++
+LIBFLAGS = -shared
+LIBDIR = ../lib/
+STOCHSIM_LIB = libstochsim.so
+
+###################################################### 
+# Options to build the release version with 
+# cygwin on windows assuming that C:\cygwin\BIN is on
+# the path. 
+# If you are using eclipse, make sure to append
+# C:\cygwin\BIN to the PATH in
+# project->Properties->C/C++ Make->Environment
+######################################################
+# ### Shell
+# SHELL = /bin/sh
+
+# ### Copy
+# CP = cp
+
+# ### Remove
+# RM = rm -f
+
+# ### Java
+# #JAVA_HOME = /cygdrive/c/Program\ Files/Java/j2sdk1.4.2_10
+# JAVA_HOME = /cygdrive/c/Program\ Files/Java/jdk1.5.0_06
+
+# ### Compiler
+# CXX = g++
+# OPTS = -D_STD_CPP -D_UNIX -D_DYNAMIC_UPDATE
+# CXXFLAGS = -mno-cygwin -O3 -Wall -Wno-deprecated \
+#       -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/win32
+# #OPTS = -D_DEBUG -D_STD_CPP -D_UNIX 
+# #CXXFLAGS = -g -mno-cygwin -Wall -Wno-deprecated \
+# #      -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/win32
+
+            
+           
+# ### Linker
+# LD = g++
+# #LDFLAGS = $(CXXFLAGS) -L$(JAVA_HOME)/lib -ljvm
+# LDFLAGS = $(CXXFLAGS)
+# STOCHSIM_EXE = stochsim.exe
+
+# ### Library 
+# MKLIB = g++
+# LIBFLAGS = $(CXXFLAGS) -Wl,--add-stdcall-alias -shared
+# STOCHSIM_LIB = stochsim.dll
+
+# ### Installation
+# BINDIR = ../bin/
+# LIBDIR = ../lib/
+
+
+
+###################################################### 
+# Options to build the release version with 
+# cygwin on windows assuming that C:\cygwin\BIN is on
+# the path. 
+# If you are using eclipse, make sure to append
+# C:\cygwin\BIN to the PATH in
+# project->Properties->C/C++ Make->Environment
+######################################################
+### Shell
+#SHELL = /bin/sh
+#
+#### Copy
+#CP = cp
+#
+#### Remove
+#RM = rm -f
+#
+#### Java
+##JAVA_HOME = /cygdrive/c/Program\ Files/Java/j2sdk1.4.2_10
+#JAVA_HOME = /cygdrive/c/Program\ Files/Java/jdk1.5.0_06
+#
+#### Compiler
+#CXX = g++
+#OPTS = -D_STD_CPP -D_UNIX -D_DYNAMIC_UPDATE
+#CXXFLAGS = -mno-cygwin -O3 -Wall -Wno-deprecated \
+#      -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/win32
+##OPTS = -D_DEBUG -D_STD_CPP -D_UNIX 
+##CXXFLAGS = -g -mno-cygwin -Wall -Wno-deprecated \
+##      -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/win32
+#
+#            
+#           
+#### Linker
+#LD = g++
+##LDFLAGS = $(CXXFLAGS) -L$(JAVA_HOME)/lib -ljvm
+#LDFLAGS = $(CXXFLAGS)
+#STOCHSIM_EXE = stochsim.exe
+#
+#### Library 
+#MKLIB = g++
+#LIBFLAGS = $(CXXFLAGS) -Wl,--add-stdcall-alias -shared
+#STOCHSIM_LIB = stochsim.dll
+#
+#### Installation
+#BINDIR = ../bin/
+#LIBDIR = ../lib/
+
+
+# List of the StochSim objects
+OBJECTS = Con_App.o Con_Main.o _App.o _CT_MS.o _CT_MS_R.o  _CT_Spec.o \
+          _C_Stack.o _C_Type.o _Com_MS.o _Complex.o _Compnnt.o _Event.o \
+	  _EventMn.o _Glob_Fn.o _OV.o _OV_C.o _OVStore.o _OV_MS.o _R.o _RG.o \
+	  _RG_Dummy.o _RG_Quick.o _RG_Shuff.o _RG_Bit.o _RG_Int.o \
+	  _RG_Shuff2.o _RG_MT.o _RMatrix.o \
+	  _R_Set.o _System1.o _System2.o _IP.o _Com_NS.o _CT_NS.o \
+	  _Com_Array.o _OV_A.o _OV_A_Snaps.o _OV_C_Av.o _OV_MS_Av.o \
+      _OutputMn.o _OM_A.o _OM_C.o _SnapsVarSet.o _CT_NS_R.o _CA_Square.o \
+	  _CA_Trigonal.o _CA_Hexagonal.o _CA_Line.o StochsimWrapper.o 
+
+LIBOBJECTS = $(OBJECTS) StochsimWrapperMapper.o
+
+# List of rebuildable (only erased by cleanall)
+REBUILDABLES = $(STOCHSIM_EXE) \
+               $(STOCHSIM_LIB) \
+               bin2txt \
+               GetTimeIncTest \
+               TestStochsimWrapper
+
+
+#######################################################################
+# PLEASE DO NOT EDIT BELOW THIS LINE IF YOU ARE NOT SURE
+#######################################################################
+.SUFFIXES :
+.SUFFIXES : .cpp .c .o .d
+
+# Top-level rule, to make everything.
+.PHONY: all
+all: $(STOCHSIM_EXE) $(STOCHSIM_LIB)
+	@echo All done
+
+# Create the library 
+$(STOCHSIM_LIB) : $(LIBOBJECTS) 
+	$(MKLIB) $(LIBFLAGS) $(LIBOBJECTS) -o $(STOCHSIM_LIB)  
+
+# Linking objects in an executable
+$(STOCHSIM_EXE) : $(OBJECTS)
+	$(LD) $(LDFLAGS) $(OBJECTS) -o $(STOCHSIM_EXE)
+
+# Include the dependencies files.
+-include $(OBJECTS:.o=.d)
+
+# Make dependencies
+%.d: %.cpp
+	@echo Making dependencies for $@;
+	@set -e; rm -f $@; $(CXX) -MM $(OPTS) $(CXXFLAGS) $< > $@.$$$$; sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; rm -f $@.$$$$
+
+# Compiling source
+%.o : %.cpp
+	$(CXX) $(OPTS) $(CXXFLAGS) -c $<
+
+# Rule for erasing the rebuildables
+.PHONY: cleanbin
+cleanbin:
+	$(RM) $(REBUILDABLES); echo Clean Bin done
+
+
+# Rule for erasing everything apart from sources and targets
+.PHONY: clean
+clean:
+	$(RM) $(LIBOBJECTS) $(LIBOBJECTS:.o=.d); echo clean done
+
+# Rule for erasing everything apart from the sources
+.PHONY: cleanall
+cleanall: 
+	$(RM) $(REBUILDABLES) $(LIBOBJECTS) $(LIBOBJECTS:.o=.d); echo cleanall done
+
+.PHONY: install
+install: 
+	cp $(STOCHSIM_EXE) $(BINDIR);
+	cp $(STOCHSIM_LIB) $(LIBDIR);
+
+#######################################################################
+# ADD SPECIAL TARGETS, SUCH AS TESTS HERE. DO NOT USE THE AUTOMATIC 
+# DEPENDENCY GENERATION
+#######################################################################
+
+
+# other special targets
+.PHONY: bin2txt
+bin2txt :
+	$(CXX) $(CXXFLAGS) $(OPTS) -o bin2txt bin2txt.cpp
+
+# other special targets
+.PHONY: GetTimeIncTest
+GetTimeIncTest : 
+	$(CXX) $(CXXFLAGS) $(OPTS) -o GetTimeIncTest GetTimeIncTest.cpp -L$(LIBDIR) -l$(STOCHSIM_EXE)
+
+
+

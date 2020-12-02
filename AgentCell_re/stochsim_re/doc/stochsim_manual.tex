@@ -1,0 +1,105 @@
+\documentclass[a4paper,oneside]{book}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphics}         % used to include figures
+\usepackage{picins}           % permits to include figures into text
+\usepackage{times}
+\usepackage{mathtime}
+\usepackage{url}
+
+%\pdfoutput=1                  % pdflatex outputs pdf by default
+%\pdfcompresslevel=0           % no compression
+
+\makeatletter
+% Good subscript
+\DeclareRobustCommand*\down[1]{%
+   \@textsubscript{\selectfont#1}}
+\def\@textsubscript#1{%
+   {\m@th\ensuremath{_{\mbox{\fontsize\sf@size\z@#1}}}}}
+\makeatother
+
+\includeonly{introduction,conffiles,spatial,tkstochsim,gillespie}
+
+\newcommand{\stochsim}{S\textsc{toch}S\textsc{im}}
+
+\title{\stochsim{}, the stochastic simulator}
+\author{Carl Firth, Nicolas Le Novère and Tom Shimizu}
+
+% Here are the macros describing the quantitative limits of the program 
+\newcommand{\CURRENTVERSION}{1.4} 
+\newcommand{\MAXCOMPONENTNAMELENGTH}{32} 
+\newcommand{\MAXCOMPONENTSYMBOLLENGTH}{8}  
+\newcommand{\MAXCOMPONENTS}{128} 
+\newcommand{\MAXCOMPLEXTYPES}{128} 
+\newcommand{\MAXCOMPONENTSINCOMPLEX}{64} 
+\newcommand{\MAXLIMITCOMPLEXES}{16777216}
+\newcommand{\MAXNUMDISPLAYVARIABLES}{128} 
+\newcommand{\MAXNUMREACTIONSPERCOMPLEX}{64} 
+\newcommand{\MAXOUTPUTVARNAMELENGTH}{64} 
+\newcommand{\MAXTYPESINOUTPUTVAR}{16}
+\newcommand{\MAXMSFLAGLENGTH}{8} 
+\newcommand{\MAXMSNUMFLAGS}{31}
+\newcommand{\MAXNUMCOMPLEXARRAYS}{8} 
+\newcommand{\MAXNUMARRAYSNAPSVARIABLES}{128}
+\newcommand{\MAXNUMARRAYSNAPSSTATES}{16}
+\newcommand{\MAXARRAYWIDTH}{128}
+\newcommand{\MAXARRAYLENGTH}{128}
+\newcommand{\MAXARRAYNAMELENGTH}{128}
+\newcommand{\MAXARRAYVARNAMELENGTH}{128}
+
+\voffset=-0.3cm
+\textheight=22.5cm
+\hoffset=-1cm
+\textwidth=14.4cm
+
+\begin{document}
+\maketitle
+\tableofcontents
+\include{introduction}
+\include{conffiles}
+\include{spatial}
+\include{tkstochsim}
+
+\chapter{References}
+\begin{itemize}
+\item Bray, D., Levin, M. D. \& Morton-Firth, C. J. (1998).  Receptor
+clustering as a cellular mechanism to control sensitivity. Nature 393,
+85-88.
+
+\item Duke, T. A. J. \& Bray, D.  (1999).  Heightened sensitivity of a
+lattice of membrane receptors.  Proc. Natl. Acad. Sci. USA 96,
+10104-10108.
+
+\item Gillespie, D. T. (1976). A general method for numerically
+simulating the stochastic time evolution of coupled chemical
+reactions. J. Comput. Phys. 22, 403-434.
+
+\item Gillespie, D. T. (1977). Exact stochastic simulation of coupled
+chemical reactions. J. Phys. Chem. 81, 2340-2361.
+
+\item McAdams, H. H. \& Arkin, A. (1997). Stochastic mechanisms in
+gene expression. Proc. Natl. Acad. Sci .USA 94, 814-819.
+
+\item Morton-Firth, C. J. (1998). Stochastic simulation of cell
+signalling pathways. Ph.D. Thesis, University of Cambridge.
+
+\item Morton-Firth, C. J. \& Bray, D. (1998). Predicting temporal
+fluctuations in an intracellular signalling pathway. J. Theor. Biol.
+192, 117-128.
+
+\item Morton-Firth, C. J., Shimizu, T. S. \& Bray, D. (1999). A
+free-energy-based stochastic simulation of the Tar receptor complex.
+J. Mol. Biol.286, 1059-1074.
+
+\item Shimizu, T.~S., Le~Nov\`{e}re, N., Levin, M.~D., Beavil, A.~J.,
+  Sutton, B.~J., and Bray, D. (2000).  Molecular model of a lattice of
+  signalling proteins involved in bacterial chemotaxis. Nat. Cell
+  Biol. 2, 792--796.
+
+\end{itemize}
+
+
+\appendix
+\include{gillespie}
+  
+\end{document}

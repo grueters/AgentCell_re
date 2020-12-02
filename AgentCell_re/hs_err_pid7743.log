@@ -1,0 +1,47 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f9c4260f61b, pid=7743, tid=7752
+#
+# JRE version: OpenJDK Runtime Environment AdoptOpenJDK (11.0.9+11) (build 11.0.9+11)
+# Java VM: OpenJDK 64-Bit Server VM AdoptOpenJDK (11.0.9+11, mixed mode, tiered, compressed oops, serial gc, linux-amd64)
+# Problematic frame:
+# C  [libstochsim.so+0x2e61b]  C_System::Step(double)+0x25b
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport %p %s %c %d %P %E" (or dumping to /home/grueters/eclipse-workspaces/agentCell_workspace_new/AgentCell_re/core.7743)
+#
+# If you would like to submit a bug report, please visit:
+#   https://github.com/AdoptOpenJDK/openjdk-support/issues
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:45649 -verbose:jni -Xcheck:jni -Djava.library.path=/home/grueters/eclipse-workspaces/agentCell_workspace_new/AgentCell_re/stochsim_re/src -javaagent:/home/grueters/eclipse/configuration/org.eclipse.osgi/233/0/.cp/lib/javaagent-shaded.jar -Dfile.encoding=UTF-8 agentCell_re.junit.TestStochsim
+
+Host: Intel(R) Core(TM) i7-7700T CPU @ 2.90GHz, 1 cores, 7G, Ubuntu 18.04.5 LTS
+Time: Mon Nov 30 12:07:42 2020 CET elapsed time: 4542.312688 seconds (0d 1h 15m 42s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f9c5c02e800):  JavaThread "main" [_thread_in_native, id=7752, stack(0x00007f9c6466b000,0x00007f9c6476c000)]
+
+Stack: [0x00007f9c6466b000,0x00007f9c6476c000],  sp=0x00007f9c6476a770,  free space=1021k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libstochsim.so+0x2e61b]  C_System::Step(double)+0x25b
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  agentCell_re.networks.StochsimWrapperMapper.step(JD)V+0
+j  agentCell_re.networks.StochsimWrapper.step(D)V+5
+j  agentCell_re.networks.Stochsim.step(D)V+2
+j  agentCell_re.junit.TestStochsim.main([Ljava/lang/String;)V+81
+v  ~StubRoutines::call_stub
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 1 (SEGV_MAPERR), si_addr: 0x00007f985cbb06e0
+
+Register to memory mapping:
+
+RAX=0x00007f9c5cbb06e0 points into unknown readable memory: 00 2b b7 5c 9c 7f 00 00
+RBX=0x00007f9c5cb84e70 points into unknown readable memory: 78 45 82 42 9c 7f 00 00
+RCX=

@@ -1,0 +1,102 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007eff4238361b, pid=4844, tid=4854
+#
+# JRE version: OpenJDK Runtime Environment AdoptOpenJDK (11.0.9+11) (build 11.0.9+11)
+# Java VM: OpenJDK 64-Bit Server VM AdoptOpenJDK (11.0.9+11, mixed mode, tiered, compressed oops, serial gc, linux-amd64)
+# Problematic frame:
+# C  [libstochsim.so+0x2e61b]  C_System::Step(double)+0x25b
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport %p %s %c %d %P %E" (or dumping to /home/grueters/eclipse-workspaces/agentCell_workspace_new/AgentCell_re/core.4844)
+#
+# If you would like to submit a bug report, please visit:
+#   https://github.com/AdoptOpenJDK/openjdk-support/issues
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:40251 -verbose:jni -Xcheck:jni -Djava.library.path=/home/grueters/eclipse-workspaces/agentCell_workspace_new/AgentCell_re/stochsim_re/src -javaagent:/home/grueters/eclipse/configuration/org.eclipse.osgi/233/0/.cp/lib/javaagent-shaded.jar -Dfile.encoding=UTF-8 agentCell_re.junit.TestStochsim
+
+Host: Intel(R) Core(TM) i7-7700T CPU @ 2.90GHz, 1 cores, 7G, Ubuntu 18.04.5 LTS
+Time: Mon Nov 30 09:14:03 2020 CET elapsed time: 460.955938 seconds (0d 0h 7m 40s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007eff5c02e800):  JavaThread "main" [_thread_in_native, id=4854, stack(0x00007eff643ff000,0x00007eff64500000)]
+
+Stack: [0x00007eff643ff000,0x00007eff64500000],  sp=0x00007eff644fe770,  free space=1021k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libstochsim.so+0x2e61b]  C_System::Step(double)+0x25b
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  agentCell_re.networks.StochsimWrapperMapper.step(JD)V+0
+j  agentCell_re.networks.StochsimWrapper.step(D)V+5
+j  agentCell_re.networks.Stochsim.step(D)V+2
+j  agentCell_re.junit.TestStochsim.main([Ljava/lang/String;)V+81
+v  ~StubRoutines::call_stub
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 1 (SEGV_MAPERR), si_addr: 0x00007efd5cba24e0
+
+Register to memory mapping:
+
+RAX=0x00007eff5cba24e0 points into unknown readable memory: e0 a4 b7 5c ff 7e 00 00
+RBX=0x00007eff5cb65160 points into unknown readable memory: 78 85 59 42 ff 7e 00 00
+RCX=0xffffffffc0000000 is an unknown value
+RDX=0x000000005f53037e is an unknown value
+
+
+[timeout occurred during error reporting in step "printing register info"] after 77 s.
+Registers:
+RAX=0x00007eff5cba24e0, RBX=0x00007eff5cb65160, RCX=0xffffffffc0000000, RDX=0x000000005f53037e
+RSP=0x00007eff644fe770, RBP=0x0000000000000003, RSI=0x0503b215d78a9b16, RDI=0x00007eff5cb5c9a0
+R8 =0x00007eff644ff700, R9 =0x00007eff63825f90, R10=0x00007eff42352800, R11=0x0000000000000206
+R12=0x0000000000033bab, R13=0x00000000000017eb, R14=0x7fffffffffffffff, R15=0x00000000000017eb
+RIP=0x00007eff4238361b, EFLAGS=0x0000000000010207, CSGSFS=0x002b000000000033, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x00007eff644fe770)
+0x00007eff644fe770:   0000000000033bab 00007eff5c02e800
+0x00007eff644fe780:   00007eff644fe860 00007eff427fc908
+0x00007eff644fe790:   00007eff644fe828 0000000000000000
+0x00007eff644fe7a0:   00007eff427fc908 00007eff644fe860 
+
+Instructions: (pc=0x00007eff4238361b)
+0x00007eff4238351b:   8b 83 60 1c 00 00 4a 8b 04 e8 8b 70 08 85 f6 0f
+0x00007eff4238352b:   85 b0 00 00 00 8b 8b c8 1c 00 00 85 c9 0f 85 02
+0x00007eff4238353b:   01 00 00 48 83 bb a0 1c 00 00 00 7e 68 45 31 ff
+0x00007eff4238354b:   eb 2f 0f 1f 00 66 0f ef c0 f2 48 0f 2a c0 f2 0f
+0x00007eff4238355b:   59 83 78 1c 00 00 48 8b 07 ff 50 18 85 c0 0f 84
+0x00007eff4238356b:   29 ff ff ff 49 83 c7 01 4c 39 bb a0 1c 00 00 7e
+0x00007eff4238357b:   34 48 89 e8 48 03 83 80 1c 00 00 4a 8b 7c fb 20
+0x00007eff4238358b:   79 c3 48 89 c2 66 0f ef c0 48 d1 ea 83 e0 01 48
+0x00007eff4238359b:   09 c2 f2 48 0f 2a c2 f2 0f 58 c0 eb b1 0f 1f 84
+0x00007eff423835ab:   00 00 00 00 00 48 83 c5 01 48 3b 2c 24 0f 85 39
+0x00007eff423835bb:   ff ff ff 49 39 ec 0f 87 1d ff ff ff 49 89 ec 4c
+0x00007eff423835cb:   01 a3 80 1c 00 00 b8 01 00 00 00 e9 bf fe ff ff
+0x00007eff423835db:   0f 1f 44 00 00 48 8b bb d0 1c 00 00 48 8b b3 98
+0x00007eff423835eb:   1c 00 00 48 03 b3 90 1c 00 00 48 8b 07 ff 50 18
+0x00007eff423835fb:   48 63 c8 48 3b 8b 90 1c 00 00 0f 8d ed 00 00 00
+0x00007eff4238360b:   41 39 c7 0f 84 1c ff ff ff 48 8b 83 60 1c 00 00
+0x00007eff4238361b:   48 8b 3c c8 8b 57 08 85 d2 0f 84 06 ff ff ff 4a
+0x00007eff4238362b:   8b 34 e8 e8 2d 4d fe ff 85 c0 0f 85 f5 fe ff ff
+0x00007eff4238363b:   e9 58 fe ff ff 8b 83 c0 1c 00 00 85 c0 0f 8e f0
+0x00007eff4238364b:   fe ff ff 45 31 ff 31 d2 48 8b 83 b0 1c 00 00 4a
+0x00007eff4238365b:   83 04 38 01 48 8b 83 b0 1c 00 00 48 8b 8b a8 1c
+0x00007eff4238366b:   00 00 4a 8b 0c 39 4a 39 0c 38 74 19 83 c2 01 49
+0x00007eff4238367b:   83 c7 08 39 93 c0 1c 00 00 7f d4 e9 b3 fe ff ff
+0x00007eff4238368b:   0f 1f 44 00 00 48 8b 83 68 1c 00 00 89 54 24 0c
+0x00007eff4238369b:   4a 8b 3c 38 e8 dc 45 fe ff 48 8b 83 b0 1c 00 00
+0x00007eff423836ab:   8b 54 24 0c 4a c7 04 38 00 00 00 00 83 c2 01 49
+0x00007eff423836bb:   83 c7 08 39 93 c0 1c 00 00 7f 8d e9 73 fe ff ff
+0x00007eff423836cb:   0f 1f 44 00 00 48 85 c0 41 bc 01 00 00 00 0f 85
+0x00007eff423836db:   f9 fd ff ff 48 83 bf a0 1c 00 00 00 0f 8f 37 fd
+0x00007eff423836eb:   ff ff e9 e6 fd ff ff 66 0f 1f 44 00 00 48 8b 83
+0x00007eff423836fb:   60 1c 00 00 31 f6 4a 8b 3c e8 e8 56 4c fe ff 85
+0x00007eff4238370b:   c0 0f 84 86 fd ff ff e9 19 fe ff ff 90 0f 1f 84 
+
+
+Stack slot to memory mapping:
+stack at sp + 0 slots: 

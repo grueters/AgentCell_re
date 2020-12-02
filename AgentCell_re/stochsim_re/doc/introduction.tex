@@ -1,0 +1,166 @@
+\chapter{Introduction}
+\stochsim{} is a discrete, stochastic simulator. It employs a simple,
+novel algorithm in which enzymes and other protein molecules are
+represented as individual software objects interacting according to
+probabilities derived from concentrations and rate constants.
+Formally, it is a mesoscopic simulator, meaning that it stores an
+internal representation of every molecule in the system as a unique
+object, but does not simulate diffusion.  The program was written in
+standard C++, according to the ANSI current working
+paper\footnote{This paragraph was written in 1998}.
+
+\section{Overview}
+When a simulation is executed, the reaction system is constructed by
+creating all the necessary objects in turn. First the event manager is
+created, which is responsible for changing the system during the
+simulation; for instance, the user may wish to change the
+concentration of signalling molecules half way through the simulation.
+Then the random number generator is created, based on an algorithm
+which breaks up any sequential patterns using a shuffle table. Objects
+representing each type of molecular species in the system are
+initialised and then large numbers of objects each representing an
+individual molecule are created. It is possible to create molecules
+which have specific states, called multistate molecules; these react
+according to the state they are in and are usually used to reflect
+covalent modification, such as protein phosphorylation. A number of
+dummy, or pseudo-molecules, are also created at this time, which are
+used in the simulation of unimolecular reactions: if a molecule reacts
+with a pseudo-molecule, the former may undergo a unimolecular
+reaction. Next, a look-up table is constructed which defines all the
+possible ways in which molecules can react in the system. For every
+bimolecular reaction, the row is selected according to the first
+reactant and the column by the second reactant; the corresponding
+entry in the look-up table then gives the probability that these two
+reactants will react and what the products will be. Finally, objects
+are constructed that represent variables being output to the screen
+and saved to file. Each variable is responsible for recalculating its
+current value as necessary.
+
+\section{The \stochsim{} algorithm}\label{algorithm}
+Execution follows a very simple algorithm. Time is quantised into a
+series of discrete, independent time-slices. In each time-slice, one
+molecule (not a pseudo-molecule) is selected at random. Then, another
+object, in this case either a molecule or a pseudo-molecule, is
+selected at random. If two molecules were selected, any reaction that
+occurs will be bimolecular; if one molecule and a pseudo-molecule were
+selected, it will be unimolecular. Another random number is then
+generated and used to see if a reaction occurs. The probability of a
+reaction is retrieved from the look-up table: if the probability
+exceeds the random number, the particles do not react; if the
+probability is less than the random number, the particles react, and
+the system is updated accordingly.  The next time-slice then begins
+with another pair of molecules being selected.
+
+The probabilities that a reaction will occur after the molecules have
+been selected are calculated as:
+\begin{itemize}
+\item If a first molecule A is selected and the second is a
+  pseudo-molecule, the probability that A will undergo a
+  unimolecular reaction is:
+ 
+ \begin{displaymath}
+    P = \frac{k_1\times{}n\times{}(n+n_0)\times\Delta{}t}{n_0}
+  \end{displaymath}
+
+\item If two molecules are selected, the 
+probability that they react together is:
+
+  \begin{displaymath}
+    P = \frac{k_2\times{}n\times{}(n+n_0)\times\Delta{}t}{2\times{}N_A\times{}V}
+  \end{displaymath}
+\end{itemize}
+
+Where:
+
+\begin{tabular}{lll}
+$n$         & = & number of molecules in the system\\
+$n_0$       & = & number of pseudo-molecules in the system\\
+$k_1$       & = & unimolecular rate constant ($s^{-1}$)\\
+$k_2$       & = & bimolecular rate constant ($M^{-1}s^{-1}$)\\
+$\Delta{}t$ & = & time-slice duration ($s$)\\
+$N_A$       & = & Avogadro constant\\
+$V$         & = & volume of the system ($l$)
+\end{tabular}
+
+
+The number of pseudo-molecules is calculated to minimise the stiffness
+between the unimolecular and bimolecular reactions. For this we
+require that the probability of the fastest unimolecular reaction is
+as close to the probability of the fastest bimolecular reaction as
+possible. Hence, by equating the two probabilities:
+
+\begin{displaymath}
+  n_0=[2\times{}N_A\times{}V\times{}\frac{k_{1,max}}{k_{2,max}}]
+\end{displaymath}
+
+Where $[x]$ represents the non-zero positive integer nearest to $x$.
+
+\section{Multistate molecules}\label{intro_multistates}
+
+Besides its discrete, stochastic algorithm, another feature that makes
+\stochsim{} unique is its ability encapsulate \emph{internal states} of
+molecules within each instance of a molecule object.  The activity of
+many enzymes and signalling proteins in living cells are controlled by
+numerous factors such as covalent modification, the binding of ligand
+or other subunits, and conformational changes of the protein.  It is
+possible to model such internal states of a single reacting molecule
+as separate molecular species, and this is in fact how most simulators
+handle this problem.  However, \stochsim{} provides an alternative
+method, which takes advantage of the way molecules are represented as
+individual software objects.\par
+
+Molecules that possess many internal states can be modelled as a
+special type of molecule, called \emph{multistate} molecules.
+Multistate molecules have a set of binary flags (flags which are
+either 'on' or 'off'), which can be used to represent the state of the
+molecule.  For example, a single flag could be used to express whether
+or not an external ligand is bound to a transmembrane receptor.
+Another flag could be used to distinguish between two functionally
+distinct conformations of the same receptor.  Another could be used to
+encode the state of a phosphorylation site on its cytoplasmic domain,
+and so on.  The combination of the states of all flags, therefore,
+defines the state of a multistate molecule, and this is readily
+expressed as bit strings (strings of 0's and 1's), e.g.  ``0010'' when
+there is four flags, and only the third one is on).  The state of each
+multistate molecule can change over the course of a simulation,
+either as a consequence of explicitly computed reactions (following
+the algorithm described in section \ref{algorithm}), or by means of
+\emph{rapid equilibria}, which are a special feature of multistate
+molecules that are provided to deal with stiffness in the reaction
+system.
+
+% For explicitly computed reactions involving
+% multistate molecules, the maximum rate of each reaction is stored as
+% usual as probabilities in the look-up table (see section
+% \ref{algorithm}).  An additional table for each multistate molecule is
+% constructed to store the \emph{relative probabilities} associated with
+% each state, which are factors gives the final reaction probability
+% when multiplied with the maximum probability.
+
+
+% rate is assigned to each possible state of the multistate molecule,
+% and is multiplied with the rate
+
+
+%feature of multistate molecules which allow certain flags which are
+%controlled by very fast processes (such as conformational changes of a
+%protein) to be defined.
+
+In short, multistate molecules provide a conceptually simpler
+alternative to defining the large number of separate molecular species
+and associated reactions that would otherwise be necessary.  With
+multistate molecules, the user can simply define how each state of a
+multistate molecule will affect a reaction rate in relative terms.  An
+additional advantage of multistate molecules is that its use can
+contribute to computational efficiency when the number of possible
+internal states are very large.  This is because \stochsim{} does not
+need to sift through a large number of possible reactions at each
+simulation interval, and only has to apply the relative effect of the
+internal state in the algorithm described above.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "stochsim_manual"
+%%% End: 
+
+

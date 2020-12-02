@@ -1,0 +1,127 @@
+##############################################################################
+#                       perl/Tk interface for stochsim                       
+# FILE: limits
+#
+# AIM: Contains a substet of _stchsim.h to unsure a compatibility with the 
+#      simulation engine
+#
+# AUTHOR: Nicolas Le Novère
+# 
+##############################################################################
+
+#     This program is free software; you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation; either version 2 of the License, or
+#     (at your option) any later version.
+#
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+#
+#     You should have received a copy of the GNU General Public License
+#     along with this program; if not, write to the Free Software
+#     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#     Nicolas Le Novère 
+#     Department of Zoology, University of Cambridge, Downing street, 
+#     CB2 3EJ Cambridge, UK. e-mail: nl223@cus.cam.ac.uk
+ 
+# Definitions controlling memory assignment 
+# Maximum length of the name of the components 
+MAX_COMPONENT_NAME_LENGTH     =  32              
+                
+# Maximum length of the symbol of the components 
+MAX_COMPONENT_SYMBOL_LENGTH   =  8                               
+
+# Maximum number of components in system 
+MAX_COMPONENTS                =  128                              
+
+# Maximum different types of complexes 
+MAX_COMPLEX_TYPES             =  128     
+                        
+# Maximum number of components allowed in any complex 
+MAX_COMPONENTS_IN_COMPLEX     =  64                              
+
+# Maximum number of character in a file name 
+MAX_FILE_NAME_LENGTH          =  512                             
+
+# Maximum number of characters in a line in a INI file 
+MAX_INI_LINE_LENGTH           =  2048                            
+
+# Maximum number of characters in a parameter name in a INI file 
+MAX_INI_PARAMETER_LENGTH      =  2048                            
+
+# Maximum number of characters in a section title in a INI file 
+MAX_INI_SECTION_LENGTH        =  64                              
+
+# Maximum number of characters in a value in a INI file 
+MAX_INI_VALUE_LENGTH          =  512                    
+
+# Maximum number of characters in a long value in a INI file          
+MAX_INI_VALUE_LENGTH_LONG     =  2048                            
+
+# Maximum number of complex instances in system (memory constraint) - each C_Complex is approx 13 bytes 
+MAX_LIMIT_COMPLEXES           =  16777216                        
+
+# Maximum number of display variables
+MAX_NUM_DISPLAY_VARIABLES     =  128                             
+
+# Maximum number of dump variables 
+MAX_NUM_DUMP_VARIABLES        =  8192                            
+
+# Maximum number of parameters that are used by events to specify what is changing
+MAX_NUM_DYNAMIC_PARAMETERS     = 8                               
+
+# Maximum number of values that can change in each event
+MAX_NUM_DYNAMIC_VALUES         = 2                               
+
+# Maximum number of events which can occur in the simulation 
+MAX_NUM_EVENTS                 = 128                             
+
+# Maximum number of variables to store 
+MAX_NUM_VALUES_STORED          = 32768                           
+
+# Maximum number of reactions in each reaction set for a given set of substrates 
+MAX_NUM_REACTIONS_IN_SET     =   64                              
+
+# Maximum number of possible complex types a fuzzy complex can represent 
+MAX_NUM_TYPE_IN_FUZZY        =   16                              
+
+# Maximum length of name of an output variable 
+MAX_OUTPUT_VAR_NAME_LENGTH   =   64                              
+
+# Maximum number of products produced by a reaction
+MAX_PRODUCTS_IN_REACTION      =  4                               
+
+# Maximum number of complex types an output variable can represent 
+MAX_TYPES_IN_OUTPUT_VAR       =  16                              
+
+# Maximum number of characters in each state flag in a multistate type
+MAX_MS_FLAG_LENGTH            =   8
+
+# Maximum number of state flags allowed in a multistate type
+MAX_MS_NUM_FLAGS              =  31
+
+# Maximum number of arrays
+MAX_NUM_COMPLEX_ARRAYS        =   8
+
+#Maximum number of snapshot variables defined on one array
+MAX_NUM_ARRAY_SNAPS_VARIABLES =  128
+
+# Maximum number of states represented by a snapshot variable
+MAX_NUM_ARRAY_SNAPS_STATES    =  16
+
+# Maximum width of the lattice
+MAX_ARRAY_WIDTH               =  128
+
+# Maximum length of the lattice
+MAX_ARRAY_LENGTH              =  128
+
+# Maximum length of the array name
+MAX_ARRAY_NAME_LENGTH         =  128
+
+# Maximum length of the snapshot variable name
+MAX_ARRAY_VAR_NAME_LENGTH     =  128
+
+

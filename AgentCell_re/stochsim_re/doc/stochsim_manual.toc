@@ -1,0 +1,67 @@
+\contentsline {chapter}{\numberline {1}Introduction}{2}
+\contentsline {section}{\numberline {1.1}Overview}{2}
+\contentsline {section}{\numberline {1.2}The S\textsc {toch}S\textsc {im}{} algorithm}{2}
+\contentsline {section}{\numberline {1.3}Multistate molecules}{3}
+\contentsline {chapter}{\numberline {2}The configuration files}{5}
+\contentsline {section}{\numberline {2.1}The main configuration file (\texttt {STCHSTC.INI})}{5}
+\contentsline {subsection}{\numberline {2.1.1}[Simulation Parameters]}{5}
+\contentsline {subsection}{\numberline {2.1.2}[Options]}{6}
+\contentsline {subsection}{\numberline {2.1.3}[File Names]}{6}
+\contentsline {section}{\numberline {2.2}The complex configuration file (\texttt {COMPLEX.INI})}{7}
+\contentsline {subsection}{\numberline {2.2.1}[General]}{7}
+\contentsline {subsection}{\numberline {2.2.2}[Component \emph {symbol}]}{7}
+\contentsline {subsection}{\numberline {2.2.3}[Complex Types]}{7}
+\contentsline {subsection}{\numberline {2.2.4}[Initial Levels]}{7}
+\contentsline {subsection}{\numberline {2.2.5}[Special Complex Types]}{8}
+\contentsline {subsection}{\numberline {2.2.6}[Display Variable \emph {X}]}{8}
+\contentsline {section}{\numberline {2.3}The configuration of reactions (\texttt {REACTION.INI})}{8}
+\contentsline {subsection}{\numberline {2.3.1}[General]}{8}
+\contentsline {subsection}{\numberline {2.3.2}[Reaction \emph {X}]}{8}
+\contentsline {subsection}{\numberline {2.3.3}Notes on using dynamic values in this file (\texttt {REACTION.INI})}{9}
+\contentsline {section}{\numberline {2.4}The configuration of dynamic values (\texttt {DYNAMIC.INI})}{9}
+\contentsline {subsection}{\numberline {2.4.1}[General]}{9}
+\contentsline {subsection}{\numberline {2.4.2}[Time \emph {T}]}{9}
+\contentsline {section}{\numberline {2.5}Configuration of the multistate complexes (\texttt {MS\_\emph {X}.INI})}{9}
+\contentsline {subsection}{\numberline {2.5.1}How multistate molecules work}{10}
+\contentsline {subsection}{\numberline {2.5.2}[General]}{10}
+\contentsline {subsection}{\numberline {2.5.3}[Initial States]}{11}
+\contentsline {subsection}{\numberline {2.5.4}[Rapid Equilibrium \emph {X}]}{11}
+\contentsline {subsection}{\numberline {2.5.5}[Reaction \emph {XD}]}{11}
+\contentsline {subsection}{\numberline {2.5.6}[Display Variable \emph {X}]}{12}
+\contentsline {subsection}{\numberline {2.5.7}Notes on using dynamic values in this file (\texttt {MS\_\emph {X}.INI})}{12}
+\contentsline {chapter}{\numberline {3}Spatial extensions to S\textsc {toch}S\textsc {im}{}}{13}
+\contentsline {section}{\numberline {3.1}Overview}{13}
+\contentsline {section}{\numberline {3.2}Setting up a simulation that uses 2-D complex arrays (\texttt {STCHSTC.INI})}{14}
+\contentsline {subsection}{\numberline {3.2.1}[Options]}{14}
+\contentsline {subsection}{\numberline {3.2.2}[File Names]}{14}
+\contentsline {section}{\numberline {3.3}Definition of complex arrays (\texttt {ARRAY.INI})}{15}
+\contentsline {subsection}{\numberline {3.3.1}[General]}{15}
+\contentsline {subsection}{\numberline {3.3.2}[Neighbour Sensitive Complex Types]}{15}
+\contentsline {subsection}{\numberline {3.3.3}[\emph {ARRAY\_NAME}]}{15}
+\contentsline {subsection}{\numberline {3.3.4}[Snapshot Variable \emph {X}]}{16}
+\contentsline {section}{\numberline {3.4}Definition of neighbour-sensitive complexes (\texttt {NS\_\emph {X}.INI})}{16}
+\contentsline {subsection}{\numberline {3.4.1}[General]}{16}
+\contentsline {subsection}{\numberline {3.4.2}[Rapid Equilibrium \emph {X}]}{17}
+\contentsline {subsection}{\numberline {3.4.3}[Reaction \emph {XD}]}{17}
+\contentsline {section}{\numberline {3.5}Output of complex-array states}{17}
+\contentsline {subsection}{\numberline {3.5.1}A note for StochSim 1.2 users}{17}
+\contentsline {subsection}{\numberline {3.5.2}Array snapshots}{18}
+\contentsline {subsubsection}{Example: How to set up the output of snapshots}{19}
+\contentsline {subsection}{\numberline {3.5.3}Array dumps}{20}
+\contentsline {chapter}{\numberline {4}TkS\textsc {toch}S\textsc {im}{}: user guide}{21}
+\contentsline {section}{\numberline {4.1}Opening and saving a simulation}{22}
+\contentsline {section}{\numberline {4.2}Setting up a simulation}{22}
+\contentsline {subsection}{\numberline {4.2.1}General configuration}{22}
+\contentsline {subsection}{\numberline {4.2.2}Creating elementary components of the simulation}{24}
+\contentsline {subsection}{\numberline {4.2.3}Creating complexes involved in the simulation}{24}
+\contentsline {subsection}{\numberline {4.2.4}Creating multistate complexes}{26}
+\contentsline {subsection}{\numberline {4.2.5}Creating neighbour-sensitive complexes}{27}
+\contentsline {subsection}{\numberline {4.2.6}Configuration of the bidimensional lattice}{28}
+\contentsline {subsection}{\numberline {4.2.7}Creating reactions}{29}
+\contentsline {section}{\numberline {4.3}Setting-up the dynamic values}{30}
+\contentsline {section}{\numberline {4.4}Running a simulation}{30}
+\contentsline {section}{\numberline {4.5}Visualisation of the results}{31}
+\contentsline {chapter}{\numberline {5}References}{32}
+\contentsline {chapter}{\numberline {A}Comparison with the Gillespie algorithm}{33}
+\contentsline {section}{\numberline {A.1}Description of the algorithm}{33}
+\contentsline {section}{\numberline {A.2}Comparison with the Gillespie algorithm}{34}

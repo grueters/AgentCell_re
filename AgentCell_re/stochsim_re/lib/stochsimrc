@@ -1,0 +1,105 @@
+##############################################################################
+#                       perl/Tk interface for stochsim                       #
+# FILE: stochsimrc
+#
+# AIM: Contains the configuration of the frontend
+#
+# AUTHOR: Nicolas Le Novère
+# 
+##############################################################################
+#
+#     This program is free software; you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation; either version 2 of the License, or
+#     (at your option) any later version.
+#
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+#
+#     You should have received a copy of the GNU General Public License
+#     along with this program; if not, write to the Free Software
+#     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#     Nicolas Le Novère 
+#     Department of Zoology, University of Cambridge, Downing street, 
+#     CB2 3EJ Cambridge, UK. e-mail: nl223@cus.cam.ac.uk
+
+# location of PDF reader
+pdfreader=
+
+# Default location of configuration files
+confdir=
+
+# frequency of progress bar refreshment, in seconds
+refresh=2
+
+BalloonWidth=10
+balloon=on
+
+# The following colors can be defined by odes names such as "#FF0000" or "#153D4F" 
+# the '#' means hexadecimal. The following digits are the specification of the 
+# color by its Red Green Blue content, each value between 0 and 255, i.e. 00 to
+# FF in hexadecimal. Some common colors:
+# black       = #000000
+# white       = #FFFFFF
+# red         = #FF0000
+# light green = #00FF00
+# blue        = #0000FF
+# yellow      = #FFFF00  (red + green)
+# cyan        = #00FFFF  (green + blue)
+# orange      = #FFAA00  (red + light green
+# gray        = #AFAFAF
+# dark green  = #009900 
+
+# background and text colors when the mouse is over a menu item
+activebackground=#FF0000                   
+activeforeground=#FFFFFF               
+
+# background and text colors when the mouse is over a simulation item 
+activeselectionbackground=#0000FF        
+activeselectionforeground=#FFFFFF
+
+# background and text color of the entry widgets
+entrybackground=#FFFFFF
+entryforeground=#000000
+
+# position of the main window in pixels from the left and the top
+xmain=50                               
+ymain=50
+
+# position of the window of second level in pixels from the left and the top
+xsecond=250                            
+ysecond=50  
+
+# position of the window of third level in pixels from the left and the top
+xthird=450                            
+ythird=50                              
+
+# position of the window of fourth level in pixels from the left and the top
+xfourth=650                            
+yfourth=50    
+
+# thickness of the focus highlight
+highlightthickness=2                   
+
+# width and height of the plotting canvas
+plotwidth=500                          
+plotheight=300                       
+
+# Background color of the plotting canvas
+canvasbackground=#FFFFFF
+
+# number of points which will be plotted
+numpoints=1000
+
+# colors used in the plotting tool. They overide the corresponding default values
+# (i.e. the first replaces the first and so on.)
+graphcolors=#000000,#FF0000,#008800,#000099,#999999,#FFDD00,#00FFFF,#00FF00,#FFDDBB
+
+SIM0=
+SIM1=
+SIM2=
+SIM3=
+

@@ -1,0 +1,290 @@
+##############################################################################
+#                       perl/Tk interface for stochsim                       #
+#
+# FILE: messages
+#
+# AIM: Contains the messages sent to the user, via balloons or Dialog windows
+# AUTHOR: Nicolas Le Novère
+# 
+##############################################################################
+
+#
+#     This program is free software; you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation; either version 2 of the License, or
+#     (at your option) any later version.
+#
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+#
+#     You should have received a copy of the GNU General Public License
+#     along with this program; if not, write to the Free Software
+#     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#     Nicolas Le Novère 
+#     Department of Zoology, University of Cambridge, Downing street, 
+#     CB2 3EJ Cambridge, UK. e-mail: nl223@cus.cam.ac.uk
+# NB: The balloon messages are split to make small lines. The warnings and 
+# errors are reformated by the message box anyway. 
+# 
+
+AbortOnResolutionErr   = Abort when a probability is too small for\
+the resolution of the random number generator?
+AboutStochSim          = The STOCHastic SIMulator - \
+(c) Carl Morton-Firth 1998 \
+(c) Tom Shimizu 2000-2002 \
+under GPL.
+AboutTkStochSim        = TkStochSim  - \
+(c) Nicolas Le Novère 2000-2002 \
+under GPL
+AlreadyArray           = \
+There is already another array with that name.\
+Please change the name of the current array.
+AlreadyMS              = There is already another multistate complex based on this complex.
+AlreadyNS              = \
+There is already another neighbour sensitive\
+complex based on this multistate complex.
+AlreadySnaps           =  \
+There is already another snapshot variable with that name.\
+Please change the name of the current snapshot variable.
+ArrayClose             = \
+Click on "accept" to record changes\
+Click on "delete" to erase the current array\
+Click on "cancel" to let the array unchanged.
+ArrayDesc              = Enter a short description of the array.
+ArrayDumpInterval      = Enter the number of iterations or seconds\
+between two dumping of array states.\
+Should be identical to the interval\
+between variable dumping.
+ArrayEquilInterval     = \
+Interval between two equilibrations of the binary\
+flags of the complexes included in this array.
+ArrayGeom              = Configure the geometry of the array (topology and size)
+Arrays                 = \
+Browse and select an array to view or edit it.\
+Click on "new" to create a new array. 
+AvailableComplex       = List of the complexes currently available.
+AverageInterval        = Length of the recording for a snapshot.
+BaseCplx               = Choose a complex to base the multistate complex on.
+BaseMSCplx             = Choose a multistate complex to base the neighbour sensitive complex on.
+BoundCondition         = The array can have true boundaries, or can be folded on itself.
+CannotKill             = I can't kill the running simulation! 
+ChooseDynValue         = Choose an optional dynamic value to modulate this parameter.  
+ChooseNeighbour        = Choose the neighbour affected by the reaction.
+ChooseOrigin           = <Ctrl>-click to center the zoom events.
+ClosePlot              = Click to quit the plot.
+Components             = \
+Browse and select a component to view or edit it.\
+Click on "new" to create a new component. 
+Complexes              = \
+Browse and select a complex to view or edit it. \
+Click on "new" to create a new complex. 
+CompClose              = \
+Click on "accept" to record changes\
+Click on "delete" to erase the current component\
+Click on "cancel" to let the component unchanged.
+CompDesc               = Enter a short description of the component.
+CompName               = Enter the full name of the component.
+CompSymb               = \
+Enter the symbol of the component.\
+It will be part of the complexes' names.
+ConfigButton           = Click to setup the general configuration. 
+ControlledBy           = Choose the way the selected flag will be controlled.
+CplxAvail              = \
+Browse the available components. Click on "add"\
+to include the selected into the current complex.
+CplxClose              = \
+Click on "accept" to record changes\
+Click on "delete" to erase the current complex\
+Click on "cancel" to let the complex unchanged.
+CplxComp               = \
+Browse the components already part of the current complex.\
+Click on "del" to suppress the selected one.
+CplxDesc               = Enter a short description of the complex.
+CplxQuant              = \
+Enter the initial quantity of the complex (a number of particles,\
+not a concentration). If you tick the checkbutton, the amount\
+of this complex will remain constant throughout the simulation. 
+CreateDumpFile         = Create a dump file of the simulation?
+CstProducts            = Your reaction seems to contain only constant products. Enter at least one non constant product.
+CstSubstrates          = Your reaction seems to contain only constant substrates. Enter at least one non constant substrate.
+DisplayAllLevels       = \
+Display the levels of every complex type\
+or only of specified variables? \
+(Click on the button to define which variables)
+DisplayInterval        = \
+Enter the number of iterations or seconds\
+between two displays of variables.
+DragComp               = Drag an available complex into the left window.
+DragCpnt               = Drag an available component into the left window.
+DumpArray              = Is this array to be dumped during the course of the simulation?
+DisplayInterval           = Enter the number of iterations or seconds\
+between two display of variable states on stdout.
+DumpInterval           = Enter the number of iterations or seconds\
+between two dumping of variable states.
+DynValueButton         = Click here to setup the dynamic values used by the simulation. 
+ElemCplx               = Choose an elementary complex to construct the array.
+EmptyVariable          = A variable does not represent any complex. Fix it or delete it.
+EnterFlagName          = Enter the name of the new flag.
+EnterInit              = \
+Enter the quantity of the complex initially in this state\
+(a number of particles, not a concentration)
+EnterProb              = Enter the probability that the flag is set in this state.
+EnterProbNeighb        = \
+Enter the probability that the flag is set in this state\
+according to the number of neighbours in this state.
+EnterVariableName      = Enter the name of the variable to display.
+FlagInReact            = This flag appears to be involved in some reactions. Please delete those reactions first. The reactions are:
+HelpButton             = Click to launch a window containing the manual.
+InitialLevelsFromDumpFile = Are the initial levels of complexes\
+to be read from a previously dumped file?
+InitialLevelsFile      = Choose the dumped file containing \
+the initial levels to use in the present simulation.
+InitialLevelsFromTime  = Choose initial levels from a particular timepoint in the dumped file. 
+InitialState = How do you initialise the array?\
+From a dumped file or not?
+InitialStateFile = Choose the dumped file containing \
+the initial levels to use in the present simulation.
+InitialStateFromTime = Choose initial state from a particular timepoint in the dumped file. 
+Kf                     = Enter the forward rate constant.
+Kr                     = Enter the reverse rate constant.
+LauchConsoleStochsim   = However you can launch stochsim on console with the initialisation files you generated.
+LineDrawing            = Draw a line between values rather than points on values.
+MaximumNumberComplexes = \
+Enter the maximum number of complex instances \
+in the system (maximum number of molecules).
+Modificator            = Enter the relative rate of the reaction for this state.
+Monitor                = Progression of the running simulation.
+MSClose                = \
+Click on "accept" to record changes\
+Click on "delete" to erase the current multistate complex\
+Click on "cancel" to let the multistate complex unchanged.
+ModifiedFlags          = Some flags have been modified. This will result in deep changes of the simulation. All the reactions will be affected. Are you sure you want to record those changes? If unsure, click on 'cancel'.
+MSCplxDesc             = Enter a short description of the multistate complex.
+Multistates            = \
+Browse and select a multistate complex to view or edit it.\
+Click on "new" to create a new multistate complex. 
+NeighbourSensitives    = \
+Browse and select a neighbour-sensitive complex to view or edit it.\
+Click on "new" to create a new neighbour-sensitive complex. 
+NewFlag                = Click to create a new flag
+NewState               = Click to create and configure a new state.
+NewTimepoint           = Click to create a new timepoint to change the dynamic values.
+NewDynValue            = Click to create a new value changing with time.
+NewVariable            = Click to create a new variable to display
+NoComplex              = No base complex have been defined.
+NoConstantMS           = A multistate complex cannot be based on a constant complex.
+NotEnoughCplx          = The sum of the various states has to be lower than the total number of complexes.
+NotImplemented         = Sorry, not implemented yet.
+NoSpatialExtensions    = The use of Spatial extensions is disabled. Click on "General Configuration" and answer 'yes' to the question "Use spatial extensions?"
+NoVar                  = Please select a variable first.
+NumNeighbours          = \
+Select the number of possibly interacting neighbours\
+(it depends on the geometry of the array involving this complex).
+NSClose                = \
+Click on "accept" to record changes\
+Click on "delete" to erase the current neighbour sensitive complex\
+Click on "cancel" to let the neighbour sensitive complex unchanged.
+NSCplxDesc             = Enter a short description of the neighbour sensitive complex.
+OptimiseTimeIncrement  = Optimise time increment to be as large as possible?
+Plot                   = Click to open a graphical display of the current simulation.
+PrintPlot              = Click to print a postscript version of the plot.
+QuitButton             = Click to quit TkStochSim.
+RandomNumberGenerator  = Choose the type of random number generator to be used by StochSim.
+ReacAvail              = \
+Browse the available complexes.\
+Click on "add to substrates" to add to the list of substrates".\
+Click on "add to products" to add to the list of products".
+ReacClose              = \
+Click on "accept" to record changes\
+Click on "delete" to erase the current reaction\
+Click on "cancel" to let the reaction unchanged.
+ReacDesc               = Enter a short description of the reaction.
+ReacProd               = \
+Browse the products of the current reaction\
+Click on "del" to suppress the selected one.
+ReacSubst              = \
+Browse the substrates of the current reaction\
+Click on "del" to suppress the selected one.
+Reactions              = \
+Browse and select a reaction to view or edit it. \
+Click on "new" to create a new reaction. 
+ReactionVolume         = Enter the total volume of the reaction (in litres).
+ReactOrRapEq           = The state of the flag can be set by a reaction or an equilibrium.
+RemoveComp             = \
+To remove a complex, select it and\
+click while pressing <Ctrl>.
+RemoveCpnt             = \
+To remove a component, select it and\
+click while pressing <Ctrl>.
+RemoveState            = Click while pressing <Ctrl> to remove the selected state.
+RunButton              = Click to run StochSim with the current configuration.
+SampleInterval         = Interval between two recording for an averaged snapshot.
+SelectProd             = \
+To remove a product, select it and\
+click while pressing <Ctrl>.
+SelectRemoveComp       = \
+Select a complex with <Button-1> and remove it\
+by clicking <Button-1> while pressing <Ctrl>.
+SelectRemoveFlag       = \
+Select a flag with <Button-1> and remove it\
+by clicking <Button-1> while pressing <Ctrl>.
+SelectRemoveVar        = \
+To remove a variable select it and\
+click while pressing <Ctrl>.
+SelectSubst            = \
+To remove a substrate, select it and\
+click while pressing <Ctrl>.
+SetClear               = \
+Configure the effect of the reaction on the multistate.\
+Remember, you cannot modify a flag set by a rapid equilibrium.
+SetClearNeighb         = \
+Configure the effect of the reaction on the neighbour.\
+Remember, you cannot modify a flag set by a rapid equilibrium.
+SetInitVal             = Click to set the initial number of the various possible states.
+SetFlagEffect          = Setup the effect of the reaction on the flag.
+SetFlags               = Select the appropriate value to set each flag of the current state. 
+SetRapEq               = Click to set the probabilities of the rapid equilibrium.
+SetState               = Setup the state(s) of the multiple complex. 
+SetStateModifReac      = Setup the state(s) of the multiple complex affecting the reaction.
+SetStateModifRE        = Setup the state(s) of the multiple complex affecting the rapid equilibrium.
+SetNeighbStateModifRE  = Setup the state(s) of the neighbour complexes affecting the rapid equilibrium.
+SetStatePresent        = Setup the state(s) of the multiple complex represented by this variable. 
+SimulationDuration     = Enter the number of reaction iterations or seconds to perform.
+SnapsClose             = \
+Click on "accept" to record changes\
+Click on "delete" to erase the current snapshot variable\
+Click on "cancel" to let the current snapshot variable unchanged.
+SnapshotDesc           = Enter a short description of this snapshot variable.
+SnapshotInterval       = Interval between successive snapshots.
+SnapshotName           = Enter a name for this snapshot variable.
+SnapshotType           = \
+A snapshot can represent the instantaneous state of the array\
+or an average state over a certain time interval.
+SnapshotVariables      =  \
+Browse and select a snapshot variable to view or edit it.\
+Click on "new" to create a new snapshot variable. 
+StopButton              = Click to stop the current simulation.
+StoreInterval          = Enter the number of iterations or seconds\
+between two storages of variables.
+SymbolArray            = Choose a symbol (a name) fo this array.
+TimeIncrement          = Enter the duration of each iteration (seconds).
+TimeUnits              = Choose the unit for the values representing times.
+UnknownBalloon         = The option "balloon" in the file stochsimrc is neither "on" or "off".
+UpdatePlot             = Click to refresh the plot.
+UsedComponent          = This component is part of a complex. Therefore, you cannot delete it.
+UsedComplex            = This complex is part of a reaction or a special type complex is based on it. Therefore, you cannot delete it.
+UsedMSComplex          = A neighbour-sensitive complex is based on this multistate complex. Therefore, you cannot delete it.
+UseSpatialExtensions   = Use the spatial extensions, which allow the construction of lattice of molecules?
+UsedSymbol             = A component symbol cannot be part of another component symbol. Change the current symbol, or delete the symbol previously defined.
+ViewData               = Click to view the result of a simulation as numbers.
+WhichVar               = Click to select the variables to display.
+WipeMSRapEq            = The configuration of the multistate rapid equilibrium will be completely wiped out. Do you really want to discard this equilibrium?
+WipeNSRapEq            = The configuration of the neighbour sensitive rapid equilibrium will be completely wiped out. Do you really want to discard this equilibrium?
+ZoomInX                = Click to enlarge the abcissa.
+ZoomInY                = Click to enlarge the ordinate.
+ZoomOutX               = Click to shrink the abcissa.
+ZoomOutY               = Click to shrink the ordinate.
+

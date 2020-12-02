@@ -46,7 +46,7 @@ public class ChemotaxisNetwork extends Stochsim implements Network, PathInterfac
 	public ChemotaxisNetwork(ChemotacticCell newCell, String stchstcFilePath, String curWorkingDirectory) {
 		super(stchstcFilePath, curWorkingDirectory);
 		cell = newCell;
-		path = new File(newCell.getPath(), "network1").getAbsolutePath();
+		path = new File(newCell.getPath()).getAbsolutePath();
 
 //		System.out.println("ChemotaxisNetwork; Cell's path, (should be network1 loc):  " + path );
 //		File pathCheck = new File(path);

@@ -1,0 +1,569 @@
+\chapter{The configuration files}\label{conf_files}
+
+The format of \stochsim{} configuration files follows that of Windows
+initialisation files. Sections are headed by a title between square
+brackets.  Inside each section, one parameter per line is specified in
+the form, \emph{parameter = value}.  Comments can be added after a
+semicolon.
+
+\begin{verbatim}
+[A Section]
+parameter1=value         ; A comment
+parameter2=value
+
+; A 
+; multiline
+; comment
+
+[Another Section]
+parameterA=value
+parameterB=value
+\end{verbatim}
+
+\section{The main configuration file (\texttt{STCHSTC.INI})}
+This file (\texttt{STCHSTC.INI}) describes the general configuration of a
+simulation, independently of the objects and the reactions.
+
+\subsection{[Simulation Parameters]}
+\begin{description}
+\item[DisplayInterval] The interval between the two displays of variable values, 
+in units of seconds (floating point) or simulation
+  iterations (integer).  The units are specified by the
+  \textbf{TimeUnits} parameter in the \textbf{[Options]} section).
+
+\item[StoreInterval] The interval between two storages of variable values, 
+  in units of seconds (floating point) or simulation iterations
+  (integer).  The units are specified by the \textbf{TimeUnits}
+  parameter in the \textbf{[Options]} section).
+  
+\item[TimeIncrement] The duration of each simulation iteration, in
+  units of seconds (floating point) or simulation iterations
+  (integer).  The units are specified by the \textbf{TimeUnits}
+  parameter in the \textbf{[Options]} section).
+  
+\item[SimulationDuration] The length of the simulation, in units of
+  seconds (floating point) or simulation iterations (integer).  The
+  units are specified by the \textbf{TimeUnits} parameter in the
+  \textbf{[Options]} section).
+  
+\item[ReactionVolume] The total volume of the reaction system, in
+  litres (floating point; the exponential form, e.g. ``1.41e-15'', can
+  also be used).
+  
+\item[MaximumNumberComplexes] The maximum number of complexes (not the
+  number of complex types!) allowed in the reaction system (integer).
+  Note that this number should be large enough to account for the
+  total number of complexes that may need to be represented at any
+  point in the simulation (not just the number of complexes at the
+  beginning of the simulation).
+\end{description}
+
+\subsection{[Options]}
+\begin{description}
+\item[AbortOnResolutionErr] Abort the simulation with an error message
+  if a reaction probability is too small for the resolution of the
+  random number generator (\mbox{1 = Yes}; \mbox{0 = No}).
+  
+\item[DisplayAllLevels] Indicates whether or not all variable values
+  should be displayed during simulation (1 = Display level of every
+  defined complex type; 0 = Use only specified variables).
+  
+\item[OptimiseTimeIncrement] Optimise time increment for the defined
+  reaction system to the maximum value possible without compromising
+  the accuracy of simulation (1 = Yes; 0 = No, use time increment
+  specified in the \textbf{TimeIncrement} parameter of the
+  \textbf{[General]} section).
+
+\item[RandomNumberGenerator] Type of random number generator to use:
+  \begin{itemize}
+  \item[1] = Dummy generator
+  \item[2] = Internal random number generator
+  \item[3] = Shuffle random number generator
+  \item[4] = Bit string random number generator
+  \item[5] = Quick random number generator
+  \end{itemize}
+  
+\item[TimeUnits] The units to be used for parameter values
+  representing time (1 = Seconds; 0 = Iterations).
+  
+\item[CreateDumpFile] Create a dump file of the reaction system (1 =
+  Yes; 0 = No).  A dump file stores the state of the entire reaction
+  system, including the state of each multistate complex.
+\end{description}
+
+\subsection{[File Names]}
+\begin{description}
+\item[ComplexINIFile] Input file containing details of the components
+  and complex types in the system.
+       
+\item[DumpOut] Output file to which the state of the entire reaction
+  system is to be dumped.
+  
+\item[DynamicValues] Input file containing information about objects
+  that change over time.
+  
+\item[LogFile] Output file in which all messages issued by the
+  simulator are to be saved.
+  
+\item[MessageINIFile] Input file containing all the constant-string
+  messages used by the system.
+  
+\item[ReactionMatrixOut] Output file in which the reaction matrix used
+  for this simulation is to be saved.
+  
+\item[ReactionINIFile] Input file containing reactions and reaction
+  constants.
+  
+\item[SeedsIn] Input file from which the random number seeds are to be
+  loaded; the value of this parameter should be left blank if the seeds
+  are to be generated from the internal CPU clock.
+  
+\item[SeedsOut] Output file in which random number seeds are to be
+  saved; the value of this parameter should be left blank if seeds
+  need not be saved.
+
+\item[VariablesOut] Output file in which variable values are saved.
+\end{description}
+
+\section{The complex configuration file (\texttt{COMPLEX.INI})}
+
+This file (\texttt{COMPLEX.INI}) defines the complexes which can take part in
+the reactions.  The components of the complexes must be defined first,
+then the complexes can be defined. Finally, the initial concentrations
+of the complexes must be set. For multistate complexes, additional
+information must be defined in a specific INI file for each multistate
+complex type.
+
+\subsection{[General]}
+\begin{description}
+\item[Symbols] A comma-separated list of symbols to be used to denote
+components and complex types.  They are not reacting entities, but are the
+constituents of the complexes which react.
+       
+\item[NumDisplayVariables] Number of variables (excluding those for
+  multistate complex types) which will be displayed during the
+  simulation.
+\end{description}
+
+\subsection{[Component \emph{symbol}]}
+This section specifies information about the components, i.e. the
+elementary blocks of the simulation. Each component must have a
+section headed [Component \emph{symbol}], where \emph{symbol} is a
+unique string of less than \MAXCOMPONENTSYMBOLLENGTH{} characters. The
+maximum number of components allowed is \MAXCOMPONENTS{}.
+
+\begin{description}
+\item[Name] The name of the component (must be less than
+\MAXCOMPONENTNAMELENGTH{} characters).
+
+\item[Description] The description of the component.  This parameter
+is not mandatory, since it is not used by the \stochsim{} simulator
+itself.
+\end{description}
+
+\subsection{[Complex Types]}
+This section specifies information about the complexes (excluding
+multistate complexes).
+
+\begin{description}
+% \item[NumRapidEqm] Obsolete. Used to be used for Fuzzy complex types
+% (probably before MS-Complexes were implemented).
+  
+\item[NumberOfSets] This number indicates how many lines of complex
+  types follow;
+  
+\item[Set\emph{x}] Each line defining a complex type must start with
+  Set\emph{x}, where \emph{x} is the line number. Note that the
+  numbers have to be consecutive, and must start with \textbf{1}.  You
+  can put one complex symbol per line, or a list of complex symbols,
+  joined with commas (\textbf{strongly discouraged}. This feature is
+  not handled by the Tk interface).  The maximum number of
+  complex types that can be defined in a simulation is
+  \MAXCOMPLEXTYPES{}. The symbol of the complex is a concatenated
+  string consisting of the symbols representing components of the
+  complex type.  The maximum number of components per complex is
+  \MAXCOMPONENTSINCOMPLEX{}.
+  
+%% suppressed for the moment (parsing of the complex symbol)
+%\item[Comp\emph{x}] These lines are not read by the \stochsim{} simulator
+%  itself, but by the helper programs (e.g. Tk based interface).
+%  Each line contains a list of component symbols that form one complex
+%  type.  Note the order is important here! (e.g. A,B,C,D forms a
+%  different complex from B,C,D,A)
+
+\item[Description\emph{x}] The description of the complex.  This parameter
+is not mandatory, since it is not used by the \stochsim{} simulator
+itself.
+\end{description}
+
+\subsection{[Initial Levels]}
+This section specifies initial levels of each complex. Levels are
+expressed in number of molecules, \emph{not a concentration}, so
+values must be given in \textbf{integers}.  Note that for multistate
+complex types, only the total level is specified here (the level of
+each state is specified in the multistate configuration file).  One
+line of the following format per complex must be defined in this
+section: \\[\baselineskip] \emph{Symbol}=\emph{Level}
+\\[\baselineskip] 
+where \emph{Symbol} is the symbol for a complex type, and \emph{Level}
+is its initial level.
+
+\subsection{[Special Complex Types]}
+This section specifies what special complex types are being used
+(currently, only multistate complex types fall under this category).
+
+\begin{description}
+\item[SpecialTypes] Define any special complex types to be used in the
+  simulation. Currently, the value of this parameter can be either
+  ``Multistate\_Complex'' or empty.
+  
+\item[Multistate\_Complex] A comma-separated list of symbols, one for
+  each multistate complex type in the reaction system.
+
+\item[\emph{S}INIFile] The file containing the specifications of the multistate
+       complex \emph{S}. Define one line of this format per multistate
+       complex being used.
+\end{description}
+
+\subsection{[Display Variable \emph{X}]}
+If the parameter \textbf{DisplayAllLevels} (in the \textbf{[Options]}
+section of \texttt{STCHSTC.INI}) has been set to 0, you must specify the
+variables to be displayed here. Each display variable must have a
+section headed [Display Variable \emph{X}], where \emph{X} is a unique
+numerical identifier for each display variable for this complex type,
+starting with \textbf{1}.
+
+\begin{description}
+\item[Name] Name of the variable.
+\item[Types] A comma-separated list of the complex type(s) this
+  variable represents.
+\end{description}
+
+
+\section{The configuration of reactions (\texttt{REACTION.INI})}
+\label{reaction_ini}
+This file (\texttt{REACTION.INI}) contains the description of the reactions
+which can take place during the simulation. Each reaction is
+considered to be a reversible reaction with separate forward and
+reverse rate constants. For an irreversible reaction, set the reverse
+rate to zero. The rate constants are expressed in standard units,
+according to the order of the reaction (s\textsuperscript{-1} is used
+for unimolecular reactions, and
+M\textsuperscript{-1}s\textsuperscript{-1} for bimolecular reactions
+).
+
+\subsection{[General]}
+This section contains only one parameter.
+
+\begin{description}
+\item[NumberOfReactions] The number of reactions in the simulation
+(integer).
+\end{description}
+
+\subsection{[Reaction \emph{X}]}
+The section for each reaction should start with a title [Reaction
+\emph{X}] where \emph{X} is the reaction number.
+\begin{description}
+\item[Description] An explicit description of the reaction. This
+  parameter is not mandatory, since it is not used by the \stochsim{}
+  simulator itself.
+
+\item[Substrates] A comma-separated list of substrates.
+
+\item[Products] A comma-separated list of products.
+  
+\item[kf] Forward rate constant (floating point). If a dynamic value
+  is being used, use the form, \emph{X}@\emph{Code} (see section
+  \ref{r_dv_notes}).
+  
+\item[kr] Reverse rate constant (floating point). If a dynamic value
+  is being used, use the form, \emph{X}@\emph{Code} (see section
+  \ref{r_dv_notes}).
+\end{description}
+
+\subsection{Notes on using dynamic values in this file (\texttt{REACTION.INI})}
+\label{r_dv_notes}
+If the rate constants can change over time, dynamic values must be
+used.  To specify a reaction rate using a dynamic value, use the
+following form:\\[\baselineskip]
+\emph{X}@\emph{Code} where \emph{X} is the maximum rate the reaction
+can achieve and \emph{Code} is the symbolic code identifying this rate
+constant in the file controlling the value dynamically changing over
+time. eg 15@Reaction1.  The actual behaviour of dynamic values are
+configured in a separate configuration file (DYNAMIC.INI).
+
+
+\section{The configuration of dynamic values (\texttt{DYNAMIC.INI})}\label{dynamic_ini}
+This file (\texttt{DYNAMIC.INI}) contains the configuration of the dynamic
+values, i.e.  the details of the objects which change over time. There
+are three types of objects which can change over time:
+
+\begin{itemize}
+\item Reaction rates (see section \ref{reaction_ini})
+\item Rapid equilibrium probabilities for multistate complexes
+\item Reaction rates for multistate complexes (see section
+  \ref{ms_ini})
+\end{itemize}
+
+A number of time points are listed in the \textbf{[General]} section
+of this file. The value of all dynamic values must be assigned for
+each time point.  All times are either in seconds or iterations
+depending on what was specified for units in the main configuration
+file.
+% When dynamic values are used in the definition of objects in other INI
+% files, a code identifying the listing in this file.
+
+\subsection{[General]}
+\begin{description}
+\item[NumberOfSets] The number of time points in the simulation at
+  which the dynamic values change.
+
+\item[Set\emph{X}] Each set contains a list of time-points at which
+  dynamic values change.
+\end{description}
+
+\subsection{[Time \emph{T}]}
+Each \textbf{[Time \emph{T}]} section must contain a line for each
+dynamic value, with its value at time \emph{T}. Each line of this
+section has the form:
+\\[\baselineskip] 
+\emph{Code}=\emph{Value}
+\\[\baselineskip]
+where \emph{Code} is the code of the dynamic value and
+\emph{Value} is its actual value at time \emph{T}.  \emph{Value} may
+be left blank for dynamic values that do not change at time \emph{T}.
+
+\section{Configuration of the multistate complexes (\texttt{MS\_\emph{X}.INI})}
+\label{ms_ini}
+
+If multistate complexes are to be used in a simulation, a separate
+configuration file must be defined for each multistate complex type.
+These files can take any name, as long as it matches that specified in
+the complex configuration file (\texttt{COMPLEX.INI}).  However, we recommend
+using file names of the following form, which both the Perl/Tk and
+MFC GUIs recognise as multistate configuration files:
+``\texttt{MS\_\emph{X}.INI}'', where \emph{X} is a unique numerical identifier
+for each multistate complex type in the system, starting with
+\textbf{1}.\par
+
+The multistate configuration file contains all the additional
+information about multistate complexes (MS-Complexes), multistate
+reactions (MS-Reactions) and multistate rapid equilibria
+(MS-RapidEqm's) needed by \stochsim{}, which has not already been given
+in the other four configuration files (\texttt{STCHSTC.INI}, \texttt{COMPLEX.INI},
+\texttt{REACTION.INI} and \texttt{DYNAMIC.INI}).  For example, the initial level (or
+more precisely, the initial \emph{total} level) of an MS-Complex type
+is already given in the complex configuration file (\texttt{COMPLEX.INI}), but
+the initial levels for each state of the multistate complex must be
+defined here (in MS\_\emph{X}.INI).  Similarly, all simple
+unimolecular and bimolecular reaction rates are given in the reaction
+configuration file (\texttt{REACTION.INI}), but information specific to
+MS-Reactions (i.e. all reactions involving MS-Complexes), such as how
+the different states of an MS-Complex will affect reaction rates, and
+the effect that an MS-Reaction has on the state flags of product
+MS-Complexes, must be specified here.
+
+\subsection{How multistate molecules work}
+In \stochsim{}, the state of an MS-Complex can affect two things:
+
+\begin{description}
+\item[Reaction Rates] \stochsim{} reactions and their rates are defined
+  in the reaction configuration file (\texttt{REACTION.INI}).  However,
+  reactions involving MS-Complexes (we will call these reactions
+  MS-Reactions) are treated differently by the simulator, and
+  therefore require some additional information before the simulation
+  can begin.  The difference between MS-Reactions and normal \stochsim{}
+  reactions are:
+  \begin{description}
+  \item[How reaction rates are computed] Normal \stochsim{} reaction
+    rates are determined only by the information in the reaction
+    configuration file (\texttt{REACTION.INI}).  The rate of MS-Reactions can
+    be affected by the state(s) of participating MS-Complex(es).
+    
+  \item[How the system is updated afterwards] After normal \stochsim{}
+    reactions occur, the reaction system must be updated by adding
+    product complexes, or removing substrate complexes as necessary.
+    When MS-Reactions occur, it may also be necessary to update the
+    state of individual MS-Complexes, i.e. certain state flags of
+    participating MS-Complexes may have to be turned on or off.
+
+  \end{description}
+  
+\item[Rapid Equilibrium Probabilities] MS-RapidEqm's are a facility of
+  MS-Complexes which helps to deal with stiffness in a reaction
+  system.  If certain state flags are controlled by very fast
+  processes (such as conformational changes of a protein), defining
+  these state changes as MS-Reactions would force the time-increment
+  of the simulation to be made very small.  This can cause a very
+  large increase in simulation time.\par
+  
+  Instead, \stochsim{} allows such flags to be controlled by
+  MS-RapidEqm's.  When a complex is chosen for reaction, \stochsim{} will
+  first ``equilibrate'' any rapid equilibria defined for the complex.
+  Here, to ``equilibrate'' a binary flag simply means to decide
+  whether it is in the on or off state, according to a predefined
+  \emph{rapid equilibrium probability}.\par
+  
+  Now, a rapid equilibrium probability can itself be affected by the
+  state of other flags within the same MS-Complex.  For example, the
+  conformational equilibrium of a protein may be affected by the
+  binding of a ligand molecule, or covalent modification at a certain
+  site.  By using MS-RapidEqm's effectively, such protein complexes in
+  signalling pathways can be modelled with relative ease.
+
+\end{description}
+
+
+\subsection{[General]}
+\begin{description}
+\item[StateFlags] A comma-separated list of state flag names (the
+  maximum length for the name of each flag is \MAXMSFLAGLENGTH{}
+  characters).
+  
+\item[NumRapidEqm] The number of flags controlled by rapid equilibria
+  (integer).
+  
+\item[Reactions] A comma-separated list of all reactions involving
+  this MS-Complex. Reaction names are given in the form ``\emph{XD}'',
+  where \emph{X} is the reaction number and \emph{D} is the direction
+  (`F' for forward and `R' for reverse).  For example, ``4F'' for the
+  forward sub-reaction of reaction 4, as it appears in the reaction
+  configuration file (\texttt{REACTION.INI}).
+  
+\item[NumDisplayVariables] The number of multistate variables
+  (MS-Variables) which will be displayed (see section
+  \ref{ms_variables}).
+\end{description}
+
+\subsection{[Initial States]}
+This section defines the initial states of the MS-Complex.
+\begin{description}
+\item[Wildcards] A comma-separated list of all bit strings below which
+  contain one or more of the wildcard character, '?'. Wildcards
+  represent \emph{both} 0 and 1.
+
+\item[\emph{BitString}] As many lines as necessary of the
+following form can be written here to define the initial level of each
+state of the MS-Complex:\\[\baselineskip]
+\emph{BitString}=\emph{Value}
+\\[\baselineskip]
+where \emph{BitString} is a bit string that specifies a particular
+state, and \emph{Value} is the number of MS-Complexes in that state.
+Note that wildcard strings can be used in place of bit strings here to
+specify initial levels of multiple states in a single line.
+\end{description}
+
+\subsection{[Rapid Equilibrium \emph{X}]}
+Each MS-RapidEqm must have a section headed [Rapid Equilibrium
+\emph{X}] where \emph{X} is a unique numerical identifier for each
+MS-RapidEqm of this MS-Complex, starting with \textbf{1}.
+
+\begin{description}
+\item[Flag] The name of the state flag which is controlled by the
+  rapid equilibrium. ``State'' is also accepted for backward compatibility but
+  is deprecated.
+  
+\item[Wildcards] Comma-separated list of all bit strings below which
+  contain one or more of the wildcard character, '?'. Wildcards
+  represent \emph{both} 0 and 1.
+       
+\item[\emph{BitString}] As many lines as necessary of the following
+  form can be written here to define the MS-RapidEqm probabilities
+  (i.e. the probability that the flag controlled by this MS-Rapid Eqm
+  will be on)
+  associated with particular states of this MS-Complex:\\[\baselineskip]
+  \emph{BitString}=\emph{Value}
+  \\[\baselineskip]
+  where \emph{BitString} is a bit string that specifies a particular
+  state (note that wildcard strings can be used in place of bit
+  strings in these lines to specify initial levels of multiple states
+  in a single line).  \emph{Value} is the probability expression,
+  which can take one of two forms:\\[\baselineskip]
+  \emph{P\down{on}}\\[\baselineskip]
+  where \emph{P\down{on}} is simply the probability of the flag
+  being on (floating point), or\\[\baselineskip]
+  \emph{T\down{off}},\emph{T\down{on}}\\[\baselineskip]
+  where \emph{T\down{off}}:\emph{T\down{on}} is the ratio, (time
+  spent in the off state):(time spent in the on state).  For
+  example, the following two lines are equivalent:\\[\baselineskip]
+  ????=0.75\\[\baselineskip]
+  ????=1.0,3.0\\[\baselineskip]
+  So you can use either a single floating point value, or a ratio of
+  two floating point values.
+
+\end{description}
+
+\subsection{[Reaction \emph{XD}]}
+Each reaction involving a multistate complex (an MS-Reaction) must
+have a [Reaction \emph{XD}] section where \emph{X} is the reaction
+number and \emph{D} is direction ('F' or 'R').  MS-Reactions are
+computed by using \emph{relative rates} specific to certain states of
+an MS-Complex.  Relative rates are simply factors by which the maximum
+rate of reaction (defined in \texttt{REACTION.INI}) are multiplied to obtain a
+final reaction probability.  The effect of an MS-Reaction on the
+product MS-Complex must also be defined here.
+\begin{description}
+\item[Effect] A comma-separated list of the effects that this
+  MS-Reaction has on the state flags of this MS-Complex.  A '+'
+  character indicates that a flag is set (0 => 1); a '-' indicates
+  that a flag is cleared (1 => 0).
+  
+\item[Wildcards] Comma-separated list of all bit strings below which
+  contain one or more of the wildcard character, '?'. Wildcards represent \emph{both} 0 and 1.
+\item[\emph{BitString}] As many lines as necessary of the following
+  form can be written here to define the relative rates of this
+  MS-Reaction associated to particular states of this
+  MS-Complex:\\[\baselineskip]
+  \emph{BitString}=\emph{Value}
+  \\[\baselineskip]
+  where \emph{BitString} is a bit string that specifies a particular
+  state, and \emph{Value} is the relative rate associated with that
+  state.  Note that wildcard strings can be used in place of bit
+  strings here to specify relative rates for multiple states in a
+  single line.
+
+\end{description}
+
+\subsection{[Display Variable \emph{X}]}\label{ms_variables}
+If the parameter \textbf{DisplayAllLevels} (in the \textbf{[Options]}
+section of \texttt{STCHSTC.INI}) has been set to 0, you must specify the
+multistate variables (MS-Variables) to display here.  Each MS-Variable
+must have a section headed [Display Variable \emph{X}], where \emph{X}
+is a distinct number assigned to each variable.  Note that these
+numbers have to be consecutive, and must start with \textbf{1}.
+
+\begin{description}
+\item[Name] Name of the variable.
+\item[States] A comma-separated list of the states of this MS-Complex
+  that this variable represents.
+\end{description}
+
+\subsection{Notes on using dynamic values in this file (\texttt{MS\_\emph{X}.INI})}
+\begin{itemize}
+\item If the relative rates associated with an MS-Reaction can change
+  over time, then they should be specified as (for each bit
+  string or wildcard string):\\[\baselineskip]
+  \emph{X}@\emph{Code} where \emph{X} is the maximum relative rate
+  associated with this dynamic value (floating point), and \emph{Code}
+  is the symbolic code identifying this rate constant in \texttt{DYNAMIC.INI}
+  (e.g.  0.8@Reaction1).\par
+  
+\item If an MS-RapidEqm probability can change over time, then it can
+  be specified in one of two ways (for each bit string or
+  wildcard string): \\[\baselineskip]
+  \emph{X},\emph{Y}@\emph{Code} where \emph{X} is the probability that
+  the state flag is off and \emph{Y} is the probability that the state
+  flag is on and \emph{Code} is a symbolic code identifying this value
+  in the dynamic values configuration file (\texttt{DYNAMIC.INI}).  e.g.
+  1,1@RE1.\par
+  Alternatively,\\[\baselineskip]
+  \emph{X}@\emph{Code} where \emph{X} is the probability that the
+  state flag is on and \emph{Code} is a symbolic code identifying this
+  value in the dynamic values configuration file (\texttt{DYNAMIC.INI}).  e.g.
+  0.5@RE1;
+\end{itemize}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "stochsim_manual"
+%%% End: 

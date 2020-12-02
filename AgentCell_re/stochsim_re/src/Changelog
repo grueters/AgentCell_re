@@ -1,0 +1,689 @@
+previous
+	 - Changes to C_System::Run() loop
+		- m_nArrayEquilFreq is checked in every iteration
+		- m_bAveraging is checked in every iteration
+
+12/05/2000
+	 - Changed initialisation of variable store to be compatible
+	   with non-Array simulations. (_System1.cpp)
+	 - Changed destructor for C_Complex_Type_Multistate_Reaction
+	   to virtual
+
+15/05/2000
+	 - Made changes in format strings (%d -> %ld and %lf -> %f)
+
+16/05/2000
+	 - Changed destructor for C_Output_Variable_Multistate_Averaged
+	   to pure virtual function (had copied unnecessary code from
+	   ancestor class)
+	 - Fixed bug in destructor of C_Output_Variable_Array.
+		(delete -> delete[])
+	 - MEMORY LEAK FIXED!!!!!!
+	   Removed m_pAddress of C_Complex_Neighbour_Sensitive, which
+	   was the cause of a rather large memory leak.  
+           The destructor of this class, the function Get_Address(),
+	   Set_Address() and the relevant routines which refer to them
+	   in the initialisation were also removed.
+10/08/2000
+	 - First version of C_Complex_Type_Neighbour_Sensitive_Reaction.
+		- Inherits C_Complex_Type_Multistate_Reaction, and has
+		  the following additional private attributes:
+
+		  double**                      m_pNSPrArray;
+		  long                          m_pCoupledStateWCMask;
+		  long                          m_pCoupledStateWCValue;
+16/08/2000
+	 - Changed CT_MS::P_Reactions to protected member.
+	 - NS_Reactions have two relative probabilities (Rel_probs):
+		- Rel_prob of the base class (MS_CT)
+		- Rel_prob specific to NS
+	   The two Rel_probs are multiplied to obtain the final Rel_prob
+	   at any point in the simulation.
+	   (m_pCoupledStateWC[Mask|Value] are no longer necessary)
+
+19/08/2000
+	 - Fixed rounding error in OV_Av and OV_MS_Av!! Used mathlib
+           function rint().
+	
+20/08/2000
+	 - Completed implementation of neighobur-sensitive reactions.
+           At initialisation time, the new CT_NS_R class objects
+	   replace CT_MS_R objects in the P_Reactions array of CT_NS,
+	   only for reactions wich are actually neighbour-sensitive.
+	   However, since the P_Reactions array is an array of CT_MS_R
+	   type pointers, there are some complications which arise when
+	   accessing members of the CT_NS_R objects.  Quite a few
+           explicit (and ugly) type casts were necessary to make
+	   everything work.
+	
+	 - CT_NS_R is first initiallised as a CT_MS_R in CT_MS::Init(),
+	   and then NS-specific initialisation occurs in
+	   CT_NS_R::Init(), called from CT_NS::Init().
+	 - CT_NS::Get_Relative_Probability() was newly implemented.
+	 - The NS_*.INI file format was modified so that
+	   neighbour-sensitive reactions can be specified.  The new
+	   format is very similar to that of MS_*.INI.
+	   *Note that with the present implementation,
+	   neighbour-sensitive reactions must be defined separately for
+	   each neighbour with which it can occur (e.g. for a reaction
+	   R which can occur between a complex and its four nearest
+	   neighbours, R must be defined four times as Rn, Re, Rs and
+	   Rw, even if reaction rates are identical).
+
+25/08/2000
+	 - Implemented command-line argument "-f" for config file
+	   (STCHSTC.INI), requested by Nicolas. Used getopt() function
+	   (unistd.h).
+
+01/10/2000
+	 - Fixed minor bug in CT_NS::Calc_Effective_Total_Pr().
+	 - Removed _CTFuzzy.cpp and
+           C_System::Init_Complex_Types_Fuzzy() from source code.
+           Probably won't need them again, but kept them to directory
+	   called Fuzzy.
+
+11/10/2000
+	 - Added attribute m_bUsingSpatialExtensions to C_System, and
+           added a corresponding parameter UseSpatialExtensions in
+	   the [Options] section of STCHSTC.INI. 
+12/10/2000 
+	 - Reorganised INI file formats and corresponding code.  Mainly
+	   to make it so that ARRAY.INI is not required to run
+           non-spatial simulations, but also to get rid of some
+           obsolete, or currently unnecessary, parameters:
+		- NumRapidEqm in [Complex Types] section of COMPLEX.INI
+	        - InitialState in [ARRAY_NAME] section of ARRAY.INI
+		- FixedCoordinates in [ARRAY_NAME] of ARRAY.INI
+		- Removed underscore characters('_') from all parameter
+		  names for consistency.
+17/10/2000
+	 - Fixed _OV_AStore.cpp, so that the COORD output files only get
+           created when WatchCoordinates are specified in ARRAY.INI.
+23/10/2000
+	 - Implemented boundary conditions for complex array.  A new
+           parameter, "BoundaryCondition" must now be defined in ARRAY.INI
+	   (0 = Toroidal, 1 = Normal boundaries). The implementation should
+	   be tested rigorously (using gdb), but it seems to be working
+	    alright.
+25/10/2000
+	 - Fixed bug in CT_NS::Calc_Effective_Total_Pr().  The bug was
+	   causing an overestimation of the effective total reaction
+	   probability for neighbour sensitive reactions, which in turn
+	   caused very small time increments to be used after optimisation.
+         - Fixed Console App's problem of logging all the variable displays
+           during simulation.  A new macrodef MSG_TYPE_NOLOG was defined,
+           and appropriate changes were made in C_Application::Message so
+	   that this message type can be handled.
+	 - Fixed bug(?) in C_Complex_Array::~C_Complex_Arrray().  This was
+	   causing StochSim to hang after the completion of simulation
+	   (during the destruction of Com_Array objects), and therefore
+	   was a potential source of memory leaks.  It is not clear what
+	   the problem was, but reversing the order of deleting members of
+	   the P_P_Complex[][] array seems to have fixed the problem.
+29/10/2000
+	 - Fixed minor bug in destructor of CT_NS_R, which was causing
+	   StochSim to hang after completion of simulations using
+	   NS-Reactions.
+02/11/2000
+	 - Changed return value of Con_Main.cpp:main() so that it returns
+	   zero when there was no error and 1 if there was an error.
+11/12/2000
+	 - Found out that 25/10/2000 fix of
+           CT_NS::Calc_Effective_Total_Pr() was incomplete.  The
+           effective total reaction probability was still being
+           overestimated.  Changed the method now iterates through all
+           possible 
+05/01/2001
+	 - Fixed bug in _CT_NS::Init(), which was replacing all
+           MS-Reaction objects with NS-Reaction objects, regardless of
+	   whether the reaction is actually neighbour-sensitive.
+07/01/2001
+	 - Changed _OV_A::Inc_Values() and _Com_Array::Get_Complex()
+           to be more efficient.  This was done by eliminating the use
+           of the _IP struct for specifying the address for
+           Get_Complex(), which was causing quite a big waste in
+           computation time.  Get_Complex() is overloaded at the
+           moment.  The use of the _IP struct should be completely
+           eliminated eventually, but this function was the only place
+	   it was doing any real damage to efficiency. 
+	 - Discovered that _CT_MS::Get_Is_Rpd_Eqm() was unnecessarily
+           declared as virtual, which was causing it not to be
+           processed as an inline function, and therefore was
+           producing unnecessary function-call overheads.
+29/01/2001
+         - Changed format of [Rapid Equilibrium] section MS_X.INI and
+	   NS_X.INI, so that what is currently "State=" becomes
+           "Flag=".  This makes more sense, as this line specifies
+           which flag is controlled by the rapid eqm, not specific
+	   states. "State=" can still be used - for backward
+	   compatibility.
+21/03/2001
+	 - Implemented a more efficient way of simulating models with only
+	   unimolecular reactions defined.  (Previously, the number of
+	   pseudo-molecules was set to 1 when no bimolecular reactions were
+	   defined.  This means that reactions would only be tested for once
+	   every n iterations - on average.)  Now the number of
+	   pseudomolecules is set to (MAX_LONG - m_nMaxNumComplexes),
+           so as to minimise the number of iterations with no
+           probability of reactions occuring.
+22/03/2001
+         - Increased floating point precision of probability output 
+           for dumping the reaction matrix. (PREC_PROBABILITY)
+26/04/2001
+	 - Workaround for bug in creating new multistate complexes
+           during simulation, which was causing a segmentation fault.
+           For the moment, all multistate complexes created as a
+	   reaction product will have a state of zero (all flags cleared).
+27/04/2001
+	 - Changed INI file format so that "DisplayFrequency" and
+           "StoreFrequency" can now be written as "DisplayInterval"
+            and "StoreInterval", which seems to make more sense.
+11/05/2001
+	 - Major overhaul of output system.  A new class C_Output_Manager
+	   has been created to handle the output-related operations that
+	   were being carried out by C_System.  C_Output_Manager is an
+	   abstract class. One of its descendants, C_Output_Manager_Complex
+	   handles complex type level output, and another descendant,
+           C_Output_Manager_Array, handles complex array output. 
+	   Major changes include:
+		* Array dump output facility (this will be useful when a
+		  compatible input facility is implemented).
+		* Improved efficiency of C_System::Run() (all calls to
+		  ldiv() have been replaced with iteration counters, which
+		  are more efficient).
+17/05/2001
+	 - Implemented new geometry scheme for complex arrays.
+	   C_Complex_Array is now an abstract class which is inherited by
+           three descendants, C_CA_Square, C_CA_Trigonal, C_CA_Hexagonal.
+           The internal representation of the arrays (2-D arrays of
+	   C_Complex_Multistate pointers) remain unchanged, but the
+           three classes differ in how they assign neighbours to
+	   NS-Complexes.  Still some bugs in the Hexagonal geometry, but
+           the trigonal array is working smoothly.
+		* A new graphical representation program has also been
+                  written in Python.  This program is much more flexible
+                  than the previous scripts - it can draw triangular or 
+                  hexagonal arrays by parsing the array snapshot file, and
+                  generage images for each frame. The final step of putting
+	          the still images together to make the animation still
+	          requires the GIMP, but this problem should be rectified
+                  soon.
+25/05/2001
+	 - Checked that new geometry is working correctly using some
+	   debugging routines (#ifdef _NS_R_DEBUG) that count the number of
+           times that neighbour-sensitive reactions are called.  These
+	   routines could be useful for some simulations, so it might be
+           worth creating a new output varable for reactions?
+29/05/2001
+         - Changed output format of non-averaged array snapshots from ascii
+           to XPM.  This is more useful, and consistent with the
+	    documentation.
+30/05/2001
+         - Fixed a minor bug in _Com_Array.cpp, which was allowing simulations
+           with illigal boundary conditions for hexagon and triangle arrays.
+19/07/2001
+	 - Changed the definition of MS-Reactions.  Previously, any reaction 
+	   involving an MS-Complex was considered an MS-Reaction.  Therefore,
+           an entry in the MS_X.INI file had to be present for a reaction
+           even if no flags were modified, and StochSim seg-faulted if this
+           entry was not found.  CT_MS::Get_Relative_Probability() and 
+           CT_MS::Get_Flag_Modifiers() have been changed so that it
+           is no longer necessary to do this.
+15/08/2001
+	 - Fixed bug in initialisation of Hexagonal arrays.  There was a
+            problem for non-toroidal boundary conditions.
+24/08/2001
+	 - Increased MAX_NUM_DYNAMIC_VALUES to 16.
+28/08/2001
+	 - Re-enabled state-updating of newly created MS-Complexes.  This
+           was disabled previously, because the implementation of MS-Complex
+	   creation is still incomplete.
+03/09/2001
+	 - Fixed a type cast bug in output manager which was causing the store
+           and display intervals to be 1 when their values were between
+           MAX_LONG and MAX_UNSIGNED_LONG.
+13/09/2001
+	 - Fixed minor bug in _App.INI that was causing a seg-fault when 
+           a wrong simulation configuration file (STCHSTC.INI) is used.
+30/10/2001
+	 - Implemented new initialisation routine for complex arrays, which
+	   allows the initial state of complex arrays to be specified by dump
+	   files from other simulations.  The implementation is quite
+	   inefficient, in that it retrieves the state of each complex from
+           the dump file one at a time.  Would be much more efficient if the
+           state of the entire array is read in one go.
+31/10/2001
+	 - Implemented new parameter "DumpInterval" in the main simulation
+	   configuration file (STCHSTC.INI), which allows the user to specify
+	   the interval at which dumps of the complex type levels will be
+	   output.  Previously, this interval was tied to the store interval
+	   of variables, which resulted in huge dump files.  The value of
+	   "DumpInterval" defaults to zero if unspecified.  This results in
+	   dumps only at the beginning and end of the simulation.
+05/11/2001
+	 - Improved implementation of complex array initialisation from dump
+	   file.  The dump file is now only read once, the state of the array
+	   is stored in temporary memory space before being used to initialise
+	   the array.
+01/04/2001
+ 	 - Reintroduced output averaging support for complex variables...
+	   only with compile time option _AVERAGING, though... to use this,
+	   "AveragedOutput=1" must be specified in the [Options] section of
+           STCHSTC.INI and "SampleInterval=<floating point number>" must be
+	   specified in ARRAY.INI - should move to STCHSTC.INI
+16/04/2001
+ 	 - Fixed minor initialisation bug which was causing output averaging
+	   to be turned on when spatial extensions were turned off (only on
+	   Alpha platforms).
+19/07/2002
+ 	 - Implemented complex level initialisation from a dump file.
+	   Modified C_System::Init_Complex_Levels() and CT_MS::Init().
+	   Three new parameters were introduced to the "Initial Levels" 
+           section of COMPLEX.INI:
+		FromDumpFile - Optional flag specifying whether or not 
+			       complex levels should be loaded from file
+                InitialLevelsFile - File name to get complex levels from
+		InitialLevelsFromTime - Time at which complex levels
+                                        should be extracted from specified file
+25/07/2002
+ 	 - Fixed platform-dependent bug for MacOS X, where the size of
+	   MAX_INPUT_FROM_DUMP_LINE_LENGTH was causing problems when trying
+	   to allocate a char array of this size (~1MB) from the stack
+	   (in _System1.cpp and _CT_MS.cpp).  These arrays are now allocated
+	   from the heap using the C++ 'new' keyword.
+29/07/2002
+ 	 - Fixed a bug involved in the snapshot output of multiple arrays.
+	   (C_System::Init__Array_Variables).
+30/07/2002
+ 	 - Fixed minor bug in yesterday's bug fix...oops!
+	   (C_System::Init__Array_Variables).
+01/08/2002
+ 	 - Improved error checking of the array INI file - StochSim will now
+	   output an error and quit if the number of Snapshot Variables
+	   requested in the [General] section are not successfully created.
+	   (C_System::Init__Array_Variables).
+06/08/2002
+ 	 - Fixed minor bug in which array dumps were out put multiple times
+	   at the initialisation and termination of simulations.
+           (C_Output_Manager_Array::Display_And_Store).
+12/08/2002
+ 	 - Increased memory allocated to store array names read in from
+	   the [General] section of ARRAY.INI, as pointed out by Sergej
+	   (lpszArrays in C_System::Init_Complex_Arrays()). This was causing
+	   problems when the number of defined arrays were very large.
+19/08/2002
+ 	 - Further increased memory allocated to store lines from INI files,
+	   array names and array variables to accomodate simulations with
+	   large numbers of arrays (increased MAX_INI_VALUE_LENGTH_LONG and
+           MAX_INI_LINE_LENGTH to 8192 in _Stchstc.hh;
+           MAX_NUM_ARRAY_SNAPS_VARIABLES and MAX_NUM_ARRAY_DUMP_VARIABLES to
+	   4096 in _Stch_spc.hh).
+14/10/2002
+ 	 - Implemented workaround for IBM AIX incompatibility reported by
+	   David Sussilo and Dimitris Anastassiou.  This was a strange
+	   optimisation-related problem where the code would run just fine
+	   with g++ -O, but not with any higher level of optimisation.  
+	   The problem was at _System1.cpp:353,
+		sprintf(lpszParaList, lpszFormatStr, m_flNumIterations,
+	                m_flNumIterations * m_flTimeInc);
+	   Simply changing this to:
+		sprintf(lpszParaList, lpszFormatStr, m_flNumIterations,
+	                flSimDuration);
+           did the trick. Very strange...
+23/03/2003
+	 - Made changes for Standard C++ Library compatibility:
+		* ifdef's used (_STD_CPP) to include <iosfwd>, <iostream>,
+		  etc. in Stchstc.hh
+		* Removed all instances of ios::nocreate, which has been
+		  deprecated in StdC++.  This should not cause any problems
+		  because it was only used in opening input files
+		  (in e.g. App.cpp, System1.cpp)
+		* Had to explicitly typecast _Ios_Openmode in Glob_Fn.cpp
+23/03/2003
+	 - Implemented binary output option for variable values.  A new
+	   bolean-valued parameter "StoreInBinary" has been introduced to
+	   the main simulation configuration file (STCHSTC.INI).  When this
+	   is on, variable values are written in binary format (instead of
+	   ascii text).  Under normal conditions, there is little difference
+	   in speed, but the output file size can be significantly reduced
+	   (3~4-fold).
+		* Binary output is implemented in a new member function
+		  C_Output_Variable_Store::Save_Values_Bin().
+		* Used "Binfstream.h" kindly supplied by Thierry Emonet.
+	 - An auxiliary program "bin2txt" has been written
+	   (bin2txt.cpp) and included in the distribution.  From
+	   source, "make bin2txt" will produce the executable, and
+	   "bin2txt binary_file" will dump the ascii translation of
+	   "binary_file" to the standard output.
+24/03/2003
+	 - Edited code related to compile-time macro _AVERAGING a bit so
+	   that the (usually) more efficient updating scheme of variable
+	   values can be used not only when output is being averaged, but
+	   for any simulation run.  Compiling with -D_AVERAGING will
+	   replace: 
+		(1) The use of C_Output_Variable_Complex  and
+	            C_Output_Variable_Multistate with their descendants
+	            C_Output_Variable_Complex_Averaged and
+	            C_Output_Variable_Multistate_Averaged.
+		(2) Portions of code where these variables are updated.
+	   The main difference is that with _AVERAGIG defined, the system
+	   updates Complex Type levels after every reaction event in the
+	   simulation, instead of counting up all the molecules every time
+	   variables are being updated.  The former method introduces a
+	   small overhead but this cost very small (a couple per cent)
+	   compared to the amount of time spent in counting complexes for
+	   high output frequencies, so method has been made the default in
+	   the makefile options.
+25/03/2003
+	 - Incorporated additional changes reported by David C. Sussilo
+	   that are necessary for compilation and smooth execution on IBM
+	   AIX's native compiler (preprocessor macro: _AIX).
+02/04/2003
+	 - Fixed bug in initialisation reported by Nicolas.  The problem was
+	   a seg fault that occurred when CreateDumpFile=0 and
+	   DumpInterval={nonzero} in STCHSTC.INI. This was caused by
+	   a faulty checking mechanism when referencing the dump variable
+	   store pointer in _OM_C.cpp.
+21/06/2003
+	 - Fixed bug reported by Thierry Emonet. This was a very important
+	   bug related to how rapid equilibria (RE) are handled.  The program
+	   was relying on complexes being equilibrated when chosen for reaction
+	   and did not explicitly call CT_MS::Equilibrate everytime
+	   CT_MS::Inc_Level() was called.  So if there is a reaction that
+	   produces a state with zero probability in the RE, and the propensity
+	   of this reaction is sufficiently high compared to the simulation
+	   time increment, these states will be occupied erroneously. This
+	   problem had not been noticed before because the effect vanishes when
+	   the simulation time increment is very small compared to the
+	   propensity of the reaction that provides the flux responsible for
+	   producing the erroneous states (as in chemotaxis simulations).
+	   The following changes were made to fix the bug:
+		For _AVERAGING builds:
+			- CT_MS.cpp: 
+				- In Create(): Call to Update() was moved so
+				  that it occurs before the call to Inc_Leve().
+			- Com_MS.cpp:
+				- In Update(): Added call to Equilibrate() so
+				  flanked by Dec_Leve() and Inc_Leve(). Also,
+				  the conditional that checkes whether any
+				  flags are modified was removed because
+				  the call to Equilibrate() necessitates the
+				  calls to Dec_Level() and Inc_Leve().
+				- In Equilibrate(): Removed calls to
+				  Inc_Level() and Dec_Level().
+			- Complex.cpp:
+				- Added callse to Inc_Level() and Dec_Leve() to
+				  flank Equilibrate().
+		For non-_AVERAGING builds:
+			- CT_MS.cpp:
+				- In Inc_Level(): Equilibrate() must be called
+				  here when updating variables by
+				  Calc_Complex_Type_Levels().
+23/06/2003
+	 - Completed bug fix of 21/06/2003, which contained an error that
+	   caused some models with MSCT<->CT reactions to se fault... oops! The
+	   calls to Inc_Level() and Dec_Level() for the second reactant in 
+	   Complex::Test_Reaction() needed to be called from its own complex
+	   type, rather than from that of the first reactant.
+	   NOTE: Another bug reported by Nicolas Le Novere was fixed during the
+	   course of the previous entry (21/06/2003).  This bug was related to
+	   the order in which Update() and Inc_Level() were called in
+	   CT_MS::Create(), and would cause problems when new
+	   multistate CT's were created in a reaction (but not in models
+	   where the substrate molecules are conserved, e.g. in chemotaxis
+	   simulations). 
+14/08/2003
+	 - Fixed bug reported by Leah Chock in the initialisation of complex
+	   arrays when using the option InitialState=FromConcentration. This
+	   bug was introduced in the 12AUG2002 release, probably while adding
+	   support for multiple arrays.  It does not affect array
+	   initialisations with the InitialState=FromDumpFile option, or when
+	   when all the complexes to be inserted with the
+	   InitialState=FromConcentration option have the same state (e.g. in
+	   an equilibration run).  The bug was in
+	   C_System::Init_Complex_Arrays().
+	 - Fixed another bug related to the entry 21/06/2003.
+	   (The Equilibration of NS_Complexes also needed to be flanked by
+	   Inc_Level() and  Dec_Level(), so this was added to
+	   C_Complex_Array::Equilibrate()).
+23/03/2005
+	 - Added new wrapper class SSWrapper, which inherits C_Application.
+	   The purpose of this class is to facilitate interfacing with other
+	   applications (such as AgentCell / REPAST) which wrap multiple
+	   StochSim instances and run them in parallel.  The interface 
+	   (specified in SSWrapper.hh) defines methods for:
+
+	 	* creating StochSim instances: createNative() method
+
+	 	* deleting StochSim instances: finaliseNative() method
+
+	 	* advancing simulation time in steps: stepNative() method
+
+	 	* retrieving the current time: getTimeNative() method
+
+		* retrieving the current amount of a named molecular species:
+	          getCopynumberNative() method
+
+		* changing dynamic values during a simulation:
+	          setDynamicValueNative() method
+
+	 - Because it is implemented as a descendant of C_Application, the
+	   interface also defines a number of virtual methods that need to be
+	   overridden, but are not currently used by SSWrapper.
+
+	 - A number of major changes to the global code were introduced to
+	   accomodate the new functionality of SSWrapper.
+
+		* Removed all global variables, including the C_Application
+	          type pointer (pApp) that was ubiquitously used for message
+	          handling and I/O.
+
+	 	* Added the new Step() method to C_System, which can be used
+		  by wrapper applications instead of C_System::Run() to advance
+	          the simulation time by a specified amount.
+
+	        * Added new public data member m_nRunID to C_Application, so
+		  that all running instances of StochSim applications can be
+		  uniquely identified.  In SSWrapper, the constructor takes an
+		  ID as an argument to set m_nRunID.  For the standard console
+		  application where there is only a single instance of
+	          C_Application m_nRunID is simply set to zero by the
+	          constructor.
+		* Modified the output file initialisation routines in _App.cpp,
+		  _OM_C.cpp and _RG.cpp, so that output files are numbered
+		  according to m_nRunID (e.g. if STCHSTC.INI specifies
+	 	  "VAR.OUT" as the output file name, the corresponding output
+		  files for m_nRunID=1,2,... would be "VAR1.OUT", "VAR2.OUT",
+			...).
+
+	 - Also added the sample test application WrapperTest.cpp, which
+	   demonstrates how to create, step through and talk to two StochSim
+	   simulation instances.
+
+23/11/2005
+	 - Fixed bug reported by Thierry Emonet.  This was a bug in the
+	   initialisation of NS-Complexes that was introduced when ifdefs
+	   for the IBM AIX compiler were inserted (see 25/03/2003).  In the
+	   constructor of C_Complex_Neighbour_Sensitive, the initialisation
+	   of m_nDefaultCouplingValue uses the value of another member variable
+	   m_nNumNeighbours.  But this assignment somehow got moved around and
+	   ended up preceding the initialization of m_nNumNeighbours. So
+	   using the uninitialized m_nNumNeighbours would sometimes give bogus
+	   values to m_nDefaultCouplingValue.  Since this is used in turn to
+	   specify a location in memory where the coupling-dependent
+	   RapidEqmProb is stored, seg faults could result when
+	   non-array-member NS-Complexes were equilibrated.
+
+23/11/2005
+	 - Merged with Thierry Emonet's code implementing 1-D arrays
+	   (_CA_Line.cpp).  Other modified files are:
+
+	    * _Stch_spc.hh, _Stch_cl.cpp, and _System1.cpp 
+
+	 - Also minor modifications to circumvent warnings issued by the
+	   Eclipse IDE.  Specifically,
+	   
+	    * nWildcardMask and nWildcardValue of _CT_MS.cpp are now
+	      explicitly initialized.
+
+	    * Virtual destructors were added to C_Dynamic Object,
+	      C_Application and C_Console_App.
+	 
+05/01/2006
+	 - Extensive change in code: changed type of iteration counter from
+	   (double) to (unsigned long long).  This also fixes the bug
+	   reported by Thierry Emonet, where Events set using SSWrapper
+	   after ~400s into the simulation were not being executed.  This
+	   was due to the sloppy rounding of the next event time (returned
+	   by C_Event_Manager::Get_Next_Event_Time()) by adding 0.5 and
+	   explicity casting to int (which is 32-bit by default in gcc).
+	   So when the next event time exceeded 2^31-1 = 2147483647, the
+	   cast would result in a negative value, and the event would no
+	   longer occur.
+
+	 - Fixed bug in SSWrapper.cpp, which was causing errors in setting
+	   two or more dynamic values.
+
+	 - Also fixed minor bug in _OM_C.cpp::Handle_Output(), which was
+	   causing the first (non-averaged) output (after zero time)
+           of rapidly equilibrated state variables to be erroneous. (Update()
+           needed to be called before _OVStore::Store(), not after).
+
+09/01/2006
+	 - Completed time-inc fix of 05/01/2006. All iteration counters
+	   (including those of output managers) were changed to the unsigned
+	   long long type, to ensure safe handling of these values.
+
+04/12/2006
+	 - Merged with various changes implemented by Thierry Emonet.
+	 - Completed implementation of explicit CWD specification - seems
+	   to be working fine on both Linux and Cygwin platforms.
+06/12/2006
+	 - Created getOVValue() method for the StochsimWrapepr class.
+	   This uses StochSim's internal C_Output_Variable class and its
+	   descendants to access the state of the system, and so can
+	   access both simple and multistate complex species, which
+	   StochsimWrapper::getCopyNumber() can not.  The new method,
+	   getOVValue(), searches for the output variable by its name
+	   (specified by a const char string), and accesses it's value
+	   through C_Output_Variable::Get_Value(). 
+
+	 - The build-option -D_AVERAGING has been renamed -D_DYNAMIC_UPDATE.
+	   "-D_AVERAGING" was previously used to insert code necessary for
+	   dynamically updating complex type levels after every reaction and
+	   equilibration event so that those values could be sampled without
+	   an exhaustive update using C_System::Calc_Complex_Type_Levels().
+	   The latter strategy was used in StochSim 1.0, but is inefficeint
+	   when sampling at high frequencies, since 
+		(a) it repeats the full counting procedure for every complex
+	            type, even when values have not changed, and
+		(b) RapidEqm flags of MS-Complexes are equilibrated every
+	            time Calc_Complex_Type_Levels() is called. 
+	   It turns out the dynamic updating of complex type levels provided
+	   by the "-D_AVERAGING" option is also required by the newly
+	   implemented StochsimWrapper::getOVValue(), described above.
+	   Therefore, the option has been renamed "-D_DYNAMIC_UPDATE" to
+	   avoid confusion.
+	 - As discussed above, the "-D_DYNAMIC_UPDATE" option is required for
+	   both output averaging and also for the new
+	   StochsimWrapper::getOVValue() functionality.  It should therefore
+	   be set in the standard makefile.  
+
+	- ***IMPORTANT NOTES*** 
+		1. getOVValue() and time-averaged output functionality are
+	           at present MUTUALLY EXCLUSIVE.  That is, they both
+	           function correctly on their own, but output is not
+		   guaranteed to be correct if getOVValue() is used together
+		   with output Averaging. Never combine the use of these
+	 	   unless you are absolutely sure of what you are doing.
+
+		2. If RapidEqm flags are used in the simulation, StochSim
+	           output will not be identical between builds with
+		   and without "-D_DYNAMIC_UPDATE". This is because, as noted
+	   	   above, builds without "-D_DYNAMIC_UPDATE" use
+		   C_System::Calc_Complex_Type_Levels(), and the latter will
+		   equilibrate all MS-Complexes during each call.
+	   
+05/07/2007
+	- Updated StochSimWrapper Mapper so that now StochSim is fully 
+	  compatible with AgentCell
+        - Updated some makefiles in the tests directory 
+
+	
+*TODO
+	 - 26/10/2001
+           Should change how m_nDefaultCouplingValue is set in the
+           constructor of NS-Complexes.  At present, it is set to half of the
+           number of neighbours, but this causes problems with trigonal arrays.
+	 - 30/08/2001
+	   It would be nice at some point to implement a caching mechanism
+ 	   for the output system, so that file I/O overhead can be reduced
+	   when output frequencies are high (especially when running on NFS).
+         - 25/07/2001
+	   Bimolecular reactions between two multistate complexes of the
+           same type cannot be defined properly at the moment.
+         - 24/07/2001
+	   Implement a way to define the state of multistate complexes that
+           are created by reactions.
+	 - 06/06/2001
+	   Might be interesting to try abolishing the EquilibrationInterval
+           attribute of complex arrays, and introduce a new type of
+	   NS-reaction which is unimolecular, but takes into account the
+	   state of all four neighbours, much like an NS-rapidEqm.  This may
+	   actually be more efficient because it would reduce the need to
+	   generate N random numbers to equilibrate a complex array with
+	   N elements, but it could be less efficient, because the rate of
+	   the NS-reaction would obviously be much faster than any other
+           reaction in the system, thus making the time-increment very small.
+	 - 30/05/2001
+           Must implement a DefaultProbability parameter for [Rapid
+	   Equilibrium X] section of NS_X.INI. (For the moment, the
+           default coupling value in _Com_NS.cpp is m_nNumNeighbours / 2).
+	 - 26/04/2001
+	   Would be nice to implement a way of defining the state of
+	   multistate complexes created as reaction products.
+	 - 28/03/2001
+	   Add necessary ifdef's for _DEC platform (time_t must be
+           int).
+	 - 28/03/2001
+	   Should implement command-line options for DOS.
+	 - 12/02/2001
+           Review output averaging scheme - may contain minor bugs.
+	 - 05/01/2001
+	   Profiled stochsim, and found that in the particular
+           simulation tested, quite a bit of execution time is wasted
+	   in CT_NS::Get_Relative_Probability().  This function takes
+	   a C_Reaction* pointer as its argument, and loops through
+           all the multistate reactions associated with the NS-complex
+	   before returning the appropriate probability.  In each loop,
+	   C_Reaction::Get_ID() and CT_MS_R::Get_ReactionID() are
+           called, and these are eating up a very large amount
+           (as much as 50 %) of execution time.
+	    - partially fixed(07/01/2001)
+	 - Get rid of C_Integer_Pair structure... it's really not
+           doing much good.
+	 - Check reaction probability scaling for NS-reactions
+	 - Figure out how to deal with normal boundary conditions in
+	   Com_NS::Equilibrate for coupling reactions.
+	 - Implement a proper CT_NS::Create() and CT_NS::Destroy()!!
+	 - Document C_Output_Variable_Averaged.
+	 - Generalise NS reactions and REs to heterogeneous
+	   arrays.
+	 - Behaviour of NS-models when run without UseSpatialExtensions
+	   parameter set is unpredictable at the moment. - should fix.
+	 - MS-Complexes and NS-Reactions have to replace their
+	   ancenstor-class objects during initialisation - could fix.
+	 - Rigorous testing of new boundary condition implementation.
+	 - Figure out what's wrong with Gimp's plugin-threshold-alpha -
+           it crashes when the size of the selection is one pixel.
+*NOTES:
+	 - Currently, R_Matrix holds the maximum probability of
+	   a reaction.  This can be modified by a relative
+	   probability associated to a particular state of a MS
+	   complex.  An NS reaction will add another relative
+	   probability which affects the final effective
+	   probability.  Therefore, 1.0 > P_ns > 0 for the
+	   NS-associated probability, P_ns.
+	 - The present implementation of NS Reactions assumes
+	   homogeneous arrays consisting of the same NS Complex
+	   Type.

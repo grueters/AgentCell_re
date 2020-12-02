@@ -1,0 +1,31 @@
+Current Developers:
+
+   Thomas Simon Shimizu (1998-2007)
+   tshimizu@mcb.harvard.edu
+   Port to Linux and spatial extensions.      
+
+   Nicolas Le Novère (1999-2007)
+   lenov@ebi.ac.uk
+   Perl/Tk interface.
+
+   Sergej Askenov (2001-2004)
+   Port to MacOSX
+
+   Michael North and Thierry Emonet (2006-2007)
+   SSWrapper class for interfacing with wrapper
+   applications, and the associated code
+
+Original author of StochSim (Win32 version) and its Microsoft Windows
+graphical user interface:
+
+   Carl Firth (1995-1998)
+   carl_aslan@yahoo.com	
+
+The SBML1 import/export is performed by XM::Simple, written by Grant
+McLean.
+
+The SBML2 export is performed by XM::Writer, written by David
+Meggison.
+
+The Mersenne Twister random number generator uses a C++ implementation
+of Makoto Matsumoto's algorithm by Richard J. Wagner.

@@ -1,0 +1,159 @@
+\chapter[Comparison with the Gillespie algorithm]{\stochsim{}: general description and comparison with the Gillespie algorithm}
+
+The computer program \stochsim{} was written by Carl Firth as part of his
+PhD work at the University of Cambridge (Morton-Firth, 1998). It was
+developed as part of a study of bacterial chemotaxis as a more
+realistic way to represent the stochastic features of this signalling
+pathway and also as a means to handle the large numbers of individual
+reactions encountered (Morton-Firth \& Bray, 1998; Morton-Firth et
+al., 1999). The program provides a general purpose biochemical
+simulator in which individual molecules or molecular complexes are
+represented as individual software objects. Reactions between
+molecules occur stochastically, according to probabilities derived
+from known rate constants.  An important feature of the program is its
+ability to represent multiple post-translational modifications and
+conformational states of protein molecules.
+
+\stochsim{} consists of a platform-independent core simulation engine 
+encapsulating the algorithm described above and separate graphical user 
+interfaces.   
+
+\section{Description of the algorithm}
+
+Each molecule or molecular species is represented as a separate software object
+in \stochsim{}, and the simulation also includes dummy molecules, or 
+``pseudo-molecule'' used in the simulation of unimolecular reactions. Time is 
+quantised into a series of discrete, independent time-slices, the size of 
+which is determined by the most rapid reaction in the system. In each 
+time-slice, one molecule (not a pseudo-molecule) is selected at random. Then, 
+another object, in this case either a molecule or a pseudo-molecule, is 
+selected at random. If two molecules are selected, any reaction that occurs 
+will be bimolecular, whereas if one molecule and a pseudo-molecule are 
+selected, it will be unimolecular. Another random number is then generated and 
+used to see if a reaction occurs; the probability of a reaction is retrieved 
+from a look-up table and if the probability exceeds the random number, the 
+particles do not react. On the other hand, if the probability is less than the 
+random number, the particles react, and the system is updated accordingly. The 
+next time-slice then begins with another pair of molecules being selected. 
+
+Whenever a molecule in the system can exist in more than one state then the 
+program encodes it as a ``multistate molecule'' with a series of binary flags. 
+Each flag represents a state or property of the molecule, such as a 
+conformational state; ligand binding; phosphorylation, methylation, or other 
+covalent modification. The flags specify the instantaneous state of the 
+molecule and may modify the reactions it can perform. For instance, a 
+multistate molecule may participate in a reaction at an increased rate as a
+result of phosphorylation, or fail to react because it is in an inactive 
+conformation. The flags themselves can be modified in each time step as a 
+result of a reaction, or they can be instantaneously equilibrated according to 
+a fixed probability. The latter tactic is used with processes such as ligand 
+binding or conformational change that occur several orders of magnitude faster 
+than other chemical reactions in the system. 
+
+If, in a particular time step, \stochsim{} selects one or more multistate 
+molecules, then it proceeds in the following manner. First any 
+rapidly-equilibrated ``fast flags'' on the molecule are assigned to be on or 
+off according to a weighted probability. A protein conformation flag, for 
+example, can be set to be active or inactive, according to which other flags 
+of the molecules are currently on. A ligand binding flag can, if desired, be 
+set in a similar fashion, based on the concentration of ligand and the Kd. 
+
+Once the fast flags have been set, then the program inspects the reactions 
+available to species A and B. The chemical change associated with each type of 
+reaction (binding, phosphotransfer, methylation, etc.) is represented in the 
+program together with a "base values" of the reaction rate constants. The 
+particular instantiation of the reaction, determined by the current state of 
+the flags on A and B, is accessed from an array of values calculated at the 
+beginning of the program, when the reaction system is being initialised. 
+Values in the array modify the reaction probability according to the particular
+set of binary flags. In this manner, the \stochsim{} calculates a set of 
+probabilities, corresponding to the reactions available to the particular 
+states of molecules A and B, and then uses a random number to select which 
+reaction (if any) will be executed in the next step. The reaction will be 
+performed, if appropriate, and the relevant slow flag flipped. 
+
+Although it sounds complicated, the above sequence of events within an 
+individual iteration takes place very quickly and even a relatively slow 
+computer can carry out hundreds of thousands of iterations every second. 
+Moreover, the strategy has the advantage of being intuitively simple and close 
+to physical reality. For example, it is easy, if required, to label selected
+molecules and to follow their changes with time. Lastly, the speed of the 
+program depends not on the number of reactions but on the numbers of molecular 
+species in the simulation (with a time of execution proportional to N squared).
+  
+\section{Comparison with the Gillespie algorithm}
+
+The stochastic simulation of biochemical reactions was pioneered by
+Gillespie, who developed an elegant and efficient algorithm for this
+purpose (Gillespie, 1976; Gillespie, 1977). Gillespie showed in
+rigorous fashion, that his algorithm gives the same result, on
+average, as conventional kinetic treatments. In ensuing years, the
+algorithm has been widely used to analyse biochemical kinetics and,
+most recently, to simulate the stochastic events in lambda lysogeny
+(McAdams \& Arkin, 1997). In view of its evident success, the question
+therefore arises: Why in our work we did not use the Gillespie
+algorithm but chose to develop our own formulation?
+
+The Gillespie algorithm makes time steps of variable length, based on
+the rate constants and population size of each chemical species. The
+probability of one reaction occurring relative to another is obtained
+by multiplying the rate constant of each reaction with the numbers of
+its substrate molecules. A random number is then used to choose which
+reaction will occur, based on relative probabilities, and another
+random number determines how long the step will last. The chemical
+populations are altered according to the stoichiometry of the reaction
+and the process is repeated. Perhaps because the algorithm was
+developed at a time when computers were several thousand times slower
+than they are today, it makes extremely efficient use of CPU time. At
+each iteration it selects the reaction most likely to occur and
+chooses a time step that optimises that reaction, so that the
+simulation proceeds extremely efficiently.
+
+However, the efficiency of the Gillespie algorithm comes at a cost.
+The elegant algorithm that selects which reaction to perform, and what
+time interval to take, cannot represent individual molecular events in
+the reaction. With regard to the reactions of a typical cell
+signalling pathway, for example, it cannot associate physical
+quantities with each molecule, nor trace the fate of particular
+molecules over a period of time. This means that it is not possible to
+extend this algorithm to a more thermodynamically realistic model in
+which energies and conformational states are associated with each
+molecule.  Similarly, without the ability to associate positional and
+velocity information with each particle, the algorithm cannot be
+adapted to simulate diffusion, localisation or spatial heterogeneity.
+
+A second deficiency of the Gillespie algorithm (from a cell biological
+standpoint) is that it cannot easily handle the reactions of
+multi-state molecules. Protein molecules are very frequently modified
+in the cell so as to alter their catalytic activity, binding affinity
+and so on. Cell signalling pathways, for example, carry information in
+the form of chemical changes such as phosphorylation or methylation,
+or as conformational state. A multi-protein complex may contain
+upwards of twenty sites, each of which can often be modified
+independently and each of which can, in principle, influence how the
+complex will participate in chemical reactions. With twenty sites, a
+complex can exist in a total of 2\textsuperscript{20}, or one million,
+unique states, each of which could react in a slightly different way.
+If our multi-protein complex interacts with only ten other chemical
+species, a detailed model may contain as many as ten million distinct
+chemical reactions,  a combinatorial explosion.  Any program in which
+the time taken increases in proportion to the number of reactions, as
+in a conventional, deterministic model, or in the Gillespie method,
+will come to a halt under these conditions.
+
+To summarise, \stochsim{} is likely to be slower than the Gillespie
+algorithm in calculating the eventual outcome of a small set of simple
+biochemical reactions, especially when the numbers of molecules is
+large. However, if the system contains molecules that can exist in
+multiple states, then \stochsim{} will not only be faster but also
+closer to physical reality. It is easy, if required, to label selected
+molecules in this program and to follow their changes with time,
+including changes to their detailed post-translational modification
+and conformational state. Although the program does not, in its
+present form, incorporate spatial information regarding the positions
+of molecules, we have found that such modification can be made in a
+straightforward manner.
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "stochsim_manual"
+%%% End: 
