@@ -81,10 +81,28 @@ import repast.simphony.valueLayer.ContinuousValueLayer;
  *         All initializations of the model are done here. Here we choose if the
  *         cell has a Poisson motor, or use time series.
  */
-public class ChemotaxisModel  implements ContextBuilder<Object> {
+/**
+ * @author grueters
+ * This class follows https://repast.github.io/docs/RepastFAQ/RepastFAQ.html#_running_models
+ */
+public class ChemotaxisModel implements ContextBuilder<Object> {
+	
 	AC_Parameters acParams;
 
 	double aspartateMax = 1.0E-2;
+
+	public ChemotaxisModel() {
+	};
+
+	public void start() {
+		String[] args = new String[] { "/home/grueters/git/AgentCell_re_repo/AgentCell_re/AgentCell_re.rs" };
+		repast.simphony.runtime.RepastMain.main(args);
+	}
+
+	public static void main(String[] args) {
+		ChemotaxisModel ibm = new ChemotaxisModel();
+		ibm.start();
+	}
 
 	public Context build(Context<Object> context) {
 		context.setId("AgentCell_re");
@@ -96,8 +114,8 @@ public class ChemotaxisModel  implements ContextBuilder<Object> {
 		double zdim = acParams.getZdim();
 
 		ScheduleParameters scheduleParams = ScheduleParameters.createRepeating(1, acParams.getDT_s(), 0);
-		RunEnvironment.getInstance().getCurrentSchedule().schedule(scheduleParams,this, "execute");
-		
+		RunEnvironment.getInstance().getCurrentSchedule().schedule(scheduleParams, this, "execute");
+
 		long seed = new Date().getTime();
 		RandomHelper.setSeed((int) seed);
 		RandomHelper.createNormal(0.0, 1.0);
@@ -142,10 +160,10 @@ public class ChemotaxisModel  implements ContextBuilder<Object> {
 
 			// set AbsolutePath of cell on filesytem
 			// cell.setPath( cellArrayList.get(i).toString() );
-			//cell.setPath(new File(cellArrayList.get(i).toString()).getAbsolutePath());
+			// cell.setPath(new File(cellArrayList.get(i).toString()).getAbsolutePath());
 			String path = new File(acParams.getInputDirectory()).getAbsolutePath();
 			cell.setPath(path);
-			
+
 			// set an equilibration time = initial period during which motion is suppress.
 			// usefull to let the initial condition differentiate from the common ancestor.
 			cell.setEquilibrationTime(acParams.getEquilibrationTime_s());
@@ -187,10 +205,15 @@ public class ChemotaxisModel  implements ContextBuilder<Object> {
 			// create and initialize network for the cell.
 			// currently we are only supporting the Chemotaxis Stochsim Network, will be
 			// relaxed in future and each cell will have a collecition of networks
+
+			// Only as a comparison with the original "Example" code in AgentCell
+			// cell.setChemotaxisNetwork(new ChemotaxisNetwork(cell, "STCHSTC.INI",
+			// (new File(cell.getPath(), "network1") + File.separator + "Input")));
+
 			cell.setChemotaxisNetwork(new ChemotaxisNetwork(cell, "STCHSTC.INI",
-					(acParams.getInputDirectory())));
-			// old:  cell.setChemotaxisNetwork(new ChemotaxisNetwork(cell, "STCHSTC.INI",
-			//		(new File(cell.getPath(), "network1") + File.separator + "Input")));
+					(new File(cell.getPath(), "data") + File.separator + "Input")));
+			// old: cell.setChemotaxisNetwork(new ChemotaxisNetwork(cell, "STCHSTC.INI",
+			// (new File(cell.getPath(), "network1") + File.separator + "Input")));
 
 			// Set the CheYp level in the cell at the same level as in stochsim
 			cell.getChemotaxisNetwork().getCopynumber(cell.getCheYp());
@@ -336,16 +359,16 @@ public class ChemotaxisModel  implements ContextBuilder<Object> {
 			}
 		}
 	}
-	
-	public void execute () {
-	    if(this.getSchedule().getTickCount() == 0.0 ) {
-	    	this.begin();
-	    }
-	    this.log();
-	    if(this.getSchedule().getTickCount() == acParams.getStopTime_s() ) {
-	    	this.end();
-	    }
-	  }
+
+	public void execute() {
+		if (this.getSchedule().getTickCount() == 0.0) {
+			this.begin();
+		}
+		this.log();
+		if (this.getSchedule().getTickCount() == acParams.getStopTime_s()) {
+			this.end();
+		}
+	}
 
 	public ISchedule getSchedule() {
 		return RunEnvironment.getInstance().getCurrentSchedule();
@@ -357,197 +380,197 @@ public class ChemotaxisModel  implements ContextBuilder<Object> {
 
 	// Declarations of variables NO FILINING IN VALUES OTHER THAN DEFAULTS
 
-		// TODO: remove these strings and replace with File ioPath;
-		public static String fileSeparator = File.separator;
-		public static String lineSeparator = System.getProperty("line.separator", "//");
-		public static String runDirRelativePath = System.getProperty("runDirRelativePath", "1").trim();
-		public static String runDirAbsolutePath = new File(runDirRelativePath).getAbsolutePath();
-		// File ioPath;
+	// TODO: remove these strings and replace with File ioPath;
+	public static String fileSeparator = File.separator;
+	public static String lineSeparator = System.getProperty("line.separator", "//");
+	public static String runDirRelativePath = System.getProperty("runDirRelativePath", "1").trim();
+	public static String runDirAbsolutePath = new File(runDirRelativePath).getAbsolutePath();
+	// File ioPath;
 
-		// Declare the main loggers
-		public static Logger log4jLogger = null;
-		private double dt = Double.NaN;
-		private long nsteps;
-		// Declare the startup routine.
-		private double stopTime = Double.NaN;
-		private IWorld world;
+	// Declare the main loggers
+	public static Logger log4jLogger = null;
+	private double dt = Double.NaN;
+	private long nsteps;
+	// Declare the startup routine.
+	private double stopTime = Double.NaN;
+	private IWorld world;
 
-		// TODO: remove
-		// public String agentcellNumberOfCells;
-		
+	// TODO: remove
+	// public String agentcellNumberOfCells;
+
 	/*
 	 * public void setup() { isGui = !(getController().isBatch()); agentList = new
 	 * ArrayList(); }
 	 */
 
-		/**
-		 * Sets the random number seed for this model, and recreates a uniform
-		 * distribution with that seed.
-		 */
-		public void setRngSeed(long seed) {
+	/**
+	 * Sets the random number seed for this model, and recreates a uniform
+	 * distribution with that seed.
+	 */
+	public void setRngSeed(long seed) {
+	}
+
+	public void generateNewSeed() {
+	}
+
+	// Declare the startup routine.
+	public void begin() {
+
+		// create the logger (log4j) ???
+		ChemotaxisModel.log4jLogger = ClusterLogger.getMainLoggerCategory("RUNLOG");
+
+		// assuming nsteps can't change per run so I'll make it visible through the
+		// model
+		this.nsteps = Math.round(this.getStopTime() / this.getDt());
+		if (this.nsteps > Integer.MAX_VALUE) {
+			System.err.println("Too many time steps. To handle that many time steps \n"
+					+ "you must refactor ChemotaxisRecorder to use a long for maxTimeSteps");
+			System.err.flush();
+			System.exit(1);
+		}
+	}
+
+	public void end() {
+		System.out.println("Done!");
+
+		// close the output file associated with each cell
+		Iterator it = this.getWorld().getCells().iterator();
+
+		while (it.hasNext()) {
+			ChemotacticCell cell = (ChemotacticCell) it.next();
+			cell.getHdfLogger().close();
 		}
 
-		public void generateNewSeed() {
-		}
+	}
 
-		// Declare the startup routine.
-		public void begin() {
+	// TODO: loggers should be defined when one built the cell and decide what to
+	// log. Thus this should be moved to the place where one creates the cells from
+	// the XML file. At that point, one knows what to log.
+	/*
+	 * log, logs both the log4j log capturing output for run, in runs/runX, as
+	 * /run/runX/runX.OUT Also, creates/writes hdf output for each cell.
+	 */
+	public void log() {
+		Iterator it = this.getWorld().getCells().iterator();
 
-			// create the logger (log4j) ???
-			ChemotaxisModel.log4jLogger = ClusterLogger.getMainLoggerCategory("RUNLOG");
+		while (it.hasNext()) {
 
-			// assuming nsteps can't change per run so I'll make it visible through the
-			// model
-			this.nsteps = Math.round(this.getStopTime() / this.getDt());
-			if (this.nsteps > Integer.MAX_VALUE) {
-				System.err.println("Too many time steps. To handle that many time steps \n"
-						+ "you must refactor ChemotaxisRecorder to use a long for maxTimeSteps");
-				System.err.flush();
-				System.exit(1);
-			}
-		}
+			ChemotacticCell cell = (ChemotacticCell) it.next();
 
-		public void end() {
-			System.out.println("Done!");
+			// take care of the case when there is no receptors
+			double receptorsOccupancy = 0;
+			double receptorsOccupancyActive = 0;
+			double ligand = 0;
 
-			// close the output file associated with each cell
-			Iterator it = this.getWorld().getCells().iterator();
-
-			while (it.hasNext()) {
-				ChemotacticCell cell = (ChemotacticCell) it.next();
-				cell.getHdfLogger().close();
-			}
-
-		}
-
-		// TODO: loggers should be defined when one built the cell and decide what to
-		// log. Thus this should be moved to the place where one creates the cells from
-		// the XML file. At that point, one knows what to log.
-		/*
-		 * log, logs both the log4j log capturing output for run, in runs/runX, as
-		 * /run/runX/runX.OUT Also, creates/writes hdf output for each cell.
-		 */
-		public void log() {
-			Iterator it = this.getWorld().getCells().iterator();
-
-			while (it.hasNext()) {
-
-				ChemotacticCell cell = (ChemotacticCell) it.next();
-
-				// take care of the case when there is no receptors
-				double receptorsOccupancy = 0;
-				double receptorsOccupancyActive = 0;
-				double ligand = 0;
-
-				if (cell.getReceptors() != null) {
-					receptorsOccupancy = cell.getReceptors().getOccupancy("{asp}");
-					receptorsOccupancyActive = cell.getReceptors().getOccupancy("{asp*}");
+			if (cell.getReceptors() != null) {
+				receptorsOccupancy = cell.getReceptors().getOccupancy("{asp}");
+				receptorsOccupancyActive = cell.getReceptors().getOccupancy("{asp*}");
 //	                receptorsOccupancy = cell.getReceptors().getOccupancy("{asp2}");
 //	                receptorsOccupancyActive = cell.getReceptors().getOccupancy("{asp2*}");
-					ligand = cell.getReceptors().getLigandConcentration();
-				}
+				ligand = cell.getReceptors().getLigandConcentration();
+			}
 
-				// take care of the case when there is no flagella
-				int flagellaState = 0;
+			// take care of the case when there is no flagella
+			int flagellaState = 0;
 
-				if (cell.getFlagella() != null) {
-					flagellaState = cell.getFlagella().getState();
-				}
+			if (cell.getFlagella() != null) {
+				flagellaState = cell.getFlagella().getState();
+			}
 
-				ChemotaxisModel.log4jLogger.info("" + ((float) this.getSchedule().getTickCount()) + ","
-						+ cell.getIdentifier() + "," + cell.getPosition().toLog() + "," + cell.getOrientation().toLog()
-						+ "," + cell.getMotor().getState() + "," + cell.getCheYp().getLevel() + ","
-						+ ((float) receptorsOccupancy) + "," + ((float) ligand) + "," + flagellaState + ","
-						+ ((float) receptorsOccupancyActive));
+			ChemotaxisModel.log4jLogger.info("" + ((float) this.getSchedule().getTickCount()) + ","
+					+ cell.getIdentifier() + "," + cell.getPosition().toLog() + "," + cell.getOrientation().toLog()
+					+ "," + cell.getMotor().getState() + "," + cell.getCheYp().getLevel() + ","
+					+ ((float) receptorsOccupancy) + "," + ((float) ligand) + "," + flagellaState + ","
+					+ ((float) receptorsOccupancyActive));
 
-				if (cell.getHdfLogger() == null) {
+			if (cell.getHdfLogger() == null) {
 //	            	String hdfLoc = cell.getPath() + PathInterface.fileSeparator + "network1" + PathInterface.fileSeparator + 
 //	                			"Output" + PathInterface.fileSeparator + "CELL" +  cell.getIdentifier() + ".hdf";
 //	            	System.out.println("ChemotaxisModel; hdf4 file:  " + hdfLoc);
 
-					cell.setHdfLogger(new ChemotaxisRecorder(cell.getPath() + PathInterface.fileSeparator + "CELL" + ".hdf",
-							4, (int) nsteps));
-				}
-
-				cell.getHdfLogger().getX().record((float) cell.getPosition().getElement(0));
-				cell.getHdfLogger().getY().record((float) cell.getPosition().getElement(1));
-				cell.getHdfLogger().getZ().record((float) cell.getPosition().getElement(2));
-				cell.getHdfLogger().getXx().record((float) cell.getOrientation().getElement(0, 0));
-				cell.getHdfLogger().getXy().record((float) cell.getOrientation().getElement(0, 1));
-				cell.getHdfLogger().getXz().record((float) cell.getOrientation().getElement(0, 2));
-				cell.getHdfLogger().getYx().record((float) cell.getOrientation().getElement(1, 0));
-				cell.getHdfLogger().getYy().record((float) cell.getOrientation().getElement(1, 1));
-				cell.getHdfLogger().getYz().record((float) cell.getOrientation().getElement(1, 2));
-				cell.getHdfLogger().getZx().record((float) cell.getOrientation().getElement(2, 0));
-				cell.getHdfLogger().getZy().record((float) cell.getOrientation().getElement(2, 1));
-				cell.getHdfLogger().getZz().record((float) cell.getOrientation().getElement(2, 2));
-
-				cell.getHdfLogger().getCheYp().record((int) cell.getCheYp().getLevel());
-				cell.getHdfLogger().getMotorState().record((int) cell.getMotor().getState());
-
-				cell.getHdfLogger().getReceptorsOccupancy().record((float) receptorsOccupancy);
-				cell.getHdfLogger().getLigand().record((float) ligand);
-				cell.getHdfLogger().getFlagellaState().record(flagellaState);
-				cell.getHdfLogger().getReceptorsOccupancyActive().record((float) receptorsOccupancyActive);
-
-				// //Tests output
-				// System.out.println(
-				// cell.getMotor().getState()+" "+
-				// cell.getFlagella().getState()+" "+
-				// cell.getOrientation().getElement(0,2)+" "+
-				// cell.getOrientation().getElement(1,2)+" "+
-				// cell.getOrientation().getElement(2,2)+" ");
+				cell.setHdfLogger(new ChemotaxisRecorder(cell.getPath() + PathInterface.fileSeparator + "CELL" + ".hdf",
+						4, (int) nsteps));
 			}
-		}
-		// TODO: ALL THE WAY UP TO HERE
 
-		/**
-		 * @return
-		 */
-		public String[] getInitParam() {
-			return new String[] { "stopTime" };
-		} // public static ChemotaxisRecorder hdfLogger = null;
+			cell.getHdfLogger().getX().record((float) cell.getPosition().getElement(0));
+			cell.getHdfLogger().getY().record((float) cell.getPosition().getElement(1));
+			cell.getHdfLogger().getZ().record((float) cell.getPosition().getElement(2));
+			cell.getHdfLogger().getXx().record((float) cell.getOrientation().getElement(0, 0));
+			cell.getHdfLogger().getXy().record((float) cell.getOrientation().getElement(0, 1));
+			cell.getHdfLogger().getXz().record((float) cell.getOrientation().getElement(0, 2));
+			cell.getHdfLogger().getYx().record((float) cell.getOrientation().getElement(1, 0));
+			cell.getHdfLogger().getYy().record((float) cell.getOrientation().getElement(1, 1));
+			cell.getHdfLogger().getYz().record((float) cell.getOrientation().getElement(1, 2));
+			cell.getHdfLogger().getZx().record((float) cell.getOrientation().getElement(2, 0));
+			cell.getHdfLogger().getZy().record((float) cell.getOrientation().getElement(2, 1));
+			cell.getHdfLogger().getZz().record((float) cell.getOrientation().getElement(2, 2));
 
-		/**
-		 * @return
-		 */
-		public IWorld getWorld() {
-			return world;
-		}
+			cell.getHdfLogger().getCheYp().record((int) cell.getCheYp().getLevel());
+			cell.getHdfLogger().getMotorState().record((int) cell.getMotor().getState());
 
-		/**
-		 * @param world
-		 */
-		public void setWorld(World world) {
-			this.world = world;
-		}
+			cell.getHdfLogger().getReceptorsOccupancy().record((float) receptorsOccupancy);
+			cell.getHdfLogger().getLigand().record((float) ligand);
+			cell.getHdfLogger().getFlagellaState().record(flagellaState);
+			cell.getHdfLogger().getReceptorsOccupancyActive().record((float) receptorsOccupancyActive);
 
-		/**
-		 * @return
-		 */
-		public double getStopTime() {
-			return stopTime;
+			// //Tests output
+			// System.out.println(
+			// cell.getMotor().getState()+" "+
+			// cell.getFlagella().getState()+" "+
+			// cell.getOrientation().getElement(0,2)+" "+
+			// cell.getOrientation().getElement(1,2)+" "+
+			// cell.getOrientation().getElement(2,2)+" ");
 		}
+	}
+	// TODO: ALL THE WAY UP TO HERE
 
-		/**
-		 * @param d
-		 */
-		public void setStopTime(double d) {
-			stopTime = d;
-		}
+	/**
+	 * @return
+	 */
+	public String[] getInitParam() {
+		return new String[] { "stopTime" };
+	} // public static ChemotaxisRecorder hdfLogger = null;
 
-		/**
-		 * @return
-		 */
-		public double getDt() {
-			return dt;
-		}
+	/**
+	 * @return
+	 */
+	public IWorld getWorld() {
+		return world;
+	}
 
-		/**
-		 * @param d
-		 */
-		public void setDt(double d) {
-			dt = d;
-		}
+	/**
+	 * @param world
+	 */
+	public void setWorld(World world) {
+		this.world = world;
+	}
+
+	/**
+	 * @return
+	 */
+	public double getStopTime() {
+		return stopTime;
+	}
+
+	/**
+	 * @param d
+	 */
+	public void setStopTime(double d) {
+		stopTime = d;
+	}
+
+	/**
+	 * @return
+	 */
+	public double getDt() {
+		return dt;
+	}
+
+	/**
+	 * @param d
+	 */
+	public void setDt(double d) {
+		dt = d;
+	}
 
 }

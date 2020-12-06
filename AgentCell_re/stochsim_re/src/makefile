@@ -35,7 +35,7 @@ JAVA_HOME = /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64
 ### Compiler
 CXX = g++
 OPTS = -D_STD_CPP -D_UNIX -D_DYNAMIC_UPDATE -D_DEBUG
-CXXFLAGS = -O3 -g -std=c++03 -Wno-deprecated -Wall -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux
+CXXFLAGS = -O0 -g -std=c++03 -Wno-deprecated -Wall -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux
 
 
 
