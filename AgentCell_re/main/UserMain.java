@@ -1,7 +1,6 @@
 public class UserMain {
 
-	public UserMain() {
-	};
+	public UserMain() {};
 
 	public void start() {
 		String[] args = new String[] {

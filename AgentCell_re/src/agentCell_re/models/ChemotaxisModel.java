@@ -49,6 +49,7 @@ import agentCell_re.flagella.SwimmingFlagella;
 import agentCell_re.math.Orientation;
 import agentCell_re.math.Vect;
 import agentCell_re.math.Vect3;
+import agentCell_re.molecules.ConcentrationFieldConstantGradientWithBounds;
 import agentCell_re.molecules.Copynumber;
 import agentCell_re.molecules.Molecule;
 import agentCell_re.motion.Run;
@@ -61,6 +62,7 @@ import agentCell_re.receptors.Receptors;
 import agentCell_re.util.general.PathInterface;
 import agentCell_re.util.hdf.ChemotaxisRecorder;
 import agentCell_re.util.log4j.ClusterLogger;
+import agentCell_re.world.BoundaryConditions;
 import agentCell_re.world.IWorld;
 import agentCell_re.world.World;
 import repast.simphony.context.Context;
@@ -82,27 +84,15 @@ import repast.simphony.valueLayer.ContinuousValueLayer;
  *         cell has a Poisson motor, or use time series.
  */
 /**
- * @author grueters
- * This class follows https://repast.github.io/docs/RepastFAQ/RepastFAQ.html#_running_models
+ * @author grueters This class follows
+ *         https://repast.github.io/docs/RepastFAQ/RepastFAQ.html#_running_models
  */
 public class ChemotaxisModel implements ContextBuilder<Object> {
-	
+
 	AC_Parameters acParams;
 
+	private IWorld world;
 	double aspartateMax = 1.0E-2;
-
-	public ChemotaxisModel() {
-	};
-
-	public void start() {
-		String[] args = new String[] { "/home/grueters/git/AgentCell_re_repo/AgentCell_re/AgentCell_re.rs" };
-		repast.simphony.runtime.RepastMain.main(args);
-	}
-
-	public static void main(String[] args) {
-		ChemotaxisModel ibm = new ChemotaxisModel();
-		ibm.start();
-	}
 
 	public Context build(Context<Object> context) {
 		context.setId("AgentCell_re");
@@ -130,6 +120,57 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 				new repast.simphony.space.continuous.BouncyBorders(), xdim, ydim, zdim);
 		fillEnvironmentalSpace(aspartateEnv);
 		context.addValueLayer(aspartateEnv);
+
+		// Set the model step size to 0.01 seconds.
+		this.setDt(acParams.getDT_s());
+
+		// Have the model stop after stopTime seconds.
+		this.setStopTime(acParams.getStopTime_s()); // 2000.0);
+		double equilibrationTime = acParams.getEquilibrationTime_s(); // 1000.0;
+
+		// Create a world.
+		world = new World();
+
+		// Add the world to the model.
+		this.setWorld(world);
+
+		// Let the world know about the model.
+		world.setModel(this);
+
+		// Create box boundary conditions.
+		// like in Dahlquist, Lovely & Koshland, Nature new biol. 236, 120 (1972), Fig.
+		// 4
+		BoundaryConditions boundaryConditions = new BoundaryConditions(world);
+
+		//// x=-1
+		// boundaryConditions.add(
+		// new ReflectiveBoundary(world, -1, 0, 0, -1, 0, 0));
+		// // x=1
+		// boundaryConditions.add(
+		// new ReflectiveBoundary(world, 1, 0, 0, 1, 0, 0));
+		// // y=-1
+		// boundaryConditions.add(
+		// new ReflectiveBoundary(world, 0, -1, 0, 0, -1, 0));
+		// // y=1
+		// boundaryConditions.add(
+		// new ReflectiveBoundary(world, 0, 1, 0, 0, 1, 0));
+		// z=-13 mm like in Dahlquist, Lovely & Koshland, Nature new biol. 236, 120
+		// (1972)
+		// boundaryConditions.add(new ReflectiveBoundary(world, 0, 0, 0E3, 0, 0, -1));
+		// //use -3 (shorter)
+
+		// z= 32 mm (total length = 45, see fig 4)
+		// boundaryConditions.add(
+		// new ReflectiveBoundary(world, 0, 0, 30E3, 0, 0, 1));
+		world.setBoundaryConditions(boundaryConditions);
+
+		// Set the chemical gradient.
+		double aspartateGradient = 1.0E-8; // M / micrometer
+		world.setConcentrationField(new ConcentrationFieldConstantGradientWithBounds(Molecule.ASPARTATE, // type
+				new Vect3(0, 0, 0), // origin
+				0, // concentration at origin in Mol
+				new Vect3(0, 0, aspartateGradient), 0, // min Level
+				1.0E-2)); // max level
 
 		for (int i = 0; i < acParams.getNumberOfCells(); i++) {
 
@@ -393,8 +434,7 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 	private long nsteps;
 	// Declare the startup routine.
 	private double stopTime = Double.NaN;
-	private IWorld world;
-
+	
 	// TODO: remove
 	// public String agentcellNumberOfCells;
 
@@ -541,7 +581,7 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 	/**
 	 * @param world
 	 */
-	public void setWorld(World world) {
+	public void setWorld(IWorld world) {
 		this.world = world;
 	}
 
