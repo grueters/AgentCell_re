@@ -64,6 +64,7 @@ import agentCell_re.util.hdf.ChemotaxisRecorder;
 import agentCell_re.util.log4j.ClusterLogger;
 import agentCell_re.world.BoundaryConditions;
 import agentCell_re.world.IWorld;
+import agentCell_re.world.ReflectiveBoundary;
 import agentCell_re.world.World;
 import repast.simphony.context.Context;
 import repast.simphony.context.space.continuous.ContinuousSpaceFactoryFinder;
@@ -95,7 +96,7 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 	double aspartateMax = 1.0E-2;
 
 	public Context build(Context<Object> context) {
-		context.setId("AgentCell_re");
+		context.setId("agentCell_re");
 
 		Parameters p = RunEnvironment.getInstance().getParameters();
 		acParams = AC_Parameters.getInstance(p);
@@ -142,26 +143,28 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 		// 4
 		BoundaryConditions boundaryConditions = new BoundaryConditions(world);
 
-		//// x=-1
-		// boundaryConditions.add(
-		// new ReflectiveBoundary(world, -1, 0, 0, -1, 0, 0));
-		// // x=1
-		// boundaryConditions.add(
-		// new ReflectiveBoundary(world, 1, 0, 0, 1, 0, 0));
-		// // y=-1
-		// boundaryConditions.add(
-		// new ReflectiveBoundary(world, 0, -1, 0, 0, -1, 0));
-		// // y=1
-		// boundaryConditions.add(
-		// new ReflectiveBoundary(world, 0, 1, 0, 0, 1, 0));
+		// x=-1
+		boundaryConditions.add(
+		new ReflectiveBoundary(world, 1, 0, 0, -1, 0, 0));
+		// x=1
+		boundaryConditions.add(
+		 new ReflectiveBoundary(world, 99, 0, 0, 1, 0, 0));
+		// y=-1
+		boundaryConditions.add(
+		new ReflectiveBoundary(world, 0, 1, 0, 0, -1, 0));
+		// y=1
+		boundaryConditions.add(
+		new ReflectiveBoundary(world, 0, 99, 0, 0, 1, 0));
 		// z=-13 mm like in Dahlquist, Lovely & Koshland, Nature new biol. 236, 120
 		// (1972)
 		// boundaryConditions.add(new ReflectiveBoundary(world, 0, 0, 0E3, 0, 0, -1));
+		boundaryConditions.add(new ReflectiveBoundary(world, 0, 0, 1, 0, 0, -1));
 		// //use -3 (shorter)
 
 		// z= 32 mm (total length = 45, see fig 4)
-		// boundaryConditions.add(
+		boundaryConditions.add(
 		// new ReflectiveBoundary(world, 0, 0, 30E3, 0, 0, 1));
+		new ReflectiveBoundary(world, 0, 0, 99, 0, 0, 1));
 		world.setBoundaryConditions(boundaryConditions);
 
 		// Set the chemical gradient.
@@ -178,7 +181,7 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 			// double zpos = Random.uniform.nextDoubleFromTo(0,1) * 30000 - 3000;
 			double xPos = RandomHelper.nextDoubleFromTo(0.0, xdim);
 			double yPos = RandomHelper.nextDoubleFromTo(0.0, ydim);
-			double zPos = RandomHelper.nextDoubleFromTo(0.0, zdim);
+			double zPos = RandomHelper.nextDoubleFromTo(0.0, 10.0);
 			// double zpos = 100.0; // position chosen for the cell to be in 1 uM aspartate
 
 			Vect position = new Vect3(xPos, yPos, zPos);
@@ -196,9 +199,10 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 			// create the cell
 			// copy numbers are zero for the moment. Must be set after network is
 			// initialized
-			ChemotacticCell cell = new ChemotacticCell(world, position, orientation, new Copynumber(Molecule.CHEYP),
+			ChemotacticCell cell = new ChemotacticCell(space3d, world, position, orientation, new Copynumber(Molecule.CHEYP),
 					cellVolume_l);
-
+			context.add(cell);
+			space3d.moveTo(cell, xPos, yPos, zPos);
 			// set AbsolutePath of cell on filesytem
 			// cell.setPath( cellArrayList.get(i).toString() );
 			// cell.setPath(new File(cellArrayList.get(i).toString()).getAbsolutePath());
@@ -319,7 +323,7 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 
 			double minCWDuration = 0.1; // seconds
 			double minCCWDuration = 0.1; // seconds
-			double boxcarTimeWidth = 0.3; // seconds
+			double boxcarTimeWidth = acParams.getBoxcarTimeWidth_s(); // seconds
 			cell.setMotor(new AveragedCheYpThresholdMotor(cell, initialMotorState, minCWDuration, minCCWDuration,
 					cheYpThreshold, (int) Math.round(boxcarTimeWidth / acParams.getDT_s())));
 
@@ -405,7 +409,7 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 		if (this.getSchedule().getTickCount() == 0.0) {
 			this.begin();
 		}
-		this.log();
+		//this.log();
 		if (this.getSchedule().getTickCount() == acParams.getStopTime_s()) {
 			this.end();
 		}

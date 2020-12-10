@@ -59,4 +59,8 @@ public class AC_Parameters {
 		return (String) p.getValue("inputDir");
 	}
 	
+	public double getBoxcarTimeWidth_s() {
+		return (Double) p.getValue("boxcarTimeWidth_s");
+	}
+		
 }

@@ -26,7 +26,9 @@ import agentCell_re.receptors.Receptors;
 import agentCell_re.util.general.PathInterface;
 import agentCell_re.util.hdf.ChemotaxisRecorder;
 import agentCell_re.world.IWorld;
+import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ScheduledMethod;
+import repast.simphony.space.continuous.ContinuousSpace;
 
 
 
@@ -47,6 +49,8 @@ public class ChemotacticCell extends Cell implements PathInterface{
     // Let Cell manage it's FileLocation and HDFLogger
     private String path;    
     private ChemotaxisRecorder hdfLogger = null;
+    private ContinuousSpace<Object> space3d;
+    
     
     /**
      * Duration of the equilibration period after which the 
@@ -55,6 +59,7 @@ public class ChemotacticCell extends Cell implements PathInterface{
      */
     private double equilibrationTime=0.0;
     private Vect initialPosition;
+    private Vect oldPosition;
     
     /**
      * Create a chemotactic cell. It has Motor, Flagella, Receptors, Network and
@@ -66,16 +71,19 @@ public class ChemotacticCell extends Cell implements PathInterface{
      * @param newCheYp
      * @param newVolume
      */
-    public ChemotacticCell(IWorld newWorld, Vect newPosition,
+    public ChemotacticCell(ContinuousSpace<Object> space3d, IWorld newWorld, Vect newPosition,
         Orientation newOrientation, Copynumber newCheYp, double newVolume) {
         super(newWorld, newPosition, newOrientation, newVolume);
+        this.space3d = space3d;
         this.cheYp = newCheYp;
         this.initialPosition = new Vect3();
         this.initialPosition.copy(newPosition);
+        this.oldPosition = new Vect3();
+        oldPosition.copy(this.initialPosition);
     }
 
-    //	Declare the major time advancer.
-    @ScheduledMethod(start = 1, interval = 0.01, priority = 1)
+	//	Declare the major time advancer.
+    @ScheduledMethod(start = 0, interval = 0.01, priority = 1)
     public void step() {
     	double dt = this.getWorld().getModel().getAcParams().getDT_s();
     	double newTime = dt *  this.getWorld().getModel().getSchedule() .getTickCount();
@@ -95,7 +103,7 @@ public class ChemotacticCell extends Cell implements PathInterface{
         // Advance motion using position and orientation AND flagella.state at t=lastTime
         // We must do that before the motor and flagella steps because we need to use the motor state 
         // at time t=lastTime
-        // Check first if MotionStepper is defined 
+        // Check first if MotionStepper is defined         
         if (this.getMotionStepper() != null) {
             this.getMotionStepper().step(dt);       
         }   
@@ -118,7 +126,12 @@ public class ChemotacticCell extends Cell implements PathInterface{
         if (flagella != null) {
             flagella.step(dt);
         }
-
+        double differenceX = this.getPosition().getElement(0) - oldPosition.getElement(0);
+        double differenceY = this.getPosition().getElement(1) - oldPosition.getElement(1);
+        double differenceZ = this.getPosition().getElement(2) - oldPosition.getElement(2);
+        System.out.println("Position is: " + this.getPosition() + " | Cell-ID: " + this.getIdentifier() + " | seconds: " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount() + " | FlagellaState(0=bundled=run,1=apart=tumble,-1=invalid): " + this.flagella.getState() + " | CheYp-Level: " + this.getCheYp().getLevel() + " | Motor State(CCW=0, CW=1): " + this.getMotor().getState());
+        //space3d.moveByDisplacement(this, differenceX, differenceY, differenceZ);
+        space3d.moveTo(this, this.getPosition().getElement(0), this.getPosition().getElement(1), this.getPosition().getElement(2));
        lastTime = newTime;
 
 //System.out.println(" *****************  ChemotacticCell " + identifier + " ends step at t = " + newTime);
@@ -234,4 +247,15 @@ public class ChemotacticCell extends Cell implements PathInterface{
 		return path + PathInterface.fileSeparator;
 	}
 	
+	public double getXPosition() {
+		return this.getPosition().getElement(0);
+	}
+	
+	public double getYPosition() {
+		return this.getPosition().getElement(1);
+	}
+	
+	public double getZPosition() {
+		return this.getPosition().getElement(2);
+	}
 }

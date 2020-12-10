@@ -21,5 +21,6 @@
 	<classpathentry kind="lib" path="lib/jhdfobj.jar"/>
 	<classpathentry kind="lib" path="lib/jhdfview.jar"/>
 	<classpathentry kind="lib" path="lib/log4j.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

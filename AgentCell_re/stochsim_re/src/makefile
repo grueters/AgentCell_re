@@ -30,7 +30,7 @@ CP = cp
 ### Remove
 RM = rm -f
 
-JAVA_HOME = /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64
+JAVA_HOME = /usr/lib/jvm/adoptopenjdk-8-hotspot-amd64
 
 ### Compiler
 CXX = g++
