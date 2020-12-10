@@ -1,5 +1,5 @@
 <repast.simphony.visualization.editedStyle.DefaultEditedStyleData3D>
-  <shapeWkt>cylinder</shapeWkt>
+  <shapeWkt>cone</shapeWkt>
   <size>0.03</size>
   <sizeMax>0.1</sizeMax>
   <sizeMin>0.0</sizeMin>
