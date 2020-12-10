@@ -59,7 +59,6 @@ public class ChemotacticCell extends Cell implements PathInterface{
      */
     private double equilibrationTime=0.0;
     private Vect initialPosition;
-    private Vect oldPosition;
     
     /**
      * Create a chemotactic cell. It has Motor, Flagella, Receptors, Network and
@@ -78,8 +77,6 @@ public class ChemotacticCell extends Cell implements PathInterface{
         this.cheYp = newCheYp;
         this.initialPosition = new Vect3();
         this.initialPosition.copy(newPosition);
-        this.oldPosition = new Vect3();
-        oldPosition.copy(this.initialPosition);
     }
 
 	//	Declare the major time advancer.
@@ -126,11 +123,7 @@ public class ChemotacticCell extends Cell implements PathInterface{
         if (flagella != null) {
             flagella.step(dt);
         }
-        double differenceX = this.getPosition().getElement(0) - oldPosition.getElement(0);
-        double differenceY = this.getPosition().getElement(1) - oldPosition.getElement(1);
-        double differenceZ = this.getPosition().getElement(2) - oldPosition.getElement(2);
         System.out.println("Position is: " + this.getPosition() + " | Cell-ID: " + this.getIdentifier() + " | seconds: " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount() + " | FlagellaState(0=bundled=run,1=apart=tumble,-1=invalid): " + this.flagella.getState() + " | CheYp-Level: " + this.getCheYp().getLevel() + " | Motor State(CCW=0, CW=1): " + this.getMotor().getState());
-        //space3d.moveByDisplacement(this, differenceX, differenceY, differenceZ);
         space3d.moveTo(this, this.getPosition().getElement(0), this.getPosition().getElement(1), this.getPosition().getElement(2));
        lastTime = newTime;
 
