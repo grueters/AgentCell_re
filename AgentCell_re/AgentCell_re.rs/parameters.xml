@@ -87,7 +87,7 @@
 									
 		/>
 				<parameter name="equilibrationTime_s" displayName="1.6 Equilibration time [s]" type="double" 
-						defaultValue="2.0" 
+						defaultValue="0.0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
@@ -141,7 +141,7 @@
 									
 		/>
 				<parameter name="zdim" displayName="1.3 World height" type="double" 
-						defaultValue="100.0" 
+						defaultValue="200.0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									

@@ -3,12 +3,16 @@ package agentCell_re.cells;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.media.j3d.Shape3D;
-import javax.media.j3d.Transform3D;
-import javax.media.j3d.TransformGroup;
-import javax.media.j3d.TransparencyAttributes;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.vecmath.AxisAngle4f;
+import org.jogamp.vecmath.Vector3f;
 
 import agentCell_re.math.Vect;
+import agentCell_re.math.Vect3;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.random.RandomHelper;
 import repast.simphony.visualization.visualization3D.AppearanceFactory;
 import repast.simphony.visualization.visualization3D.ShapeFactory;
 import repast.simphony.visualization.visualization3D.style.Style3D;
@@ -26,7 +30,7 @@ import repast.simphony.visualization.visualization3D.style.TaggedBranchGroup;
 
 public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 
-	private static Color cellColor = new Color(0, 0, 255);
+	private static Color cellColor = new Color(0, 255, 0);
 
 	public TaggedBranchGroup getBranchGroup(ChemotacticCell agent, TaggedBranchGroup taggedGroup) {
 
@@ -44,11 +48,11 @@ public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 	private TaggedBranchGroup getGroup(ChemotacticCell agent) {
 		TaggedBranchGroup taggedGroup;
 		taggedGroup = new TaggedBranchGroup("CELL");
-		Shape3D shape = ShapeFactory.createCone(0.03f, 0.06f, "DEFAULT");
+		Shape3D shape = ShapeFactory.createCylinder(0.01f, 0.06f, "DEFAULT");
 		shape.setCapability(Shape3D.ALLOW_APPEARANCE_WRITE);
 		
 		Transform3D transform3d = new Transform3D();
-		transform3d.rotX(Math.toRadians(270));
+		transform3d.rotX(Math.toRadians(90));
 		TransformGroup transShape = new TransformGroup(transform3d);
 		transShape.addChild(shape);
 		
@@ -57,12 +61,8 @@ public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 	}
 
 	public float[] getRotation(ChemotacticCell agent) {
-		Vect v = null;
-		if(agent instanceof ChemotacticCell){
-			v = agent.getOrientation().viewDirection();
-		}
-		float[] viewDirection = new float[] {(float) v.getElement(0), (float) v.getElement(1), (float) v.getElement(2)};
-		return viewDirection;
+		float[] axisAngle = agent.getOrientation().toAxisAngle();
+		return axisAngle;
 	}
 
 	public String getLabel(ChemotacticCell agent, String currentLabel) {

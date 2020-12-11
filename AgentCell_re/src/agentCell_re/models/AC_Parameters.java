@@ -62,5 +62,13 @@ public class AC_Parameters {
 	public double getBoxcarTimeWidth_s() {
 		return (Double) p.getValue("boxcarTimeWidth_s");
 	}
+	
+	public double getCellSpeed_microm_per_s() {
+		return (Double) p.getValue("cellSpeed_microm_per_s");
+	}
+	
+	public int getCheYpThreshold() {
+		return (Integer) p.getValue("cheYpThreshold");
+	}
 		
 }

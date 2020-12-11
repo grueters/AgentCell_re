@@ -1,18 +1,12 @@
-<repast.simphony.visualization.engine.CartesianDisplayDescriptor simphonyVersion="2.7.0">
+<repast.simphony.visualization.engine.CartesianDisplayDescriptor simphonyVersion="2.8.0">
   <name>Cells Display</name>
   <type>3D</type>
   <styles>
     <entry>
       <string>agentCell_re.cells.ChemotacticCell</string>
-      <string>repast.simphony.visualization.editedStyle.EditedStyle3D</string>
+      <string>agentCell_re.cells.ChemotacticCellStyle3D</string>
     </entry>
   </styles>
-  <editedStyles>
-    <entry>
-      <string>agentCell_re.cells.ChemotacticCell</string>
-      <string>agentCell_re.cells.ChemotacticCell.style_0.xml</string>
-    </entry>
-  </editedStyles>
   <netStyles/>
   <editedNetStyles/>
   <frequency>ON_MOVE</frequency>
