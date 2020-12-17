@@ -2,22 +2,22 @@ package agentCell_re.cells;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.File;
 
+import org.jogamp.java3d.loaders.Scene;
+import org.jogamp.java3d.loaders.objectfile.ObjectFile;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Geometry;
+import org.jogamp.java3d.Node;
 import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
-import org.jogamp.vecmath.AxisAngle4f;
-import org.jogamp.vecmath.Vector3f;
 
-import agentCell_re.math.Vect;
-import agentCell_re.math.Vect3;
-import repast.simphony.engine.environment.RunEnvironment;
-import repast.simphony.random.RandomHelper;
 import repast.simphony.visualization.visualization3D.AppearanceFactory;
 import repast.simphony.visualization.visualization3D.ShapeFactory;
 import repast.simphony.visualization.visualization3D.style.Style3D;
 import repast.simphony.visualization.visualization3D.style.TaggedAppearance;
-import repast.simphony.visualization.visualization3D.style.TaggedBranchGroup;
+import repast.simphony.visualization.visualization3D.style.TaggedBranchGroup; 
 
 /**
  * The 3D style class for sugar agents.   
@@ -48,20 +48,44 @@ public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 	private TaggedBranchGroup getGroup(ChemotacticCell agent) {
 		TaggedBranchGroup taggedGroup;
 		taggedGroup = new TaggedBranchGroup("CELL");
-		Shape3D shape = ShapeFactory.createCylinder(0.01f, 0.06f, "DEFAULT");
-		shape.setCapability(Shape3D.ALLOW_APPEARANCE_WRITE);
+		double creaseAngle = 60.0; 
+		int flags = ObjectFile.RESIZE;
+        ObjectFile objFile = new ObjectFile(flags, (float)(creaseAngle*Math.PI)/180);
+        Scene scene = null;
+        String path = "/home/grueters/git/AgentCell_re_repo/AgentCell_re/Intergalactic_Spaceship-(Wavefront).obj";
+        try {
+        	scene = objFile.load(path);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("OBJ load Err：" + e.getMessage());
+        }
+        BranchGroup branchGroup = scene.getSceneGroup( );
+        
+        
+        
+        Shape3D oldShape = (Shape3D) branchGroup.getChild( 0 );
+       	Shape3D shape = new Shape3D();
+       	shape.setGeometry(oldShape.getGeometry()); 
+       	
 		
-		Transform3D transform3d = new Transform3D();
-		transform3d.rotX(Math.toRadians(90));
-		TransformGroup transShape = new TransformGroup(transform3d);
-		transShape.addChild(shape);
-		
-		taggedGroup.getBranchGroup().addChild(transShape);
+		  // Shape3D shape = ShapeFactory.createBox(0.02f, 0.01f, 0.06f, null, 0,null);
+		  //Shape3D shape = ShapeFactory.createArrowHead(0.1f, null);
+		  shape.setCapability(Shape3D.ALLOW_APPEARANCE_WRITE);
+		  Transform3D transform3d = new Transform3D();
+		  transform3d.rotX(Math.toRadians(90)); 
+		  TransformGroup transShape = new TransformGroup(transform3d); 
+		  transShape.addChild(shape);
+		  
+		  taggedGroup.getBranchGroup().addChild(shape);
+		 
 		return taggedGroup;
 	}
 
 	public float[] getRotation(ChemotacticCell agent) {
-		float[] axisAngle = agent.getOrientation().toAxisAngle();
+		float[] axisAngle = agent.getOrientation().getAxisAngle4f();
+		System.out.println("orientation = " + agent.getOrientation());
+		System.out.println("Axisangle4f = " + axisAngle[0] + ", " + axisAngle[1]
+				+  ", " + axisAngle[2] + ", " + axisAngle[3]);
 		return axisAngle;
 	}
 

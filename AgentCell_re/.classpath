@@ -22,5 +22,7 @@
 	<classpathentry kind="lib" path="lib/jhdfview.jar"/>
 	<classpathentry kind="lib" path="lib/log4j.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="/home/grueters/eclipse/plugins/libs.ext_2.8.0/lib/vecmath.jar"/>
+	<classpathentry kind="lib" path="/home/grueters/eclipse/plugins/libs.ext_2.8.0/lib/j3d-core-utils-1.5.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
