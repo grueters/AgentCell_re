@@ -64,6 +64,7 @@ import agentCell_re.util.hdf.ChemotaxisRecorder;
 import agentCell_re.util.log4j.ClusterLogger;
 import agentCell_re.world.BoundaryConditions;
 import agentCell_re.world.IWorld;
+import agentCell_re.world.PeriodicBoundary;
 import agentCell_re.world.ReflectiveBoundary;
 import agentCell_re.world.World;
 import repast.simphony.context.Context;
@@ -143,28 +144,46 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 		// 4
 		BoundaryConditions boundaryConditions = new BoundaryConditions(world);
 
+		/*
+		 * // x=-1 boundaryConditions.add( new ReflectiveBoundary(world, 1, 0, 0, -1, 0,
+		 * 0)); // x=1 boundaryConditions.add( new ReflectiveBoundary(world, 99, 0, 0,
+		 * 1, 0, 0)); // y=-1 boundaryConditions.add( new ReflectiveBoundary(world, 0,
+		 * 1, 0, 0, -1, 0)); // y=1 boundaryConditions.add( new
+		 * ReflectiveBoundary(world, 0, 99, 0, 0, 1, 0)); // z=-13 mm like in Dahlquist,
+		 * Lovely & Koshland, Nature new biol. 236, 120 // (1972) //
+		 * boundaryConditions.add(new ReflectiveBoundary(world, 0, 0, 0E3, 0, 0, -1));
+		 * boundaryConditions.add(new ReflectiveBoundary(world, 0, 0, 1, 0, 0, -1)); //
+		 * //use -3 (shorter)
+		 * 
+		 * // z= 32 mm (total length = 45, see fig 4) boundaryConditions.add( // new
+		 * ReflectiveBoundary(world, 0, 0, 30E3, 0, 0, 1)); new
+		 * ReflectiveBoundary(world, 0, 0, 199, 0, 0, 1));
+		 */
+		
+		//default period = 1
+		double xPeriod = 99.999;
+		double yPeriod = 99.999;
+		double zPeriod = 199.999;
+		
 		// x=-1
-		boundaryConditions.add(
-		new ReflectiveBoundary(world, 1, 0, 0, -1, 0, 0));
+		boundaryConditions.add(new PeriodicBoundary(world, 0.001, 0, 0, -1, 0, 0, xPeriod));
 		// x=1
-		boundaryConditions.add(
-		 new ReflectiveBoundary(world, 99, 0, 0, 1, 0, 0));
+		boundaryConditions.add(new PeriodicBoundary(world, 99.999, 0, 0, 1, 0, 0, xPeriod));
 		// y=-1
-		boundaryConditions.add(
-		new ReflectiveBoundary(world, 0, 1, 0, 0, -1, 0));
+		boundaryConditions.add(new PeriodicBoundary(world, 0, 0.001, 0, 0, -1, 0, yPeriod));
 		// y=1
-		boundaryConditions.add(
-		new ReflectiveBoundary(world, 0, 99, 0, 0, 1, 0));
+		boundaryConditions.add(new PeriodicBoundary(world, 0, 99.999, 0, 0, 1, 0, yPeriod));
 		// z=-13 mm like in Dahlquist, Lovely & Koshland, Nature new biol. 236, 120
 		// (1972)
 		// boundaryConditions.add(new ReflectiveBoundary(world, 0, 0, 0E3, 0, 0, -1));
-		boundaryConditions.add(new ReflectiveBoundary(world, 0, 0, 1, 0, 0, -1));
+		boundaryConditions.add(new PeriodicBoundary(world, 0, 0, 0.001, 0, 0, -1, zPeriod));
 		// //use -3 (shorter)
 
 		// z= 32 mm (total length = 45, see fig 4)
 		boundaryConditions.add(
-		// new ReflectiveBoundary(world, 0, 0, 30E3, 0, 0, 1));
-		new ReflectiveBoundary(world, 0, 0, 199, 0, 0, 1));
+				// new ReflectiveBoundary(world, 0, 0, 30E3, 0, 0, 1));
+				new PeriodicBoundary(world, 0, 0, 199.99, 0, 0, 1, zPeriod));
+
 		world.setBoundaryConditions(boundaryConditions);
 
 		// Set the chemical gradient.
@@ -190,7 +209,7 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 			Orientation orientation = new Orientation(); // local and global axes are aligned
 
 			// randomize orientation
-			//orientation.randomize();
+			// orientation.randomize();
 
 			// volume of a cell in Liters
 			// PARAMETER: volume of the cell. Must be the same as in stochsim
@@ -199,8 +218,8 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 			// create the cell
 			// copy numbers are zero for the moment. Must be set after network is
 			// initialized
-			ChemotacticCell cell = new ChemotacticCell(space3d, world, position, orientation, new Copynumber(Molecule.CHEYP),
-					cellVolume_l);
+			ChemotacticCell cell = new ChemotacticCell(space3d, world, position, orientation,
+					new Copynumber(Molecule.CHEYP), cellVolume_l);
 			context.add(cell);
 			space3d.moveTo(cell, xPos, yPos, zPos);
 			// set AbsolutePath of cell on filesytem
@@ -304,7 +323,8 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 			// CWbias=0.29,0.23
 			// Copynumber cheYpThreshold = new Copynumber(Molecule.CHEYP, 974); //CHER=068
 			// CWbias=0.29,0.23
-			Copynumber cheYpThreshold = new Copynumber(Molecule.CHEYP, acParams.getCheYpThreshold()); // CHER=136 CWbias=0.29,0.23
+			Copynumber cheYpThreshold = new Copynumber(Molecule.CHEYP, acParams.getCheYpThreshold()); // CHER=136
+																										// CWbias=0.29,0.23
 			// Copynumber cheYpThreshold = new Copynumber(Molecule.CHEYP, 2889); //CHER=272
 			// CWbias=0.29,0.23
 			// Copynumber cheYpThreshold = new Copynumber(Molecule.CHEYP, 3207); //CHER=544
@@ -409,7 +429,7 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 		if (this.getSchedule().getTickCount() == 0.0) {
 			this.begin();
 		}
-		//this.log();
+		// this.log();
 		if (this.getSchedule().getTickCount() == acParams.getStopTime_s()) {
 			this.end();
 		}
@@ -438,7 +458,7 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 	private long nsteps;
 	// Declare the startup routine.
 	private double stopTime = Double.NaN;
-	
+
 	// TODO: remove
 	// public String agentcellNumberOfCells;
 

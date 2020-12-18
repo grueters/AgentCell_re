@@ -36,8 +36,8 @@ Authors: Thierry Emonet (emonet@uchicago.edu) and Michael J. North (north@anl.go
  */
 package agentCell_re.math;
 
-import org.jogamp.vecmath.AxisAngle4f;
-import org.jogamp.vecmath.Matrix3f;
+import javax.vecmath.AxisAngle4f;
+import javax.vecmath.Matrix3f;
 
 import repast.simphony.random.RandomHelper;
 
@@ -398,15 +398,15 @@ public class Orientation extends RotationMatrix3x3 {
 	public float[] getAxisAngle4f() {
 		AxisAngle4f axAng = new AxisAngle4f();
 		Matrix3f m = new Matrix3f(
-				(float)rotationMatrix.getElement(0, 0), 
-				(float)rotationMatrix.getElement(0, 1),
-				(float)rotationMatrix.getElement(0, 2),
-				(float)rotationMatrix.getElement(1, 0),
-				(float)rotationMatrix.getElement(1, 1),
-				(float)rotationMatrix.getElement(1, 2),
-				(float)rotationMatrix.getElement(2, 0),
-				(float)rotationMatrix.getElement(2, 1),
-				(float)rotationMatrix.getElement(2, 2));
+				(float)this.getElement(0, 0), 
+				(float)this.getElement(0, 1),
+				(float)this.getElement(0, 2),
+				(float)this.getElement(1, 0),
+				(float)this.getElement(1, 1),
+				(float)this.getElement(1, 2),
+				(float)this.getElement(2, 0),
+				(float)this.getElement(2, 1),
+				(float)this.getElement(2, 2));
 		axAng.set(m);
 		return new float[] { axAng.x, axAng.y, axAng.z, axAng.angle };
 	}

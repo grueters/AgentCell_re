@@ -57,6 +57,9 @@ public abstract class AbstractBoundary implements Boundary {
      */
     public double distanceTo(Vect p) {
         //	distance = p.normal - pointDotNormal
+    	double p_mult = p.mult(normal);
+    	double point_mult = point.mult(normal);
+    	double diff = p_mult - point_mult;
         return p.mult(normal) - point.mult(normal);
     }
 
@@ -65,6 +68,7 @@ public abstract class AbstractBoundary implements Boundary {
      * @return TRUE if point is outside of the boundary (same as distanceTo(p) > 0)
      */
     public boolean isOutside(Vect p) {
+    	boolean isit = distanceTo(p) > 0;
         return distanceTo(p) > 0;
     }
 

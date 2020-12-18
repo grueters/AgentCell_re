@@ -72,12 +72,13 @@ public class RunTumbleStepper implements MotionStepper {
     public void step(double dt) {
         if (this.cell.getFlagella().getState() == Flagella.APART) {
             // we only call the tumble step on the first step of a series of CW.
-            if (previousStateWasAPART) {
-                tumble.step(dt);
+            //if (previousStateWasAPART) {
+        	if (true) {
+                tumble.step(dt); //TODO: Change the tumble step to change the Repast-Model to a Tumble-Model
                 previousStateWasAPART = false;
             }
         } else {
-            run.step(dt);
+            run.step(dt); //TODO: Change the run step to change the Repast-Model to a Run-Model
             cell.getWorld().getBoundaryConditions().apply(cell);
             previousStateWasAPART = true;
         }

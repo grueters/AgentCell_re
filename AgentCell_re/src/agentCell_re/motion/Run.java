@@ -66,6 +66,10 @@ public class Run implements Motion {
 	 * @see edu.uchicago.agentcell.motion.Motion#step(double)
 	 */
 	public void step(double dt) {
+		// TODO: Change Repast Model to Run-Model (Leon Metzger)
+		// Advance position
+		motionStepper.getCell().getPosition().plusMult(dt * velocity,
+				motionStepper.getCell().getOrientation().viewDirection());
 		// Advance orientation due to rotational diffusion if necessary
 		if (rotationalDiffusion > 0) {
 			// We follow:
@@ -95,10 +99,7 @@ public class Run implements Motion {
 			int axesOrder = RandomHelper.nextIntFromTo(0, 5);
 			motionStepper.getCell().getOrientation().rotateAroundLocalAxes(axesOrder, dAngle0, dAngle1, dAngle2);
 		}
-		
-		// Advance position 
-		motionStepper.getCell().getPosition().plusMult(dt * velocity, 
-				motionStepper.getCell().getOrientation().viewDirection());
+
 	}
 
 	/*

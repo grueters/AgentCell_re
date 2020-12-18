@@ -129,13 +129,15 @@ public class ChemotacticCell extends Cell implements PathInterface{
         if (flagella != null) {
             flagella.step(dt);
         }
-        System.out.println("Position is: " + this.getPosition()
+        System.out.println(
+        	"Cell-ID: " + this.getIdentifier()
+        	+ " | Position is: " + this.getPosition()
         	+ " | Direction = " + this.getOrientation().viewDirection()
-        	+ " | Cell-ID: " + this.getIdentifier() + " | seconds: " 
+        	+  " |\n seconds: " 
         	+ RunEnvironment.getInstance().getCurrentSchedule().getTickCount() 
         	+ " | FlagellaState(0=bundled=run,1=apart=tumble,-1=invalid): " 
         	+ this.flagella.getState() 
-        	+ " | CheYp-Level: " + this.getCheYp().getLevel() 
+        	+ "\n | CheYp-Level: " + this.getCheYp().getLevel() 
         	+ " | Motor State(CCW=0, CW=1): " + this.getMotor().getState());
         space3d.moveTo(this, this.getPosition().getElement(0), this.getPosition().getElement(1), this.getPosition().getElement(2));
        lastTime = newTime;
