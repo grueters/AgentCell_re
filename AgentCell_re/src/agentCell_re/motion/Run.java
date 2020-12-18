@@ -77,9 +77,9 @@ public class Run implements Motion {
 			// dAngle = (dAngle0, dAngle1, dAngle2), where dAngle0 = sqrt( dt * 2 * Dr) *
 			// N(0,1)
 			double sqrtDt2rotationalDiffusion = Math.sqrt(dt * 2 * rotationalDiffusion);
-			double dAngle0 = Math.PI/2.0; // sqrtDt2rotationalDiffusion * RandomHelper.getNormal().nextDouble();
-			double dAngle1 = Math.PI/2.0; // sqrtDt2rotationalDiffusion * RandomHelper.getNormal().nextDouble();
-			double dAngle2 = 0.0; // sqrtDt2rotationalDiffusion * RandomHelper.getNormal().nextDouble();
+			double dAngle0 = sqrtDt2rotationalDiffusion * RandomHelper.getNormal().nextDouble();
+			double dAngle1 = sqrtDt2rotationalDiffusion * RandomHelper.getNormal().nextDouble();
+			double dAngle2 = sqrtDt2rotationalDiffusion * RandomHelper.getNormal().nextDouble();
 
 			//
 			// Apply a small rotation of angle vector dAngle to the orientation
@@ -92,14 +92,13 @@ public class Run implements Motion {
 			// O = O . R
 			// with : R = R(i,dAnglei) . R(j,dAnglej) . R(k,dAnglek)
 			// and the order : ijk = 012, 021, 102, 120, 201, 210 chosen at random
-			int axesOrder = 0; // RandomHelper.nextIntFromTo(0, 5);
+			int axesOrder = RandomHelper.nextIntFromTo(0, 5);
 			motionStepper.getCell().getOrientation().rotateAroundLocalAxes(axesOrder, dAngle0, dAngle1, dAngle2);
 		}
-
-		/*
-		 * // Advance position motionStepper.getCell().getPosition().plusMult(dt *
-		 * velocity, motionStepper.getCell().getOrientation().viewDirection());
-		 */
+		
+		// Advance position 
+		motionStepper.getCell().getPosition().plusMult(dt * velocity, 
+				motionStepper.getCell().getOrientation().viewDirection());
 	}
 
 	/*

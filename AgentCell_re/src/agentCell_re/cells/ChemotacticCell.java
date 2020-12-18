@@ -83,7 +83,13 @@ public class ChemotacticCell extends Cell implements PathInterface{
     @ScheduledMethod(start = 0, interval = 0.01, priority = 1)
     public void step() {
     	double dt = this.getWorld().getModel().getAcParams().getDT_s();
-    	double newTime = dt *  this.getWorld().getModel().getSchedule() .getTickCount();
+    	double newTime = this.getWorld().getModel().getSchedule().getTickCount();
+    	// randomize orientation
+		/*
+		 * if(Math.abs(newTime - dt) < 1.0E-6) { this.getOrientation().randomize(); }
+		 */
+		 
+    	
 		
         // All routines called here should use do a FORWARD step of dt in time. 
         // The integration scheme should be FORWARD: f(t+dt) = f(t) + dt * df(t)
@@ -133,7 +139,7 @@ public class ChemotacticCell extends Cell implements PathInterface{
         	+ " | Motor State(CCW=0, CW=1): " + this.getMotor().getState());
         space3d.moveTo(this, this.getPosition().getElement(0), this.getPosition().getElement(1), this.getPosition().getElement(2));
        lastTime = newTime;
-
+       
 //System.out.println(" *****************  ChemotacticCell " + identifier + " ends step at t = " + newTime);
     }
 
