@@ -44,4 +44,10 @@ public class TetheredFlagellum extends Flagella {
             this.setState(Flagella.APART);
         }
     }
+
+	@Override
+	public double getApartDuration() {
+		// TODO Auto-generated method stub
+		return -1.0;
+	}
 }

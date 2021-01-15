@@ -95,4 +95,6 @@ public abstract class Motor {
     public void setCell(ChemotacticCell cell) {
         this.cell = cell;
     }
+    
+    public abstract double getCheYpAverage();
 }

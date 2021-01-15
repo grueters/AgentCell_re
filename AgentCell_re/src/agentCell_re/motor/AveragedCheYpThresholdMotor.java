@@ -89,7 +89,7 @@ public class AveragedCheYpThresholdMotor extends ThresholdMotor {
      * Calculate if threshold is crossed using a sliding average of CheYp
      * instead of the instantaneous value
      */
-    public boolean isAboveThreshold() {
+    public double getCheYpAverage() {
         //Shift all elements of boxcar right by one
         System.arraycopy(boxcar, 0, boxcar, 1, boxcar.length - 1);
 
@@ -106,6 +106,11 @@ public class AveragedCheYpThresholdMotor extends ThresholdMotor {
 
         //System.out.println(boxcar[0]+" "+ypAverage);
         //check if average is above threshold or not
-        return ypAverage > threshold.getLevel();
+        return ypAverage;
     }
+    
+    public boolean isAboveThreshold() {
+    	return getCheYpAverage()  > threshold.getLevel();
+    }
+    
 }

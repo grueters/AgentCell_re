@@ -69,4 +69,8 @@ public class SwimmingFlagella extends Flagella {
             apartDuration = 0;
         }
     }
+
+	public double getApartDuration() {
+		return apartDuration;
+	}
 }

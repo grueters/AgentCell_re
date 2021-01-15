@@ -72,4 +72,10 @@ public class CheYpThresholdMotor extends ThresholdMotor {
         //check if yp is above threshold or not
         return this.getCell().getCheYp().getLevel() > threshold.getLevel();
     }
+
+	@Override
+	public double getCheYpAverage() {
+		return 0.0;
+	}
+
 }

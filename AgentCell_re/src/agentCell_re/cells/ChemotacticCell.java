@@ -26,10 +26,11 @@ import agentCell_re.receptors.Receptors;
 import agentCell_re.util.general.PathInterface;
 import agentCell_re.util.hdf.ChemotaxisRecorder;
 import agentCell_re.world.IWorld;
+import agentCell_re.motor.ThresholdMotor;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.continuous.ContinuousSpace;
-
+import repast.simphony.ui.probe.ProbedProperty;
 
 
 /**
@@ -85,11 +86,7 @@ public class ChemotacticCell extends Cell implements PathInterface{
     	double dt = this.getWorld().getModel().getAcParams().getDT_s();
     	double newTime = this.getWorld().getModel().getSchedule().getTickCount();
     	// randomize orientation
-		/*
-		 * if(Math.abs(newTime - dt) < 1.0E-6) { this.getOrientation().randomize(); }
-		 */
-		 
-    	
+		if(Math.abs(newTime - dt) < 1.0E-6) { this.getOrientation().randomize(); }
 		
         // All routines called here should use do a FORWARD step of dt in time. 
         // The integration scheme should be FORWARD: f(t+dt) = f(t) + dt * df(t)
@@ -162,6 +159,7 @@ public class ChemotacticCell extends Cell implements PathInterface{
     /**
      * @return
      */
+    @ProbedProperty
     public Copynumber getCheYp() {
     	return cheYp;
     }
@@ -266,4 +264,120 @@ public class ChemotacticCell extends Cell implements PathInterface{
 	public double getZPosition() {
 		return this.getPosition().getElement(2);
 	}
+	
+	@ProbedProperty
+	public String getMotorState() {
+		int state = this.getMotor().getState();
+		switch (state) {
+		case 0:
+			return "CCW";
+		case 1:
+			return "CW";
+		default:
+			return "Invalid";
+		} 
+	}
+	
+	@ProbedProperty
+	public String getFlagellaState() {
+		int state = this.getFlagella().getState();
+		switch (state) {
+		case 0:
+			return "Bundled";
+		case 1:
+			return "Apart";
+		default:
+			return "Invalid";
+		} 
+	}
+	
+	@ProbedProperty
+	public double getApartDuration() {
+		return this.getFlagella().getApartDuration();
+	}
+	
+	@ProbedProperty
+	public long getCheYpLevel() {
+		return this.getCheYp().getLevel();
+	}
+	
+	@ProbedProperty
+	public double getAspOccupancy() {
+		return this.getReceptors().getOccupancy("{asp}");
+	}
+	
+	@ProbedProperty
+	public double getAspStarOccupancy() {
+		return this.getReceptors().getOccupancy("{asp*}");
+	}
+	
+	@ProbedProperty
+	public long getCheYLevel() {
+		Copynumber nCheY = new Copynumber("Y");
+		this.getChemotaxisNetwork().getCopynumber(nCheY);
+		return nCheY.getLevel();
+	}
+	
+	@ProbedProperty
+	public long getCheBPLevel() {
+		Copynumber nCheBP = new Copynumber("BP");
+		this.getChemotaxisNetwork().getCopynumber(nCheBP);
+		return nCheBP.getLevel();
+	}
+	
+	@ProbedProperty
+	public long getCheBLevel() {
+		Copynumber nCheB = new Copynumber("B");
+		this.getChemotaxisNetwork().getCopynumber(nCheB);
+		return nCheB.getLevel();
+	}
+	
+	@ProbedProperty
+	public long getCheAPLevel() {
+		Copynumber nCheAP = new Copynumber("AP");
+		this.getChemotaxisNetwork().getCopynumber(nCheAP);
+		return nCheAP.getLevel();
+	}
+	
+	@ProbedProperty
+	public long getCheALevel() {
+		Copynumber nCheA = new Copynumber("A");
+		this.getChemotaxisNetwork().getCopynumber(nCheA);
+		return nCheA.getLevel();
+	}
+	
+	@ProbedProperty
+	public long getCheRLevel() {
+		Copynumber nCheR = new Copynumber("R");
+		this.getChemotaxisNetwork().getCopynumber(nCheR);
+		return nCheR.getLevel();
+	}
+	
+	@ProbedProperty
+	public long getCheETLevel() {
+		Copynumber nCheET = new Copynumber("ET");
+		this.getChemotaxisNetwork().getCopynumber(nCheET);
+		return nCheET.getLevel();
+	}
+	
+	@ProbedProperty
+	public double getCheYpAverage() {
+		return this.getMotor().getCheYpAverage();
+	}
+	
+	@ProbedProperty
+	public double getLigandConcentration() {
+		return this.getReceptors().getLigandConcentration();
+	}
+	
+	@ProbedProperty
+	public double getCCWDuration() {
+		return ((ThresholdMotor)this.getMotor()).getCCWDuration();
+	}
+	
+	@ProbedProperty
+	public double getCWDuration() {
+		return ((ThresholdMotor)this.getMotor()).getCWDuration();
+	}
+	
 }

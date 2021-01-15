@@ -67,4 +67,9 @@ public class SeriesThresholdMotor extends ThresholdMotor {
         //return comparison
         return (state == Motor.CW);
     }
+
+	@Override
+	public double getCheYpAverage() {
+		return 0.0;
+	}
 }

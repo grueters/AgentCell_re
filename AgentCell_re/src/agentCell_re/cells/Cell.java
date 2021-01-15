@@ -21,6 +21,7 @@ import agentCell_re.math.Vect3;
 import agentCell_re.motion.MotionStepper;
 import agentCell_re.util.general.PathInterface;
 import agentCell_re.world.IWorld;
+import repast.simphony.ui.probe.ProbedProperty;
 
 
 /**
@@ -61,6 +62,7 @@ public abstract class Cell implements PathInterface{
     /**
      * @return
      */
+    @ProbedProperty
     public int getIdentifier() {
         return identifier;
     }

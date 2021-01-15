@@ -99,6 +99,10 @@ public class Run implements Motion {
 			int axesOrder = RandomHelper.nextIntFromTo(0, 5);
 			motionStepper.getCell().getOrientation().rotateAroundLocalAxes(axesOrder, dAngle0, dAngle1, dAngle2);
 		}
+		
+		// Advance position 
+		motionStepper.getCell().getPosition().plusMult(dt * velocity, 
+				motionStepper.getCell().getOrientation().viewDirection());
 
 	}
 

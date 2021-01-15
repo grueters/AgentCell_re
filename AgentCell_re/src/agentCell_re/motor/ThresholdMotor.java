@@ -171,4 +171,12 @@ public abstract class ThresholdMotor extends Motor {
     public void setMinCWDuration(double d) {
         minCWDuration = d;
     }
+    
+    public double getCCWDuration() {
+        return CCWDuration;
+    }
+
+    public double getCWDuration() {
+        return CWDuration;
+    }
 }
