@@ -115,20 +115,14 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 		RandomHelper.createGamma(1.0, 1.0);
 		// double bla = RandomHelper.getGamma().nextDouble();
 
-		/*
-		 * ContinuousSpace<Object> space3d =
-		 * ContinuousSpaceFactoryFinder.createContinuousSpaceFactory(null)
-		 * .createContinuousSpace("space3d", context, new
-		 * SimpleCartesianAdder<Object>(), new
-		 * repast.simphony.space.continuous.BouncyBorders(), xdim, ydim, zdim);
-		 */
+		ContinuousSpace<Object> space3d = ContinuousSpaceFactoryFinder.createContinuousSpaceFactory(null)
+				.createContinuousSpace("space3d", context, new SimpleCartesianAdder<Object>(),
+						new repast.simphony.space.continuous.BouncyBorders(), xdim, ydim, zdim);
 
-		/*
-		 * ContinuousValueLayer aspartateEnv = new ContinuousValueLayer("aspartateEnv",
-		 * aspartateMax, true, new repast.simphony.space.continuous.BouncyBorders(),
-		 * xdim, ydim, zdim); fillEnvironmentalSpace(aspartateEnv);
-		 * context.addValueLayer(aspartateEnv);
-		 */
+		ContinuousValueLayer aspartateEnv = new ContinuousValueLayer("aspartateEnv", aspartateMax, true,
+				new repast.simphony.space.continuous.BouncyBorders(), xdim, ydim, zdim);
+		fillEnvironmentalSpace(aspartateEnv);
+		context.addValueLayer(aspartateEnv);
 
 		// Set the model step size to 0.01 seconds.
 		this.setDt(acParams.getDT_s());
@@ -201,16 +195,12 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 				new Vect3(0, 0, aspartateGradient), 0, // min Level
 				1.0E-2)); // max level
 
-		AspartateSpace aspartateSpace = new AspartateSpace(this.acParams, world);
-		context.addSubContext(aspartateSpace);
-		context.add(aspartateSpace);
-		
 		for (int i = 0; i < acParams.getNumberOfCells(); i++) {
 
 			// PARAMETER: initial position of the cell
 			// double zpos = Random.uniform.nextDoubleFromTo(0,1) * 30000 - 3000;
-			double xPos = RandomHelper.nextDoubleFromTo(1.0, xdim - 1.0);
-			double yPos = RandomHelper.nextDoubleFromTo(1.0, ydim - 1.0);
+			double xPos = RandomHelper.nextDoubleFromTo(0.0, xdim);
+			double yPos = RandomHelper.nextDoubleFromTo(0.0, ydim);
 			double zPos = RandomHelper.nextDoubleFromTo(90.0, 95.0);
 			// double zpos = 100.0; // position chosen for the cell to be in 1 uM aspartate
 
@@ -229,10 +219,6 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 			// create the cell
 			// copy numbers are zero for the moment. Must be set after network is
 			// initialized
-<<<<<<< Upstream, based on origin/master
-=======
-			ContinuousSpace<Object >space3d = aspartateSpace.getSpace3d();
->>>>>>> 969cd52 Added the DisplayStandardizer that allows to alter the viewer's position on the initial 3d display added several probed properties to the ChemotacticCell class for inspection during the run Added AspartateSpace for visualization of the aspartate gradient in an additional 2d- or 3d-display
 			ChemotacticCell cell = new ChemotacticCell(space3d, world, position, orientation,
 					new Copynumber(Molecule.CHEYP), cellVolume_l);
 			context.add(cell);
@@ -418,8 +404,6 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 			world.getCells().add(cell);
 		}
 
-		DisplayStandardizer.initialize();
-		
 		if (RunEnvironment.getInstance().isBatch()) {
 			RunEnvironment.getInstance().endAt(20);
 		}

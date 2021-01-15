@@ -2,19 +2,8 @@ package agentCell_re.cells;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.File;
 
-<<<<<<< Upstream, based on origin/master
-import javax.media.j3d.BranchGroup;
-import javax.media.j3d.Shape3D;
-import javax.media.j3d.Transform3D;
-import javax.media.j3d.TransformGroup;
-import javax.vecmath.Vector3d;
-
-import com.sun.j3d.loaders.Scene;
-import com.sun.j3d.loaders.objectfile.ObjectFile;
-=======
-import org.jogamp.java3d.loaders.Scene;
-import org.jogamp.java3d.loaders.objectfile.ObjectFile;
 import org.jogamp.vecmath.Vector3d;
 import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BranchGroup;
@@ -23,7 +12,8 @@ import org.jogamp.java3d.Node;
 import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
->>>>>>> 969cd52 Added the DisplayStandardizer that allows to alter the viewer's position on the initial 3d display added several probed properties to the ChemotacticCell class for inspection during the run Added AspartateSpace for visualization of the aspartate gradient in an additional 2d- or 3d-display
+import org.jogamp.java3d.loaders.Scene;
+import org.jogamp.java3d.loaders.objectfile.ObjectFile;
 
 import repast.simphony.visualization.visualization3D.AppearanceFactory;
 import repast.simphony.visualization.visualization3D.style.Style3D;
@@ -60,13 +50,10 @@ public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 		taggedGroup = new TaggedBranchGroup("CELL");
 		double creaseAngle = 60.0;
 		int flags = ObjectFile.RESIZE;
+
 		ObjectFile objFile = new ObjectFile(flags, (float) (creaseAngle * Math.PI) / 180);
 		Scene scene = null;
-<<<<<<< Upstream, based on origin/master
-		String path = "/home/leonm/git/AgentCell_re/AgentCell_re/ufo plane free.obj";
-=======
 		String path = "/home/grueters/git/AgentCell_re_repo/AgentCell_re/ufo plane free.obj";
->>>>>>> 969cd52 Added the DisplayStandardizer that allows to alter the viewer's position on the initial 3d display added several probed properties to the ChemotacticCell class for inspection during the run Added AspartateSpace for visualization of the aspartate gradient in an additional 2d- or 3d-display
 		try {
 			scene = objFile.load(path);
 		} catch (Exception e) {
@@ -126,12 +113,7 @@ public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 		if (taggedAppearance == null) {
 			taggedAppearance = new TaggedAppearance();
 		}
-
-<<<<<<< Upstream, based on origin/master
-		if (agent instanceof ChemotacticCell)
-			AppearanceFactory.setMaterialAppearance(taggedAppearance.getAppearance(), cellColor);
-
-=======
+		
 		if (agent instanceof ChemotacticCell) {
 			Color cellColor;
 			if(agent.getFlagellaState().equals("Bundled")) {
@@ -143,15 +125,13 @@ public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 			}
 			AppearanceFactory.setMaterialAppearance(taggedAppearance.getAppearance(), cellColor);
 		}
->>>>>>> 969cd52 Added the DisplayStandardizer that allows to alter the viewer's position on the initial 3d display added several probed properties to the ChemotacticCell class for inspection during the run Added AspartateSpace for visualization of the aspartate gradient in an additional 2d- or 3d-display
 		return taggedAppearance;
 	}
-	
+
 	public float[] getScale(ChemotacticCell agent) {
 		float v = (float) agent.getVolume();
 		v *= 1.0E15;
 		float[] scale = { v, v, v };
 		return scale;
 	}
-	
 }
