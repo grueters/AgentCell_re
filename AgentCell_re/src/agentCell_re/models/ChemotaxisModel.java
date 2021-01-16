@@ -62,6 +62,7 @@ import agentCell_re.receptors.Receptors;
 import agentCell_re.util.general.PathInterface;
 import agentCell_re.util.hdf.ChemotaxisRecorder;
 import agentCell_re.util.log4j.ClusterLogger;
+import agentCell_re.world.AspartateIndicator;
 import agentCell_re.world.AspartateSpace;
 import agentCell_re.world.BoundaryConditions;
 import agentCell_re.world.IWorld;
@@ -119,11 +120,6 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 				.createContinuousSpace("space3d", context, new SimpleCartesianAdder<Object>(),
 						new repast.simphony.space.continuous.BouncyBorders(), xdim, ydim, zdim);
 
-		ContinuousValueLayer aspartateEnv = new ContinuousValueLayer("aspartateEnv", aspartateMax, true,
-				new repast.simphony.space.continuous.BouncyBorders(), xdim, ydim, zdim);
-		fillEnvironmentalSpace(aspartateEnv);
-		context.addValueLayer(aspartateEnv);
-
 		// Set the model step size to 0.01 seconds.
 		this.setDt(acParams.getDT_s());
 
@@ -162,18 +158,18 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 		 */
 		
 		//default period = 1
-		double xPeriod = 99.999;
-		double yPeriod = 99.999;
-		double zPeriod = 199.999;
+		double xPeriod = xdim - 0.001; // 99.999;
+		double yPeriod = ydim - 0.001; // 99.999;
+		double zPeriod = zdim - 0.001; // 199.999;
 		
 		// x=-1
 		boundaryConditions.add(new PeriodicBoundary(world, 0.001, 0, 0, -1, 0, 0, xPeriod));
 		// x=1
-		boundaryConditions.add(new PeriodicBoundary(world, 99.999, 0, 0, 1, 0, 0, xPeriod));
+		boundaryConditions.add(new PeriodicBoundary(world, xPeriod, 0, 0, 1, 0, 0, xPeriod));
 		// y=-1
 		boundaryConditions.add(new PeriodicBoundary(world, 0, 0.001, 0, 0, -1, 0, yPeriod));
 		// y=1
-		boundaryConditions.add(new PeriodicBoundary(world, 0, 99.999, 0, 0, 1, 0, yPeriod));
+		boundaryConditions.add(new PeriodicBoundary(world, 0, yPeriod, 0, 0, 1, 0, yPeriod));
 		// z=-13 mm like in Dahlquist, Lovely & Koshland, Nature new biol. 236, 120
 		// (1972)
 		// boundaryConditions.add(new ReflectiveBoundary(world, 0, 0, 0E3, 0, 0, -1));
@@ -183,7 +179,7 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 		// z= 32 mm (total length = 45, see fig 4)
 		boundaryConditions.add(
 				// new ReflectiveBoundary(world, 0, 0, 30E3, 0, 0, 1));
-				new PeriodicBoundary(world, 0, 0, 199.99, 0, 0, 1, zPeriod));
+				new PeriodicBoundary(world, 0, 0, zPeriod, 0, 0, 1, zPeriod));
 
 		world.setBoundaryConditions(boundaryConditions);
 
@@ -195,13 +191,30 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 				new Vect3(0, 0, aspartateGradient), 0, // min Level
 				1.0E-2)); // max level
 
+		/*
+		 * AspartateSpace aspartateSpace = new AspartateSpace(acParams, world);
+		 * context.addSubContext(aspartateSpace); 
+		 * context.add(aspartateSpace);
+		 */
+		double xIndicator = 2.5;
+		double yIndicator = 2.5;
+		for (int z = 50; z < zdim; z += 100) {
+			double zIndicator = (double)z;
+			Vect v = new Vect3(xIndicator, yIndicator, zIndicator);
+			double localAspartateLevel = world.getConcentrationField().getConcentrationLevelAt(v);
+			AspartateIndicator aspIndicator = new AspartateIndicator(localAspartateLevel);
+			context.add(aspIndicator);
+			space3d.moveTo(aspIndicator, xIndicator, yIndicator, zIndicator);
+		}
+		
 		for (int i = 0; i < acParams.getNumberOfCells(); i++) {
 
 			// PARAMETER: initial position of the cell
 			// double zpos = Random.uniform.nextDoubleFromTo(0,1) * 30000 - 3000;
-			double xPos = RandomHelper.nextDoubleFromTo(0.0, xdim);
-			double yPos = RandomHelper.nextDoubleFromTo(0.0, ydim);
-			double zPos = RandomHelper.nextDoubleFromTo(90.0, 95.0);
+			double margin = 0.001;
+			double xPos = RandomHelper.nextDoubleFromTo(margin, xPeriod);
+			double yPos = RandomHelper.nextDoubleFromTo(margin, yPeriod);
+			double zPos = (zdim / 2.0) + RandomHelper.nextDoubleFromTo(-5.0, 5.0);
 			// double zpos = 100.0; // position chosen for the cell to be in 1 uM aspartate
 
 			Vect position = new Vect3(xPos, yPos, zPos);
@@ -383,7 +396,7 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 			// boltzman = 1.3807E-16 [erg/deg (= g cm^2/sec^2)]
 			// rotationaDiffusion = boltzman * T / (8*PI*viscosity*(1e-4*radius)^3) =
 			// 0.0620577 [sec^-1]
-			double runSpeed = 10.0 * acParams.getCellSpeed_microm_per_s();
+			double runSpeed = acParams.getCellSpeed_microm_per_s();
 			double runRotationalDiffusion = 0.0620577;
 			motionStepper.setRun(new Run(motionStepper, runSpeed, runRotationalDiffusion));
 
@@ -403,6 +416,8 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 			// Add the new cell to the world.
 			world.getCells().add(cell);
 		}
+		
+		// DisplayStandardizer.initialize();
 
 		if (RunEnvironment.getInstance().isBatch()) {
 			RunEnvironment.getInstance().endAt(20);

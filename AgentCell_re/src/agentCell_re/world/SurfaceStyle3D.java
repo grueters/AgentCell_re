@@ -34,14 +34,17 @@ public class SurfaceStyle3D implements ValueLayerStyle3D {
 	
 	@Override
 	public float getCellSize() {
-		return 0.06f;
+		return (float)1.0E-6;
 	}
 
 	@Override
 	public Paint getPaint(double... coordinates) {
-    int sugar = (int)layer.get(coordinates);
-		
-		return colorMap.get(sugar);
+		double aspartateLevel = layer.get(coordinates);
+		aspartateLevel /= 1.0E-2; 
+		int yellowness = (int)(aspartateLevel * 255);
+		Color color = new Color(yellowness,yellowness, 0);
+		return color;
+		// return colorMap.get(sugar);
 	}
 
 	@Override

@@ -6,7 +6,21 @@
       <string>agentCell_re.cells.ChemotacticCell</string>
       <string>agentCell_re.cells.ChemotacticCellStyle3D</string>
     </entry>
+    <entry>
+      <string>agentCell_re.world.AspartateIndicator</string>
+      <string>agentCell_re.world.AspartateIndicatorStyle3D</string>
+    </entry>
   </styles>
+  <editedStyles>
+    <entry>
+      <string>agentCell_re.cells.ChemotacticCell</string>
+      <null/>
+    </entry>
+    <entry>
+      <string>agentCell_re.world.AspartateIndicator</string>
+      <null/>
+    </entry>
+  </editedStyles>
   <netStyles/>
   <editedNetStyles/>
   <frequency>ON_MOVE</frequency>
@@ -17,7 +31,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-819127651</hashCode>
+    <hashCode>-2131669095</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>space3d</layoutProjection>
@@ -25,6 +39,10 @@
   <layerOrder>
     <entry>
       <string>agentCell_re.cells.ChemotacticCell</string>
+      <int>1</int>
+    </entry>
+    <entry>
+      <string>agentCell_re.world.AspartateIndicator</string>
       <int>0</int>
     </entry>
   </layerOrder>

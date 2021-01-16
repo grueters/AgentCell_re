@@ -1,6 +1,9 @@
-<context id="agentCell_re" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<context id="agentCell_re"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://repast.org/scenario/context">
-	<projection type="continuous space" id="space3d"></projection>
-	<projection type="value layer" id="aspartateEnv"></projection>  	
+	<projection type="continuous space" id="space3d" />
+	<context id="AspartateSpace">
+		<projection id="Grid" type="grid" />
+		<projection id="CurrentAspartate" type="value layer" />
+	</context>
 </context>
