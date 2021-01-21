@@ -2,18 +2,15 @@ package agentCell_re.cells;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.io.File;
 
-import org.jogamp.vecmath.Vector3d;
-import org.jogamp.java3d.Appearance;
-import org.jogamp.java3d.BranchGroup;
-import org.jogamp.java3d.Geometry;
-import org.jogamp.java3d.Node;
-import org.jogamp.java3d.Shape3D;
-import org.jogamp.java3d.Transform3D;
-import org.jogamp.java3d.TransformGroup;
-import org.jogamp.java3d.loaders.Scene;
-import org.jogamp.java3d.loaders.objectfile.ObjectFile;
+import javax.media.j3d.BranchGroup;
+import javax.media.j3d.Shape3D;
+import javax.media.j3d.Transform3D;
+import javax.media.j3d.TransformGroup;
+import javax.vecmath.Vector3d;
+
+import com.sun.j3d.loaders.Scene;
+import com.sun.j3d.loaders.objectfile.ObjectFile;
 
 import repast.simphony.visualization.visualization3D.AppearanceFactory;
 import repast.simphony.visualization.visualization3D.style.Style3D;
@@ -53,7 +50,7 @@ public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 
 		ObjectFile objFile = new ObjectFile(flags, (float) (creaseAngle * Math.PI) / 180);
 		Scene scene = null;
-		String path = "/home/grueters/git/AgentCell_re_repo/AgentCell_re/ufo plane free.obj";
+		String path = "/home/leonm/git/AgentCell_re/AgentCell_re/ufo plane free.obj";
 		try {
 			scene = objFile.load(path);
 		} catch (Exception e) {
@@ -69,9 +66,11 @@ public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 		// Shape3D shape = ShapeFactory.createArrowHead(0.1f, null);
 		// shape.setCapability(Shape3D.ALLOW_APPEARANCE_WRITE);
 
+		double scalingfactor = 0.006d;
+		
 		Transform3D transform3d = new Transform3D();
 		transform3d.rotZ(Math.toRadians(180));
-		Vector3d scale = new Vector3d(0.05d, 0.05d, 0.05d);
+		Vector3d scale = new Vector3d(scalingfactor, scalingfactor, scalingfactor);
         transform3d.setScale(scale);
 		TransformGroup transShape = new TransformGroup(transform3d);
 		transShape.addChild(shape);

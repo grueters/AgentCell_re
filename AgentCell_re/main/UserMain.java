@@ -4,7 +4,7 @@ public class UserMain {
 
 	public void start() {
 		String[] args = new String[] {
-				"/home/grueters/git/AgentCell_re_repo/AgentCell_re/AgentCell_re.rs" };
+				"/home/leonm/git/AgentCell_re/AgentCell_re/AgentCell_re.rs" };
 		repast.simphony.runtime.RepastMain.main(args);
 	}
 

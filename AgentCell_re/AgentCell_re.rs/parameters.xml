@@ -18,19 +18,6 @@
 						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
 									
 		/>
-				<parameter name="inputDir" displayName="1.7 Input Directory" type="java.lang.String" 
-						defaultValue="bin_main/.." 
-						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
-									
-		/>
-				
-				<parameter name="modelParameters" displayName="1. Agent Cell Model" type="java.lang.String" 
-						defaultValue="_" 
-						isReadOnly="true" 
-						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
-									
-		/>
 				<parameter name="dT_s" displayName="1.4 Time interval [s]" type="double" 
 						defaultValue="0.01" 
 						isReadOnly="false" 
@@ -41,7 +28,7 @@
 						defaultValue="1" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
-									values="1 2 4 6 8 10 "
+									values="1 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 100"
 						
 		/>
 				<parameter name="stopTime_s" displayName="1.5 Stop time [s]" type="double" 
@@ -57,7 +44,7 @@
 									
 		/>
 				<parameter name="cellRotationalDiffusion_1_per_s" displayName="2.4 Cell Rotational Diffusion [1 / s]" type="double" 
-						defaultValue="0.0620577" 
+						defaultValue="0.06206" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
@@ -69,13 +56,13 @@
 									
 		/>
 				<parameter name="ydim" displayName="1.2 World length" type="double" 
-						defaultValue="100.0" 
+						defaultValue="30.0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
 		/>
 				<parameter name="dissociationConst_Asp" displayName="3.2 Dissociation Constant Asp" type="double" 
-						defaultValue="1.71E-6" 
+						defaultValue="0.0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
@@ -86,14 +73,8 @@
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 									
 		/>
-				<parameter name="equilibrationTime_s" displayName="1.6 Equilibration time [s]" type="double" 
-						defaultValue="0.0" 
-						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
-									
-		/>
 				<parameter name="xdim" displayName="1.1 World width" type="double" 
-						defaultValue="100.0" 
+						defaultValue="30.0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
@@ -105,13 +86,19 @@
 									
 		/>
 				<parameter name="dissociationConst_Asp*" displayName="3.3 Dissociation Constant Asp*" type="double" 
-						defaultValue="1.2E-5" 
+						defaultValue="1.0E-5" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
 		/>
 				<parameter name="scaleGamma" displayName="4.6 Gamma scale" type="double" 
-						defaultValue="18.32045567939674" 
+						defaultValue="18.32046" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+									
+		/>
+				<parameter name="equilibrationTime_s" displayName="1.6 Equilibration time [s]" type="double" 
+						defaultValue="0.0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
@@ -128,10 +115,22 @@
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
 		/>
+				<parameter name="inputDir" displayName="1.7 Input Directory" type="java.lang.String" 
+						defaultValue="bin_main/.." 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
+									
+		/>
 				<parameter name="randomSeed" displayName="Default Random Seed" type="int" 
 						defaultValue="__NULL__"
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
+		/>
+				<parameter name="modelParameters" displayName="1. Agent Cell Model" type="java.lang.String" 
+						defaultValue="_" 
+						isReadOnly="true" 
+						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
 									
 		/>
 				<parameter name="cells" displayName="2. Agent Cells" type="java.lang.String" 
@@ -141,7 +140,7 @@
 									
 		/>
 				<parameter name="zdim" displayName="1.3 World height" type="double" 
-						defaultValue="200.0" 
+						defaultValue="1000000.0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
@@ -153,7 +152,7 @@
 									
 		/>
 				<parameter name="locationGamma" displayName="4.7 Gamma location" type="double" 
-						defaultValue="-4.606176605609249" 
+						defaultValue="-4.60618" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									

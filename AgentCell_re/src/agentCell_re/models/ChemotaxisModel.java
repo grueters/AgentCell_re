@@ -36,6 +36,9 @@ Authors: Thierry Emonet (emonet@uchicago.edu) and Michael J. North (north@anl.go
  */
 package agentCell_re.models;
 
+import java.awt.Component;
+import java.awt.Rectangle;
+import java.awt.Window;
 import java.io.File;
 import java.util.Collection;
 import java.util.Date;
@@ -157,30 +160,52 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 		 * ReflectiveBoundary(world, 0, 0, 199, 0, 0, 1));
 		 */
 		
+		// margin=0.001
+		// This is so that the Repast boundaries don't interfere with the AgentCell boundaries that we use.
+		double margin = 0.001;
+		double xMin, yMin, zMin;
+		xMin = margin;
+		yMin = margin; 
+		zMin = margin; 
+		double xMax = xdim - margin;
+		double yMax = ydim - margin;
+		double zMax = zdim - margin;
+		
 		//default period = 1
-		double xPeriod = xdim - 0.001; // 99.999;
-		double yPeriod = ydim - 0.001; // 99.999;
-		double zPeriod = zdim - 0.001; // 199.999;
+		double xPeriod = xMax - 0.001; // 99.999;
+		double yPeriod = yMax - 0.001; // 99.999;
+		double zPeriod = zMax - 0.001; // 199.999;
 		
 		// x=-1
-		boundaryConditions.add(new PeriodicBoundary(world, 0.001, 0, 0, -1, 0, 0, xPeriod));
+		boundaryConditions.add(new PeriodicBoundary(world, xMin, 0, 0, -1, 0, 0, xPeriod));
 		// x=1
-		boundaryConditions.add(new PeriodicBoundary(world, xPeriod, 0, 0, 1, 0, 0, xPeriod));
+		boundaryConditions.add(new PeriodicBoundary(world, xMax, 0, 0, 1, 0, 0, xPeriod));
 		// y=-1
-		boundaryConditions.add(new PeriodicBoundary(world, 0, 0.001, 0, 0, -1, 0, yPeriod));
+		boundaryConditions.add(new PeriodicBoundary(world, 0, yMin, 0, 0, -1, 0, yPeriod));
 		// y=1
-		boundaryConditions.add(new PeriodicBoundary(world, 0, yPeriod, 0, 0, 1, 0, yPeriod));
-		// z=-13 mm like in Dahlquist, Lovely & Koshland, Nature new biol. 236, 120
-		// (1972)
+		boundaryConditions.add(new PeriodicBoundary(world, 0, yMax, 0, 0, 1, 0, yPeriod));
+		
+		/*
+		 * // z=-13 mm like in Dahlquist, Lovely & Koshland, Nature new biol. 236, 120
+		 * // (1972) // boundaryConditions.add(new ReflectiveBoundary(world, 0, 0, 0E3,
+		 * 0, 0, -1)); boundaryConditions.add(new PeriodicBoundary(world, 0, 0, zMin, 0,
+		 * 0, -1, zPeriod)); // //use -3 (shorter)
+		 * 
+		 * // z= 32 mm (total length = 45, see fig 4) boundaryConditions.add( // new
+		 * ReflectiveBoundary(world, 0, 0, 30E3, 0, 0, 1)); new PeriodicBoundary(world,
+		 * 0, 0, zMax, 0, 0, 1, zPeriod));
+		 */
+		
+		// z=-13 mm like in Dahlquist, Lovely & Koshland, Nature new biol. 236, 120 
+		// (1972) 
 		// boundaryConditions.add(new ReflectiveBoundary(world, 0, 0, 0E3, 0, 0, -1));
-		boundaryConditions.add(new PeriodicBoundary(world, 0, 0, 0.001, 0, 0, -1, zPeriod));
-		// //use -3 (shorter)
-
-		// z= 32 mm (total length = 45, see fig 4)
-		boundaryConditions.add(
-				// new ReflectiveBoundary(world, 0, 0, 30E3, 0, 0, 1));
-				new PeriodicBoundary(world, 0, 0, zPeriod, 0, 0, 1, zPeriod));
-
+		boundaryConditions.add(new ReflectiveBoundary(world, 0, 0, zMin, 0, 0, -1)); 
+		//
+		//use -3 (shorter)
+		// z= 32 mm (total length = 45, see fig 4) 
+		// boundaryConditions.add(new ReflectiveBoundary(world, 0, 0, 30E3, 0, 0, 1));
+		boundaryConditions.add(new ReflectiveBoundary(world, 0, 0, zMax, 0, 0, 1));
+		
 		world.setBoundaryConditions(boundaryConditions);
 
 		// Set the chemical gradient.
@@ -196,8 +221,8 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 		 * context.addSubContext(aspartateSpace); 
 		 * context.add(aspartateSpace);
 		 */
-		double xIndicator = 2.5;
-		double yIndicator = 2.5;
+		double xIndicator = xdim/2.0;
+		double yIndicator = ydim/2.0;
 		for (int z = 50; z < zdim; z += 100) {
 			double zIndicator = (double)z;
 			Vect v = new Vect3(xIndicator, yIndicator, zIndicator);
@@ -211,10 +236,9 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 
 			// PARAMETER: initial position of the cell
 			// double zpos = Random.uniform.nextDoubleFromTo(0,1) * 30000 - 3000;
-			double margin = 0.001;
-			double xPos = RandomHelper.nextDoubleFromTo(margin, xPeriod);
-			double yPos = RandomHelper.nextDoubleFromTo(margin, yPeriod);
-			double zPos = (zdim / 2.0) + RandomHelper.nextDoubleFromTo(-5.0, 5.0);
+			double xPos = RandomHelper.nextDoubleFromTo(xMin, xMax);
+			double yPos = RandomHelper.nextDoubleFromTo(yMin, yMax);
+			double zPos = (zdim / 2.0); //+ RandomHelper.nextDoubleFromTo(-5.0, 5.0);
 			// double zpos = 100.0; // position chosen for the cell to be in 1 uM aspartate
 
 			Vect position = new Vect3(xPos, yPos, zPos);
@@ -417,13 +441,16 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 			world.getCells().add(cell);
 		}
 		
-		// DisplayStandardizer.initialize();
+		// We need to obtain the CellDisplay-Window from Repast here...
+		Window activeWindow = javax.swing.FocusManager.getCurrentManager().getActiveWindow();
+		
+		DisplayStandardizer.initialize(activeWindow);
 
 		if (RunEnvironment.getInstance().isBatch()) {
 			RunEnvironment.getInstance().endAt(20);
 		}
 
-		return context;
+		return context;   
 	}
 
 	private void fillEnvironmentalSpace(ContinuousValueLayer currentEnv) {

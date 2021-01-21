@@ -3,25 +3,19 @@ package agentCell_re.world;
 import java.awt.Color;
 import java.awt.Font;
 
-import org.jogamp.java3d.Appearance;
-import org.jogamp.java3d.BranchGroup;
-import org.jogamp.java3d.ColoringAttributes;
-import org.jogamp.java3d.Shape3D;
-import org.jogamp.java3d.Transform3D;
-import org.jogamp.java3d.TransformGroup;
-import org.jogamp.java3d.TransparencyAttributes;
-import org.jogamp.java3d.loaders.Scene;
-import org.jogamp.java3d.loaders.objectfile.ObjectFile;
-import org.jogamp.vecmath.Color3f;
-import org.jogamp.vecmath.Vector3d;
+import javax.media.j3d.Appearance;
+import javax.media.j3d.ColoringAttributes;
+import javax.media.j3d.Shape3D;
+import javax.media.j3d.TransparencyAttributes;
+import javax.vecmath.Color3f;
 
-import agentCell_re.cells.ChemotacticCell;
-import repast.simphony.visualization.visualization3D.AppearanceFactory;
+import agentCell_re.models.AC_Parameters;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.parameter.Parameters;
 import repast.simphony.visualization.visualization3D.ShapeFactory;
 import repast.simphony.visualization.visualization3D.style.Style3D;
 import repast.simphony.visualization.visualization3D.style.TaggedAppearance;
 import repast.simphony.visualization.visualization3D.style.TaggedBranchGroup;
-import repast.simphony.visualization.visualization3D.style.Style3D.LabelPosition;
 
 /**
  * The 3D style class for sugar agents. The style is a red sphere.
@@ -43,9 +37,16 @@ public class AspartateIndicatorStyle3D implements Style3D<AspartateIndicator> {
 		return null;
 	}
 
+	AC_Parameters acParams;
+	
 	private TaggedBranchGroup getGroup(AspartateIndicator agent) {
+		Parameters p = RunEnvironment.getInstance().getParameters();
+		acParams = AC_Parameters.getInstance(p);
+		
 		TaggedBranchGroup taggedGroup = new TaggedBranchGroup("DEFAULT");
-		Shape3D box = ShapeFactory.createBox(0.015f, 0.015f, 0.3f, agent, 0, null);
+		float xSize = 0.015f * (float) acParams.getXdim()/5.0f;
+		float ySize = 0.015f * (float) acParams.getYdim()/5.0f;
+		Shape3D box = ShapeFactory.createBox(xSize, ySize, 0.3f, agent, 0, null);
 		box.setCapability(Shape3D.ALLOW_APPEARANCE_WRITE);
 		Appearance ap = new Appearance();
 		Color3f col = agent.getIndicatorColor();
