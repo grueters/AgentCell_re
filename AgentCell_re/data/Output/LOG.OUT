@@ -1,4 +1,4 @@
-Thu Jan 21 16:03:11 2021
+Fri Jan 22 16:51:07 2021
 
 
 Using Shuffle Random Number Generator for random numbers.
@@ -28,4 +28,4 @@ The time increment has been optimised. Every iteration represents 4.93e-08 secon
 202739000495 iterations (10000.00 simulation seconds) will be performed.
 Complex Type levels will be dumped only at the beginning and end of the simulation.
 Variable values will be stored every 202739 iterations (0.01 simulation seconds).
-The simulation will take approximately 10620.28 seconds to complete.
+The simulation will take approximately 12130.28 seconds to complete.

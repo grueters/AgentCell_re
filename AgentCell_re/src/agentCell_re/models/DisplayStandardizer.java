@@ -2,14 +2,23 @@ package agentCell_re.models;
 
 import java.awt.AWTException;
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
+import java.util.Enumeration;
 import java.awt.Toolkit;
 import java.awt.Window;
 
+import javax.media.j3d.BoundingSphere;
+import javax.media.j3d.BranchGroup;
+import javax.media.j3d.Canvas3D;
+import javax.media.j3d.Locale;
+import javax.media.j3d.Transform3D;
+import javax.media.j3d.TransformGroup;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -21,6 +30,13 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.border.Border;
+import javax.vecmath.Point3d;
+import javax.vecmath.Vector3d;
+import javax.vecmath.Vector3f;
+
+import com.sun.j3d.exp.swing.JCanvas3D;
+import com.sun.j3d.utils.universe.SimpleUniverse;
+import com.sun.j3d.utils.universe.ViewingPlatform;
 
 public class DisplayStandardizer extends JPanel {
 
@@ -89,9 +105,90 @@ public class DisplayStandardizer extends JPanel {
 				activeWindow = javax.swing.FocusManager.getCurrentManager().getActiveWindow();
 				Window[] windows = Window.getWindows();
 				Window aWindow = windows[0];
-				//theFactory = aWindow.getComponent(0).getComponent(1).getComponent(0).getComponent(0).getComponent(0);
-				// 0 JRootPane, 1 JLayeredPane, 0 JPanel, 0 CContentArea, 0 EfficientControlFactory$3 
-				//System.out.println(windows);
+				// aWindow ist ein JFrame.
+				// 0 JRootPane, 
+				// 1 JLayeredPane, 
+				// 0 JPanel,
+				// 0 CContentArea,
+				// 0 EfficientControlFactory$3, 
+				// 1 SplitDockStation$Content, 
+				// 0 (1=Scenario Tree etc.) BasicDockableDisplayer 9006 (9007),
+				// 0 BasicDockableDisplayer$3, 
+				// 0 CSplitDockStation, 
+				// 1 SplitDockStation$Content, 
+				// 0 BasicDockableDisplayer (id9129) hier stehen die ganzen Displays drin, 
+				// 0 BasicDockableDisplayer$3, 
+				// 0 JPanel (Hier steht in 1 SmoothDefaultTitle, 0 AbstractDockTitle$1 unter text="agentCell_re: Cells Display" (id9672),
+				// 0 JPanel ,
+				// 0 JPanel, 
+				// 0 JPanel, 
+				// 1 JPanel (0 ist JToolBar), 
+				// 0 AbstractDisplay3D$ImageablePanel, 
+				// 0 JCanvas3D -> Universe) 
+				
+				Component jRootPane = aWindow.getComponent(0);
+				Component jLayeredPane = ((Container) jRootPane).getComponent(1);
+				Component jPanelA = ((Container) jLayeredPane).getComponent(0);
+				Component cContentArea = ((Container) jPanelA).getComponent(0);
+				Component efficientControlFactory$3 = ((Container) cContentArea).getComponent(0);
+				Component splitDockStation$ContentA = ((Container) efficientControlFactory$3).getComponent(1);
+				Component basicDockableDisplayerA = ((Container) splitDockStation$ContentA).getComponent(0);
+				Component basicDockableDisplayer$3A = ((Container) basicDockableDisplayerA).getComponent(0);
+				Component cSplitDockStation = ((Container) basicDockableDisplayer$3A).getComponent(0);
+				Component splitDockStation$ContentB = ((Container) cSplitDockStation).getComponent(1);
+				Component basicDockableDisplayerB = ((Container) splitDockStation$ContentB).getComponent(0);
+				Component basicDockableDisplayer$3B = ((Container) basicDockableDisplayerB).getComponent(0);
+				Component jPanelB = ((Container) basicDockableDisplayer$3B).getComponent(0);
+				Component jPanelC = ((Container) jPanelB).getComponent(0);
+				Component jPanelD = ((Container) jPanelC).getComponent(0);
+				Component jPanelE = ((Container) jPanelD).getComponent(0);
+				Component jPanelF = ((Container) jPanelE).getComponent(1);
+				Component abstractDisplay3D$ImageablePanel = ((Container) jPanelF).getComponent(0);
+				Component jCanvas3D = ((Container) abstractDisplay3D$ImageablePanel).getComponent(0);
+				
+				System.out.println(jCanvas3D.getClass());
+
+				JCanvas3D thisJCanvas3D = (JCanvas3D) jCanvas3D;
+				Canvas3D canvas3D = thisJCanvas3D.getOffscreenCanvas3D();
+				TransformGroup tG = (TransformGroup) canvas3D.getView().getViewPlatform().getParent();
+				ViewingPlatform viewingPlatform = (ViewingPlatform) tG.getParent();
+				SimpleUniverse universe = viewingPlatform.getUniverse();
+				System.out.println(universe);
+				
+				Locale locale = (Locale) universe.getLocale();
+				Enumeration nummeration = locale.getAllBranchGraphs();
+				nummeration.nextElement();
+				BranchGroup group = (BranchGroup) nummeration.nextElement();	
+				BoundingSphere bounds = (BoundingSphere) group.getBounds();
+
+				
+				TransformGroup viewPlatformTransform = viewingPlatform.getViewPlatformTransform();
+				Transform3D trans = new Transform3D(); 
+				
+				
+				//trans.lookAt(new Point3d(0, 0, bounds.getRadius() * 2.5),
+				//		new Point3d(0, 0, 0), new Vector3d(0, 1, 0));
+				
+				//trans.lookAt(new Point3d(0, 0, bounds.getRadius() * 2.5),
+				//		new Point3d(0, 0, 0), new Vector3d(0, 1, 0));
+				//trans.invert();
+				
+				Vector3f translate = new Vector3f(); 
+				Transform3D T3D = new Transform3D();
+				translate.set( 0.0f, 100.0f, -200.0f); //x=rechts links, y=vorne hinten, z=oben unten
+				T3D.setTranslation(translate);
+				viewPlatformTransform.setTransform(T3D);
+				
+				
+				
+				//viewPlatformTransform.setTransform(trans);
+				
+				//viewPlatform
+				//0 BasicDockableDisplayer$3,
+				// 0 StackDockStation$Background, 1 JPanel, 0 BasicStackDockComponent, 
+				// (0,1,2,3) BasicDockableDisplayer = Scenario Tree etc
+				
+				// System.out.println(windows);
 				// Component comp = getComponent(0);
 			    // Rectangle rect = new Rectangle(comp.getLocationOnScreen(), comp.getSize());
 			   
@@ -136,7 +233,7 @@ public class DisplayStandardizer extends JPanel {
 					
 						// Rotate 3D Display
 						robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
-						yCoord = yCoord + rotatingShift;
+						//yCoord = yCoord + rotatingShift;
 						robot.delay(500);
 						robot.mouseMove(xCoord, yCoord);
 						robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
