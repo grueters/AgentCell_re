@@ -175,7 +175,28 @@ public class DisplayStandardizer extends JPanel {
 				
 				Vector3f translate = new Vector3f(); 
 				Transform3D T3D = new Transform3D();
-				translate.set( 0.0f, 100.0f, -200.0f); //x=rechts links, y=vorne hinten, z=oben unten
+				// y=0.0, z=2.41
+				// y=1.0, z=0.25
+				// y=2.0, z=-1.9
+				// y=2.7, z=-3.6
+				// y=10, z=-19
+				// y=100, z=-212
+				// y=1000, z=-2142.5
+				// y=1250, z=-2678.1
+				// y=1265, z=-2710
+				// y=1267.7, Z=-2716
+				//
+				// Lineare Regression: y = -2.14631*x + 2.46436
+				// Bei nur Parametern bis einschließlich (10,-19):
+				//						y = -2.13825*x + 2.34609
+				//					Gerundet: y = -2.14*x + 2.41
+				//
+				// 1 y = 400 Asp.blöcke, 0.25 = 100 Asp.blöcke
+				// 10 y = 4000 Aspartatblöcke
+				// 1000 y = 400000 Aspartatblöcke
+				// 1265 y = 499000 Aspartatblöcke
+				// 1267.7 y ~ 499900 Aspartatblöcke
+				translate.set( 0.0f, 1267.7f, -2716.0f); //x=rechts links, y=vorne hinten, z=oben unten
 				T3D.setTranslation(translate);
 				viewPlatformTransform.setTransform(T3D);
 				
@@ -232,11 +253,11 @@ public class DisplayStandardizer extends JPanel {
 					//robot.mouseWheel(mouseWheelNotches);
 					
 						// Rotate 3D Display
-						robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
+						//robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
 						//yCoord = yCoord + rotatingShift;
 						robot.delay(500);
-						robot.mouseMove(xCoord, yCoord);
-						robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
+						//robot.mouseMove(xCoord, yCoord);
+						//robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
 						//robot.delay(100);
 						//robot.mouseMove(xDisplayMiddle, yDisplayTop);
 					

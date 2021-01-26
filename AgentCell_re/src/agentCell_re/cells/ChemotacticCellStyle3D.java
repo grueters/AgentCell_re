@@ -50,7 +50,8 @@ public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 
 		ObjectFile objFile = new ObjectFile(flags, (float) (creaseAngle * Math.PI) / 180);
 		Scene scene = null;
-		String path = "/home/leonm/git/AgentCell_re/AgentCell_re/ufo plane free.obj";
+		//String path = "/home/leonm/git/AgentCell_re/AgentCell_re/e.-Coli/gespreitzte Tentakel/eColi_gespreitzt.obj";
+		String path = "/home/leonm/git/AgentCell_re/AgentCell_re/e.-Coli/geschlossene Tentakel/eColi.obj";
 		try {
 			scene = objFile.load(path);
 		} catch (Exception e) {
