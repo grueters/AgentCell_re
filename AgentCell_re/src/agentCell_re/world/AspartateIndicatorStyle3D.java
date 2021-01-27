@@ -86,7 +86,15 @@ public class AspartateIndicatorStyle3D implements Style3D<AspartateIndicator> {
 	}
 
 	public float[] getScale(AspartateIndicator agent) {
-		return null;
+		float v = 1f;
+		if (RunEnvironment.getInstance().getCurrentSchedule().getTickCount() < 0.01) {
+			v = 0.05f;
+		}
+		else {
+			v = 1f;
+		}
+		float[] scale = { v, v, v };
+		return scale;
 	}
 
 	@Override

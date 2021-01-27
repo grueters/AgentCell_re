@@ -13,6 +13,7 @@ import com.sun.j3d.loaders.Scene;
 import com.sun.j3d.loaders.objectfile.ObjectFile;
 
 import repast.simphony.visualization.visualization3D.AppearanceFactory;
+import repast.simphony.visualization.visualization3D.VisualItem3D;
 import repast.simphony.visualization.visualization3D.style.Style3D;
 import repast.simphony.visualization.visualization3D.style.TaggedAppearance;
 import repast.simphony.visualization.visualization3D.style.TaggedBranchGroup;
@@ -50,8 +51,25 @@ public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 
 		ObjectFile objFile = new ObjectFile(flags, (float) (creaseAngle * Math.PI) / 180);
 		Scene scene = null;
-		//String path = "/home/leonm/git/AgentCell_re/AgentCell_re/e.-Coli/gespreitzte Tentakel/eColi_gespreitzt.obj";
-		String path = "/home/leonm/git/AgentCell_re/AgentCell_re/e.-Coli/geschlossene Tentakel/eColi.obj";
+		
+		String path = null;
+		int modelXRotation = 0;
+		int bundledModelXRotation = 90;
+		int apartModelXRotation = 180;
+		if (agent instanceof ChemotacticCell) {
+			if(agent.getFlagellaState().equals("Bundled")) {
+				path = "/home/leonm/git/AgentCell_re/AgentCell_re/e.-Coli/geschlossene Tentakel/eColi.obj";
+				modelXRotation = bundledModelXRotation/* = 90*/;
+			} else if (agent.getFlagellaState().equals("Apart")) {
+				path = "/home/leonm/git/AgentCell_re/AgentCell_re/e.-Coli/gespreitzte Tentakel/eColi_gespreitzt.obj";
+				modelXRotation = apartModelXRotation/* = 180*/;
+			} else {
+				path = "/home/leonm/git/AgentCell_re/AgentCell_re/ufo plane free.obj";
+				modelXRotation = 0;
+			}
+		}
+		
+		
 		try {
 			scene = objFile.load(path);
 		} catch (Exception e) {
@@ -67,10 +85,17 @@ public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 		// Shape3D shape = ShapeFactory.createArrowHead(0.1f, null);
 		// shape.setCapability(Shape3D.ALLOW_APPEARANCE_WRITE);
 
-		double scalingfactor = 0.006d;
+		double scalingfactor = 0.0090d;
 		
 		Transform3D transform3d = new Transform3D();
-		transform3d.rotZ(Math.toRadians(180));
+		transform3d.rotY(Math.toRadians(270));
+		Transform3D temp = new Transform3D();
+		//Unfortunately the models for the apart and the bundled
+		//flagella are different in their x-rotation
+		//Therefore use the int apartModelXRotation for the eColi_gespreitzt.obj
+		// and bundledModelXRotation for eColi.obj here:
+		temp.rotX(Math.toRadians(modelXRotation));
+		transform3d.mul(temp);
 		Vector3d scale = new Vector3d(scalingfactor, scalingfactor, scalingfactor);
         transform3d.setScale(scale);
 		TransformGroup transShape = new TransformGroup(transform3d);
@@ -118,10 +143,13 @@ public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 			Color cellColor;
 			if(agent.getFlagellaState().equals("Bundled")) {
 				cellColor = Color.GREEN;
+				//Display3D.getVisualObject(agent).setTaggedBranchGroup(getGroup(agent));
 			} else if (agent.getFlagellaState().equals("Apart")) {
 				cellColor = Color.RED;
+				getGroup(agent);
 			} else {
 				cellColor = Color.YELLOW;
+				getGroup(agent);
 			}
 			AppearanceFactory.setMaterialAppearance(taggedAppearance.getAppearance(), cellColor);
 		}

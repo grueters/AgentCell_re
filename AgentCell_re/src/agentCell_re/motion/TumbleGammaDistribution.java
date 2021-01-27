@@ -13,6 +13,8 @@
  */
 package agentCell_re.motion;
 
+import agentCell_re.cells.ChemotacticCell;
+import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
 
 /**
@@ -78,6 +80,11 @@ public class TumbleGammaDistribution implements Motion {
 
         //rotate by alpha around local y-axis
         motionStepper.getCell().getOrientation().rotateAroundLocalAxis(1, alpha);
+        
+        // Update Cell speed
+		ChemotacticCell cell = ((ChemotacticCell) motionStepper.getCell());
+        cell.setXyzSpeed(cell.getXyzDistanceTraveled()/RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
+		cell.setZplusSpeed(cell.getZplusDistanceTraveled()/RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
     }
 
     /* (non-Javadoc)

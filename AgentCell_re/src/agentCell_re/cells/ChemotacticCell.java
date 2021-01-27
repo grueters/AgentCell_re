@@ -47,6 +47,11 @@ public class ChemotacticCell extends Cell implements PathInterface {
 	private Network chemotaxisNetwork;
 	private Copynumber cheYp;
 	private double lastTime = 0.0;
+	
+	private double xyzDistanceTraveled = 0.0;
+	private double zplusDistanceTraveled = 0.0;
+	private double xyzSpeed = 0.0;
+	private double zplusSpeed = 0.0;
 
 	// Let Cell manage it's FileLocation and HDFLogger
 	private String path;
@@ -387,6 +392,42 @@ public class ChemotacticCell extends Cell implements PathInterface {
 	@ProbedProperty
 	public double getCWDuration() {
 		return ((ThresholdMotor) this.getMotor()).getCWDuration();
+	}
+
+	@ProbedProperty
+	public double getXyzDistanceTraveled() {
+		return xyzDistanceTraveled;
+	}
+
+	@ProbedProperty
+	public double getZplusDistanceTraveled() {
+		return zplusDistanceTraveled;
+	}
+
+	@ProbedProperty
+	public double getXyzSpeed() {
+		return xyzSpeed;
+	}
+
+	@ProbedProperty
+	public double getZplusSpeed() {
+		return zplusSpeed;
+	}
+
+	public void setXyzDistanceTraveled(double xyzDistanceTraveled) {
+		this.xyzDistanceTraveled = xyzDistanceTraveled;
+	}
+
+	public void setZplusDistanceTraveled(double zplusDistanceTraveled) {
+		this.zplusDistanceTraveled = zplusDistanceTraveled;
+	}
+
+	public void setXyzSpeed(double xyzSpeed) {
+		this.xyzSpeed = xyzSpeed;
+	}
+
+	public void setZplusSpeed(double zplusSpeed) {
+		this.zplusSpeed = zplusSpeed;
 	}
 
 }

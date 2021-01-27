@@ -240,7 +240,7 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 			double yPos = RandomHelper.nextDoubleFromTo(yMin, yMax);
 			double zPos = (zdim / 2.0); //+ RandomHelper.nextDoubleFromTo(-5.0, 5.0);
 			// double zpos = 100.0; // position chosen for the cell to be in 1 uM aspartate
-
+			zPos=zPos-1;
 			Vect position = new Vect3(xPos, yPos, zPos);
 			// Create orientation for future cell
 			// PARAMETER: initial orientation of the cell
@@ -423,7 +423,7 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 			double runSpeed = acParams.getCellSpeed_microm_per_s();
 			double runRotationalDiffusion = 0.0620577;
 			motionStepper.setRun(new Run(motionStepper, runSpeed, runRotationalDiffusion));
-
+			
 			// Tumble that fits the distribution in
 			// Fig. 3, p. 501 from Berg and Brown, Nature, 239, 500 (1972)
 			double shape = 4;

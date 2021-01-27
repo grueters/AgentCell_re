@@ -36,6 +36,8 @@ Authors: Thierry Emonet (emonet@uchicago.edu) and Michael J. North (north@anl.go
  */
 package agentCell_re.motion;
 
+import agentCell_re.cells.ChemotacticCell;
+import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
 
 /**
@@ -66,6 +68,12 @@ public class Run implements Motion {
 	 * @see edu.uchicago.agentcell.motion.Motion#step(double)
 	 */
 	public void step(double dt) {
+		//Save positions before moving
+		ChemotacticCell cell = ((ChemotacticCell) motionStepper.getCell());
+		double xPositionBeforeMoving = cell.getXPosition();
+		double yPositionBeforeMoving = cell.getYPosition();
+		double zPositionBeforeMoving = cell.getZPosition();
+		
 		// TODO: Change Repast Model to Run-Model (Leon Metzger)
 		// Advance position
 		motionStepper.getCell().getPosition().plusMult(dt * velocity,
@@ -100,10 +108,33 @@ public class Run implements Motion {
 			motionStepper.getCell().getOrientation().rotateAroundLocalAxes(axesOrder, dAngle0, dAngle1, dAngle2);
 		}
 		
-		// Advance position 
-		motionStepper.getCell().getPosition().plusMult(dt * velocity, 
-				motionStepper.getCell().getOrientation().viewDirection());
-
+		/*
+		 * // Advance position // This one as been added, it isn't here in the original
+		 * // AgentCell. Only the Advance position before rotationalDiffusion is in the
+		 * original. motionStepper.getCell().getPosition().plusMult(dt * velocity,
+		 * motionStepper.getCell().getOrientation().viewDirection());
+		 */
+		
+		// Calculate distancesTraveled
+		// Boundaries (such as the periodic boundary) are only applied
+		// after the run.step, therefore we don't need to take the
+		// shift by period into account, the distance traveled is only
+		// calculated between the position before the run.step and
+		// after the run.step
+		double xDistanceTraveled = cell.getXPosition() - xPositionBeforeMoving;
+		double yDistanceTraveled = cell.getYPosition() - yPositionBeforeMoving;
+		double zDistanceTraveled = cell.getZPosition() - zPositionBeforeMoving;
+		
+		// Update xyzDistanceTraveled, zDistanceTraveled and speeds
+		// distance is in mikrometers
+		double additionalDistanceTraveled = Math.pow( (Math.pow(xDistanceTraveled,2)+Math.pow(yDistanceTraveled,2)+Math.pow(zDistanceTraveled,2)) , 0.5);
+		cell.setXyzDistanceTraveled(cell.getXyzDistanceTraveled() + additionalDistanceTraveled);
+		cell.setZplusDistanceTraveled(zDistanceTraveled);
+		
+		//Update speeds, speed is mikrometer/second
+		cell.setXyzSpeed(cell.getXyzDistanceTraveled()/RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
+		cell.setZplusSpeed(cell.getZplusDistanceTraveled()/RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
+		
 	}
 
 	/*
