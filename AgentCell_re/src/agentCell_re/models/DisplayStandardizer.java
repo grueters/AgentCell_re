@@ -6,41 +6,36 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.awt.Toolkit;
-import java.awt.Window;
 
-import javax.media.j3d.BoundingSphere;
-import javax.media.j3d.BranchGroup;
-import javax.media.j3d.Canvas3D;
-import javax.media.j3d.Locale;
-import javax.media.j3d.Transform3D;
-import javax.media.j3d.TransformGroup;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.border.Border;
-import javax.vecmath.Point3d;
-import javax.vecmath.Vector3d;
-import javax.vecmath.Vector3f;
 
-import com.sun.j3d.exp.swing.JCanvas3D;
-import com.sun.j3d.utils.universe.SimpleUniverse;
-import com.sun.j3d.utils.universe.ViewingPlatform;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.Locale;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.exp.swing.JCanvas3D;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.java3d.utils.universe.ViewingPlatform;
+import org.jogamp.vecmath.Vector3f;
 
 public class DisplayStandardizer extends JPanel {
 
@@ -169,9 +164,11 @@ public class DisplayStandardizer extends JPanel {
 				System.out.println(universe);
 
 				Locale locale = (Locale) universe.getLocale();
-				Enumeration nummeration = locale.getAllBranchGraphs();
-				nummeration.nextElement();
-				BranchGroup group = (BranchGroup) nummeration.nextElement();
+				Iterator it = locale.getAllBranchGraphs();
+				BranchGroup group = null;
+				if(it.hasNext()) {
+					group = (BranchGroup)it.next();
+				}
 				BoundingSphere bounds = (BoundingSphere) group.getBounds();
 
 				TransformGroup viewPlatformTransform = viewingPlatform.getViewPlatformTransform();
