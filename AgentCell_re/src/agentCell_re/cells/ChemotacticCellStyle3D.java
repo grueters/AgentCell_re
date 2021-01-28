@@ -29,6 +29,7 @@ import repast.simphony.visualization.visualization3D.style.TaggedBranchGroup;
 public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 
 	// private static Color cellColor = new Color(0, 255, 0);
+	
 
 	public TaggedBranchGroup getBranchGroup(ChemotacticCell agent, TaggedBranchGroup taggedGroup) {
 
@@ -143,6 +144,7 @@ public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 			Color cellColor;
 			if(agent.getFlagellaState().equals("Bundled")) {
 				cellColor = Color.GREEN;
+				getBranchGroup(agent, null);
 				//Display3D.getVisualObject(agent).setTaggedBranchGroup(getGroup(agent));
 			} else if (agent.getFlagellaState().equals("Apart")) {
 				cellColor = Color.RED;
