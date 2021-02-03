@@ -1,6 +1,6 @@
 package agentCell_re.world;
 
-import javax.vecmath.Color3f;
+import org.jogamp.vecmath.Color3f;
 
 public class AspartateIndicator {
 	

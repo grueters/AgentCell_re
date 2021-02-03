@@ -36,8 +36,8 @@ Authors: Thierry Emonet (emonet@uchicago.edu) and Michael J. North (north@anl.go
  */
 package agentCell_re.math;
 
-import javax.vecmath.AxisAngle4f;
-import javax.vecmath.Matrix3f;
+import org.jogamp.vecmath.AxisAngle4f;
+import org.jogamp.vecmath.Matrix3f;
 
 import repast.simphony.random.RandomHelper;
 

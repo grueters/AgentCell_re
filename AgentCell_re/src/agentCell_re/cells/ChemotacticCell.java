@@ -43,6 +43,7 @@ import repast.simphony.ui.probe.ProbedProperty;
 public class ChemotacticCell extends Cell implements PathInterface {
 	private Motor motor;
 	private Flagella flagella;
+	private int previousFlagellaState;
 	private Receptors receptors;
 	private Network chemotaxisNetwork;
 	private Copynumber cheYp;
@@ -141,6 +142,7 @@ public class ChemotacticCell extends Cell implements PathInterface {
 		// Advance flagella from t=lastTime to t=newTime, using the state of the motors
 		// at t = newTime
 		if (flagella != null) {
+			this.previousFlagellaState = flagella.getState();
 			flagella.step(dt);
 		}
 		System.out.println("Cell-ID: " + this.getIdentifier() + " | Position is: " + this.getPosition()
@@ -428,6 +430,10 @@ public class ChemotacticCell extends Cell implements PathInterface {
 
 	public void setZplusSpeed(double zplusSpeed) {
 		this.zplusSpeed = zplusSpeed;
+	}
+	
+	public boolean hasFlagellaStateChanged() {
+		return flagella.getState() != this.previousFlagellaState;
 	}
 
 }

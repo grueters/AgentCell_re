@@ -1,0 +1,71 @@
+Wed Feb  3 16:14:08 2021
+
+
+Using Shuffle Random Number Generator for random numbers.
+Reading complex type levels from the dump file DUMP.OUT. (The [Initial Levels] section of COMPLEX.INI will be ignored.)
+Using system snapshot from time 10000.0000....
+509 pseudo-complexes are being used for unimolecular reactions.
+Reading the initial state levels for the multistate complex type ET from the dump file /home/grueters/git/AgentCell_re_repo/AgentCell_re/bin_main/../data/Input/DUMP.OUT. (The [Initial States] section of MS_1.INI will be ignored.)
+Reading Complex Type levels from the file 10000.0000...
+A default rate of 0 has been assigned to 768 states of multistate complex type ET for Reaction 1F.
+A default rate of 0 has been assigned to 512 states of multistate complex type ET for Reaction 3F.
+A default rate of 0 has been assigned to 992 states of multistate complex type ET for Reaction 4F.
+A default rate of 0 has been assigned to 768 states of multistate complex type ET for Reaction 4R.
+A default rate of 0 has been assigned to 1008 states of multistate complex type ET for Reaction 5F.
+A default rate of 0 has been assigned to 1008 states of multistate complex type ET for Reaction 6F.
+A default rate of 0 has been assigned to 1008 states of multistate complex type ET for Reaction 7F.
+A default rate of 0 has been assigned to 1008 states of multistate complex type ET for Reaction 8F.
+A default rate of 0 has been assigned to 992 states of multistate complex type ET for Reaction 9F.
+A default rate of 0 has been assigned to 768 states of multistate complex type ET for Reaction 9R.
+A default rate of 0 has been assigned to 1008 states of multistate complex type ET for Reaction 10F.
+A default rate of 0 has been assigned to 1008 states of multistate complex type ET for Reaction 11F.
+A default rate of 0 has been assigned to 1008 states of multistate complex type ET for Reaction 12F.
+A default rate of 0 has been assigned to 1008 states of multistate complex type ET for Reaction 13F.
+A default rate of 0 has been assigned to 512 states of multistate complex type ET for Reaction 14F.
+A default rapid equilibrium probability of 0 has been assigned to 1216 states of multistate complex type ET.
+Optimising the reaction matrix...
+The time increment has been optimised. Every iteration represents 4.93e-08 seconds.
+202739000495 iterations (10000.00 simulation seconds) will be performed.
+Complex Type levels will be dumped only at the beginning and end of the simulation.
+Variable values will be stored every 202739 iterations (0.01 simulation seconds).
+The simulation will take approximately 17889.69 seconds to complete.
+The value {asp*} has been changed in iteration 0.
+The value {asp} has been changed in iteration 0.
+The value {asp*} has been changed in iteration 202739.
+The value {asp} has been changed in iteration 202739.
+The value {asp*} has been changed in iteration 405478.
+The value {asp} has been changed in iteration 405478.
+The value {asp*} has been changed in iteration 608217.
+The value {asp} has been changed in iteration 608217.
+The value {asp*} has been changed in iteration 810956.
+The value {asp} has been changed in iteration 810956.
+The value {asp*} has been changed in iteration 1013695.
+The value {asp} has been changed in iteration 1013695.
+The value {asp*} has been changed in iteration 1216434.
+The value {asp} has been changed in iteration 1216434.
+The value {asp*} has been changed in iteration 1419173.
+The value {asp} has been changed in iteration 1419173.
+The value {asp*} has been changed in iteration 1621912.
+The value {asp} has been changed in iteration 1621912.
+The value {asp*} has been changed in iteration 1824651.
+The value {asp} has been changed in iteration 1824651.
+The value {asp*} has been changed in iteration 2027390.
+The value {asp} has been changed in iteration 2027390.
+The value {asp*} has been changed in iteration 2230129.
+The value {asp} has been changed in iteration 2230129.
+The value {asp*} has been changed in iteration 2432868.
+The value {asp} has been changed in iteration 2432868.
+The value {asp*} has been changed in iteration 2635607.
+The value {asp} has been changed in iteration 2635607.
+The value {asp*} has been changed in iteration 2838346.
+The value {asp} has been changed in iteration 2838346.
+The value {asp*} has been changed in iteration 3041085.
+The value {asp} has been changed in iteration 3041085.
+The value {asp*} has been changed in iteration 3243824.
+The value {asp} has been changed in iteration 3243824.
+The value {asp*} has been changed in iteration 3446563.
+The value {asp} has been changed in iteration 3446563.
+The value {asp*} has been changed in iteration 3649302.
+The value {asp} has been changed in iteration 3649302.
+The value {asp*} has been changed in iteration 3852041.
+The value {asp} has been changed in iteration 3852041.
