@@ -1,0 +1,27 @@
+<repast.simphony.data2.engine.FileSinkDescriptor simphonyVersion="2.8.0">
+  <name>Cells File Sink</name>
+  <dataSet>Cells Data Set</dataSet>
+  <delimiter>,</delimiter>
+  <format>TABULAR</format>
+  <sourceIds class="linked-hash-set">
+    <string>ZPosition</string>
+    <string>Identifier</string>
+    <string>AspOccupancy</string>
+    <string>AspStarOccupancy</string>
+    <string>ZplusDistanceTraveled</string>
+    <string>ZplusSpeed</string>
+    <string>XyzDistanceTraveled</string>
+    <string>XyzSpeed</string>
+    <string>MotorState</string>
+    <string>FlagellaState</string>
+    <string>CheYpAverage</string>
+    <string>CheYLevel</string>
+    <string>CheYpLevel</string>
+    <string>LigandConcentration</string>
+    <string>CCWDuration</string>
+    <string>CWDuration</string>
+    <string>tick</string>
+  </sourceIds>
+  <fileName>CellslOutput.txt</fileName>
+  <addTimeStamp>true</addTimeStamp>
+</repast.simphony.data2.engine.FileSinkDescriptor>

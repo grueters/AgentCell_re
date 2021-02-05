@@ -37,6 +37,9 @@ import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.java3d.utils.universe.ViewingPlatform;
 import org.jogamp.vecmath.Vector3f;
 
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.parameter.Parameters;
+
 public class DisplayStandardizer extends JPanel {
 
 	JFrame frame;
@@ -208,12 +211,25 @@ public class DisplayStandardizer extends JPanel {
 				// z = -2.13825*y + 2.34609
 				// Gerundet: z = -2.14*y + 2.41
 				//
+				// 0.0025 = 1 z-pos
+				// 1/400 y = 1 Asp.Block = 1 z-pos
 				// 1 y = 400 Asp.blöcke, 0.25 = 100 Asp.blöcke
 				// 10 y = 4000 Aspartatblöcke
 				// 1000 y = 400000 Aspartatblöcke
 				// 1265 y = 499000 Aspartatblöcke
 				// 1267.7 y ~ 499900 Aspartatblöcke
-				translate.set(0.0f, 1267.7f, -2716.0f); // x=right left, y=front back, z=up down
+				
+				Parameters p = RunEnvironment.getInstance().getParameters();
+				AC_Parameters acParams = AC_Parameters.getInstance(p);
+				
+				float zDim = (float) acParams.getZdim();
+				float initialPosition = (float) acParams.getInitialPosition();
+				
+				float cameraY = 0.002536f * (zDim/2.0f - initialPosition);
+				float cameraZ = -2.145f * cameraY + 2.41f;
+				
+				//translate.set(0.0f, 1267.7f, -2716.0f);
+				translate.set(0.0f, cameraY, cameraZ); // x=right left, y=front back, z=up down
 				T3D.setTranslation(translate);
 				viewPlatformTransform.setTransform(T3D);
 

@@ -25,11 +25,43 @@
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
+      <string>Identifier</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Identifier</id>
+        <className>agentCell_re.cells.ChemotacticCell</className>
+        <methodName>getIdentifier</methodName>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>AspOccupancy</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>AspOccupancy</id>
+        <className>agentCell_re.cells.ChemotacticCell</className>
+        <methodName>getAspOccupancy</methodName>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>AspStarOccupancy</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>AspStarOccupancy</id>
+        <className>agentCell_re.cells.ChemotacticCell</className>
+        <methodName>getAspStarOccupancy</methodName>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
       <string>ZplusDistanceTraveled</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>ZplusDistanceTraveled</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
         <methodName>getZplusDistanceTraveled</methodName>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>ZplusSpeed</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>ZplusSpeed</id>
+        <className>agentCell_re.cells.ChemotacticCell</className>
+        <methodName>getZplusSpeed</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
@@ -49,19 +81,11 @@
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>ZplusSpeed</string>
+      <string>MotorState</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ZplusSpeed</id>
+        <id>MotorState</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getZplusSpeed</methodName>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>CheYpAverage</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>CheYpAverage</id>
-        <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getCheYpAverage</methodName>
+        <methodName>getMotorState</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
@@ -73,11 +97,27 @@
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>MotorState</string>
+      <string>CheYpAverage</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>MotorState</id>
+        <id>CheYpAverage</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getMotorState</methodName>
+        <methodName>getCheYpAverage</methodName>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>CheYLevel</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>CheYLevel</id>
+        <className>agentCell_re.cells.ChemotacticCell</className>
+        <methodName>getCheYLevel</methodName>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>CheYpLevel</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>CheYpLevel</id>
+        <className>agentCell_re.cells.ChemotacticCell</className>
+        <methodName>getCheYpLevel</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
@@ -86,6 +126,22 @@
         <id>LigandConcentration</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
         <methodName>getLigandConcentration</methodName>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>CCWDuration</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>CCWDuration</id>
+        <className>agentCell_re.cells.ChemotacticCell</className>
+        <methodName>getCCWDuration</methodName>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>CWDuration</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>CWDuration</id>
+        <className>agentCell_re.cells.ChemotacticCell</className>
+        <methodName>getCWDuration</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
   </methodDataSources>

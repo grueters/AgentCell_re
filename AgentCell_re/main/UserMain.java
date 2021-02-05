@@ -1,10 +1,13 @@
+import java.io.File;
+
 public class UserMain {
 
 	public UserMain() {};
 
 	public void start() {
-		String[] args = new String[] {
-				"/home/grueters/git/AgentCell_re_repo/AgentCell_re/AgentCell_re.rs" };
+		String userDir = System.getProperty("user.dir");
+		String path = userDir + File.separator + "AgentCell_re.rs";
+		String[] args = new String[] { path };
 		repast.simphony.runtime.RepastMain.main(args);
 	}
 

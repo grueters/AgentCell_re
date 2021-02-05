@@ -2,3 +2,5 @@
 *.class
 *.log
 *.out
+CellslOutput*
+CellsOutput*

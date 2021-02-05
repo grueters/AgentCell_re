@@ -70,5 +70,9 @@ public class AC_Parameters {
 	public int getCheYpThreshold() {
 		return (Integer) p.getValue("cheYpThreshold");
 	}
+	
+	public double getInitialPosition() {
+		return (Double) p.getValue("initialPosition");
+	}
 		
 }

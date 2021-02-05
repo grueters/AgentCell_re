@@ -92,14 +92,6 @@ public class ChemotacticCell extends Cell implements PathInterface {
 		double newTime = this.getWorld().getModel().getSchedule().getTickCount();
 		// randomize orientation
 		if (Math.abs(newTime - dt) < 1.0E-6) {
-
-			Parameters p = RunEnvironment.getInstance().getParameters();
-			AC_Parameters acParams = AC_Parameters.getInstance(p);
-			double zdim = acParams.getZdim();
-			double oldZPos = this.getPosition().getElement(2);
-			double newZPos = oldZPos - zdim / 2.0 + 100.0;
-			this.getPosition().setElement(2, newZPos);
-
 			this.getOrientation().randomize();
 		}
 

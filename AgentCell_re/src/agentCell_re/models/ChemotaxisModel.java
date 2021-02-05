@@ -208,7 +208,7 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 		
 		world.setBoundaryConditions(boundaryConditions);
 
-		// Set the chemical gradient.
+				// Set the chemical gradient.
 		double aspartateGradient = 1.0E-8; // M / micrometer
 		world.setConcentrationField(new ConcentrationFieldConstantGradientWithBounds(Molecule.ASPARTATE, // type
 				new Vect3(0, 0, 0), // origin
@@ -238,9 +238,7 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 			// double zpos = Random.uniform.nextDoubleFromTo(0,1) * 30000 - 3000;
 			double xPos = RandomHelper.nextDoubleFromTo(xMin, xMax);
 			double yPos = RandomHelper.nextDoubleFromTo(yMin, yMax);
-			double zPos = (zdim / 2.0); //+ RandomHelper.nextDoubleFromTo(-5.0, 5.0);
-			// double zpos = 100.0; // position chosen for the cell to be in 1 uM aspartate
-			zPos=zPos-1;
+			double zPos = acParams.getInitialPosition(); //+ RandomHelper.nextDoubleFromTo(-5.0, 5.0);
 			Vect position = new Vect3(xPos, yPos, zPos);
 			// Create orientation for future cell
 			// PARAMETER: initial orientation of the cell

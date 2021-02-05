@@ -2,6 +2,7 @@ package agentCell_re.cells;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.File;
 
 import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BranchGroup;
@@ -72,16 +73,17 @@ public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 		ObjectFile objFile = new ObjectFile(flags, (float) (creaseAngle * Math.PI) / 180);
 		Scene scene = null;
 
-		String path = null;
+		String path = System.getProperty("user.dir") + File.separator + "eColi";
+		
 		int modelXRotation = 0;
 		int bundledModelXRotation = 90;
 		int apartModelXRotation = 180;
 		if (agent instanceof ChemotacticCell) {
 			if (agent.getFlagellaState().equals("Bundled")) {
-				path = "/home/grueters/git/AgentCell_re_repo/AgentCell_re/e.-Coli/geschlossene Tentakel/eColi.obj";
+				path = path + File.separator + "eColi_bundled.obj";
 				modelXRotation = bundledModelXRotation/* = 90 */;
 			} else if (agent.getFlagellaState().equals("Apart")) {
-				path = "/home/grueters/git/AgentCell_re_repo/AgentCell_re/e.-Coli/gespreitzte Tentakel/eColi_gespreitzt.obj";
+				path = path + File.separator + "eColi_bundled.obj";
 				modelXRotation = apartModelXRotation/* = 180 */;
 			} else {
 				path = "/home/grueters/git/AgentCell_re_repo/AgentCell_re/ufo plane free.obj";
@@ -197,14 +199,13 @@ public class ChemotacticCellStyle3D implements Style3D<ChemotacticCell> {
 		// path = "/home/grueters/git/AgentCell_re_repo/AgentCell_re/ufo plane
 		// free.obj";
 		// modelXRotation = 0;
-		String pathBundled = null;
+		String path = System.getProperty("user.dir") + File.separator + "eColi";
 		int bundledModelXRotation = 90;
-		String pathApart = null;
 		int apartModelXRotation = 180;
 		int modelXRotation = 0;
 
-		pathBundled = "/home/grueters/git/AgentCell_re_repo/AgentCell_re/e.-Coli/geschlossene Tentakel/eColi.obj";
-		pathApart = "/home/grueters/git/AgentCell_re_repo/AgentCell_re/e.-Coli/gespreitzte Tentakel/eColi_gespreitzt.obj";
+		String pathBundled = path + File.separator + "eColi_bundled.obj";
+		String pathApart = path + File.separator + "eColi_apart.obj";
 
 		try {
 			sceneBundled = objFileBundled.load(pathBundled);
