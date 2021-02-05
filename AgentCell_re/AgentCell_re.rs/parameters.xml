@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <parameters>
-					<parameter name="initialPosition" displayName="3.1 Initial Posiion [micro m]" type="double" 
-						defaultValue="100.0"
-						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
-						values="100.0 2000.0 250000.0 500000.0 750000.0 2.0"
-									
-		/>
-				<parameter name="shapeGamma" displayName="4.5 Gamma shape" type="double" 
+					<parameter name="shapeGamma" displayName="4.5 Gamma shape" type="double" 
 						defaultValue="4.0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
@@ -29,7 +22,7 @@
 						defaultValue="1" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
-									values="1 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 100"
+									values="1 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 100 "
 						
 		/>
 				<parameter name="stopTime_s" displayName="1.5 Stop time [s]" type="double" 
@@ -99,7 +92,7 @@
 									
 		/>
 				<parameter name="equilibrationTime_s" displayName="1.6 Equilibration time [s]" type="double" 
-						defaultValue="0.0" 
+						defaultValue="2.0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
@@ -123,7 +116,7 @@
 									
 		/>
 				<parameter name="randomSeed" displayName="Default Random Seed" type="int" 
-						defaultValue="__NULL__"
+						defaultValue="0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 									
@@ -145,6 +138,13 @@
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
+		/>
+				<parameter name="initialPosition" displayName="3.1 Initial Posiion [micro m]" type="double" 
+						defaultValue="100.0" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+									values="100.0 2000.0 250000.0 500000.0 750000.0 2.0 "
+						
 		/>
 				<parameter name="cellVolume_l" displayName="2.2 Cell volume [l]" type="double" 
 						defaultValue="1.41E-15" 

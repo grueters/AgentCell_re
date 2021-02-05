@@ -12,11 +12,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.media.j3d.Canvas3D;
+import javax.media.j3d.Transform3D;
+import javax.media.j3d.TransformGroup;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -25,17 +26,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.Border;
+import javax.vecmath.Vector3f;
 
-import org.jogamp.java3d.BoundingSphere;
-import org.jogamp.java3d.BranchGroup;
-import org.jogamp.java3d.Canvas3D;
-import org.jogamp.java3d.Locale;
-import org.jogamp.java3d.Transform3D;
-import org.jogamp.java3d.TransformGroup;
-import org.jogamp.java3d.exp.swing.JCanvas3D;
-import org.jogamp.java3d.utils.universe.SimpleUniverse;
-import org.jogamp.java3d.utils.universe.ViewingPlatform;
-import org.jogamp.vecmath.Vector3f;
+import com.sun.j3d.exp.swing.JCanvas3D;
+import com.sun.j3d.utils.universe.SimpleUniverse;
+import com.sun.j3d.utils.universe.ViewingPlatform;
 
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.parameter.Parameters;
@@ -165,14 +160,6 @@ public class DisplayStandardizer extends JPanel {
 				ViewingPlatform viewingPlatform = (ViewingPlatform) tG.getParent();
 				SimpleUniverse universe = viewingPlatform.getUniverse();
 				System.out.println(universe);
-
-				Locale locale = (Locale) universe.getLocale();
-				Iterator it = locale.getAllBranchGraphs();
-				BranchGroup group = null;
-				if(it.hasNext()) {
-					group = (BranchGroup)it.next();
-				}
-				BoundingSphere bounds = (BoundingSphere) group.getBounds();
 
 				TransformGroup viewPlatformTransform = viewingPlatform.getViewPlatformTransform();
 				Transform3D trans = new Transform3D();

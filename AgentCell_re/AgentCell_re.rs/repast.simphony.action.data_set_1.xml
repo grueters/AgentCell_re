@@ -1,5 +1,5 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>Cells Data Set</name>
+  <name>Data Set for HDF Comp</name>
   <type>NON_AGGREGATE</type>
   <sourceType>agentCell_re.cells.ChemotacticCell</sourceType>
   <inclTick>true</inclTick>
@@ -12,136 +12,152 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>2024350929</hashCode>
+    <hashCode>1517508389</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map">
     <entry>
-      <string>ZPosition</string>
+      <string>X</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ZPosition</id>
+        <id>X</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getZPosition</methodName>
+        <methodName>getX</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>Identifier</string>
+      <string>Y</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>Identifier</id>
+        <id>Y</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getIdentifier</methodName>
+        <methodName>getY</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>AspOccupancy</string>
+      <string>Z</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>AspOccupancy</id>
+        <id>Z</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getAspOccupancy</methodName>
+        <methodName>getZ</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>AspStarOccupancy</string>
+      <string>XX</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>AspStarOccupancy</id>
+        <id>XX</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getAspStarOccupancy</methodName>
+        <methodName>getXX</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>ZplusDistanceTraveled</string>
+      <string>XY</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ZplusDistanceTraveled</id>
+        <id>XY</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getZplusDistanceTraveled</methodName>
+        <methodName>getXY</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>ZplusSpeed</string>
+      <string>XZ</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ZplusSpeed</id>
+        <id>XZ</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getZplusSpeed</methodName>
+        <methodName>getXZ</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>XyzDistanceTraveled</string>
+      <string>YX</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>XyzDistanceTraveled</id>
+        <id>YX</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getXyzDistanceTraveled</methodName>
+        <methodName>getYX</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>XyzSpeed</string>
+      <string>YY</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>XyzSpeed</id>
+        <id>YY</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getXyzSpeed</methodName>
+        <methodName>getYY</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>MotorState</string>
+      <string>YZ</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>MotorState</id>
+        <id>YZ</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getMotorState</methodName>
+        <methodName>getYZ</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>FlagellaState</string>
+      <string>ZX</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>FlagellaState</id>
+        <id>ZX</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getFlagellaState</methodName>
+        <methodName>getZX</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>CheYpAverage</string>
+      <string>ZY</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>CheYpAverage</id>
+        <id>ZY</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getCheYpAverage</methodName>
+        <methodName>getZY</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>CheYLevel</string>
+      <string>ZZ</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>CheYLevel</id>
+        <id>ZZ</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getCheYLevel</methodName>
+        <methodName>getZZ</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>CheYpLevel</string>
+      <string>Motor</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>CheYpLevel</id>
+        <id>Motor</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getCheYpLevel</methodName>
+        <methodName>getMotor_</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>LigandConcentration</string>
+      <string>CheYp</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>LigandConcentration</id>
+        <id>CheYp</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getLigandConcentration</methodName>
+        <methodName>getCheYp_</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>CCWDuration</string>
+      <string>ReceptorsOccupancy</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>CCWDuration</id>
+        <id>ReceptorsOccupancy</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getCCWDuration</methodName>
+        <methodName>getReceptorsOccupancy</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>CWDuration</string>
+      <string>Ligand</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>CWDuration</id>
+        <id>Ligand</id>
         <className>agentCell_re.cells.ChemotacticCell</className>
-        <methodName>getCWDuration</methodName>
+        <methodName>getLigand</methodName>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Flagella</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Flagella</id>
+        <className>agentCell_re.cells.ChemotacticCell</className>
+        <methodName>getFlagella_</methodName>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>ReceptorsOccupancyActive</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>ReceptorsOccupancyActive</id>
+        <className>agentCell_re.cells.ChemotacticCell</className>
+        <methodName>getReceptorsOccupancyActive</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
   </methodDataSources>

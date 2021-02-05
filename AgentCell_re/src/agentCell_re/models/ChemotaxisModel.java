@@ -113,7 +113,8 @@ public class ChemotaxisModel implements ContextBuilder<Object> {
 		ScheduleParameters scheduleParams = ScheduleParameters.createRepeating(1, acParams.getDT_s(), 0);
 		RunEnvironment.getInstance().getCurrentSchedule().schedule(scheduleParams, this, "execute");
 
-		long seed = new Date().getTime();
+		//long seed = new Date().getTime();
+		long seed = acParams.getRandomSeed();
 		RandomHelper.setSeed((int) seed);
 		RandomHelper.createNormal(0.0, 1.0);
 		RandomHelper.createGamma(1.0, 1.0);

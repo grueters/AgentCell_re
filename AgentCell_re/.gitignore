@@ -4,3 +4,4 @@
 *.out
 CellslOutput*
 CellsOutput*
+/bin_main/

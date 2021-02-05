@@ -1,0 +1,29 @@
+<repast.simphony.data2.engine.FileSinkDescriptor simphonyVersion="2.7.0">
+  <name>File Sink for HDF Comp</name>
+  <dataSet>Data Set for HDF Comp</dataSet>
+  <delimiter>,</delimiter>
+  <format>TABULAR</format>
+  <sourceIds class="linked-hash-set">
+    <string>X</string>
+    <string>Y</string>
+    <string>Z</string>
+    <string>XX</string>
+    <string>XY</string>
+    <string>XZ</string>
+    <string>YX</string>
+    <string>YY</string>
+    <string>YZ</string>
+    <string>ZX</string>
+    <string>ZY</string>
+    <string>ZZ</string>
+    <string>Motor</string>
+    <string>CheYp</string>
+    <string>ReceptorsOccupancy</string>
+    <string>Ligand</string>
+    <string>Flagella</string>
+    <string>ReceptorsOccupancyActive</string>
+    <string>tick</string>
+  </sourceIds>
+  <fileName>CellsHDFComp.txt</fileName>
+  <addTimeStamp>true</addTimeStamp>
+</repast.simphony.data2.engine.FileSinkDescriptor>

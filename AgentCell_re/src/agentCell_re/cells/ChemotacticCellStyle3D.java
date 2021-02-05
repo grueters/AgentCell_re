@@ -4,19 +4,17 @@ import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
 
-import org.jogamp.java3d.Appearance;
-import org.jogamp.java3d.BranchGroup;
-import org.jogamp.java3d.ColoringAttributes;
-import org.jogamp.java3d.Shape3D;
-import org.jogamp.java3d.Transform3D;
-import org.jogamp.java3d.TransformGroup;
-import org.jogamp.java3d.TransparencyAttributes;
-import org.jogamp.java3d.loaders.Scene;
-import org.jogamp.java3d.loaders.objectfile.ObjectFile;
-import org.jogamp.vecmath.Color3f;
-import org.jogamp.vecmath.Vector3d;
+import javax.media.j3d.Appearance;
+import javax.media.j3d.BranchGroup;
+import javax.media.j3d.Shape3D;
+import javax.media.j3d.Transform3D;
+import javax.media.j3d.TransformGroup;
+import javax.media.j3d.TransparencyAttributes;
+import javax.vecmath.Vector3d;
 
-import agentCell_re.flagella.Flagella;
+import com.sun.j3d.loaders.Scene;
+import com.sun.j3d.loaders.objectfile.ObjectFile;
+
 import repast.simphony.visualization.visualization3D.AppearanceFactory;
 import repast.simphony.visualization.visualization3D.style.Style3D;
 import repast.simphony.visualization.visualization3D.style.TaggedAppearance;

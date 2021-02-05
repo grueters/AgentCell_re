@@ -74,5 +74,8 @@ public class AC_Parameters {
 	public double getInitialPosition() {
 		return (Double) p.getValue("initialPosition");
 	}
-		
+
+	public int getRandomSeed() {
+		return (Integer) p.getValue("randomSeed");
+	}
 }

@@ -1,8 +1,8 @@
-<repast.simphony.data2.engine.FileSinkDescriptor simphonyVersion="2.8.0">
-  <name>Cells File Sink</name>
+<repast.simphony.data2.engine.ConsoleSinkDescriptor simphonyVersion="2.7.0">
+  <name>Cells Console Sink</name>
   <dataSet>Cells Data Set</dataSet>
   <delimiter>,</delimiter>
-  <format>TABULAR</format>
+  <format>LINE</format>
   <sourceIds class="linked-hash-set">
     <string>ZPosition</string>
     <string>Identifier</string>
@@ -22,6 +22,6 @@
     <string>CWDuration</string>
     <string>tick</string>
   </sourceIds>
-  <fileName>CellslOutput.txt</fileName>
-  <addTimeStamp>true</addTimeStamp>
-</repast.simphony.data2.engine.FileSinkDescriptor>
+  <enabled>true</enabled>
+  <outputStream>OUT</outputStream>
+</repast.simphony.data2.engine.ConsoleSinkDescriptor>

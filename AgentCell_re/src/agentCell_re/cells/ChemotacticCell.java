@@ -167,7 +167,6 @@ public class ChemotacticCell extends Cell implements PathInterface {
 	/**
 	 * @return
 	 */
-	@ProbedProperty
 	public Copynumber getCheYp() {
 		return cheYp;
 	}
@@ -407,7 +406,80 @@ public class ChemotacticCell extends Cell implements PathInterface {
 	public double getZplusSpeed() {
 		return zplusSpeed;
 	}
+	
+	public double getX() {
+		return getXPosition();
+	}
+	
+	public double getY() {
+		return getYPosition();
+	}
+	
+	public double getZ() {
+		return getZPosition();
+	}
+	
+	public double getXX() {
+		return this.getOrientation().getElement(0, 0);
+	}
+	
+	public double getXY() {
+		return this.getOrientation().getElement(0, 1);
+	}
+	
+	public double getXZ() {
+		return this.getOrientation().getElement(0, 2);
+	}
+	
+	public double getYX() {
+		return this.getOrientation().getElement(1, 0);
+	}
+	
+	public double getYY() {
+		return this.getOrientation().getElement(1, 1);
+	}
+	
+	public double getYZ() {
+		return this.getOrientation().getElement(1, 2);
+	}
+	
+	public double getZX() {
+		return this.getOrientation().getElement(2, 0);
+	}
+	
+	public double getZY() {
+		return this.getOrientation().getElement(2, 1);
+	}
+	
+	public double getZZ() {
+		return this.getOrientation().getElement(2, 2);
+	}
+	
+	public int getMotor_() {
+		return getMotor().getState();
+	}
 
+	public int getCheYp_() {
+		return (int)getCheYpLevel();
+	}
+	
+	public float getReceptorsOccupancy() {
+		return (float)this.getAspOccupancy();
+	}
+	
+	public float getLigand() {
+		return (float)this.getLigandConcentration();
+	}
+	
+	public int getFlagella_() {
+		return (int)this.getFlagella().getState();
+	}
+	
+	public float getReceptorsOccupancyActive() {
+		return (float)this.getAspStarOccupancy();
+	}
+	
+	
 	public void setXyzDistanceTraveled(double xyzDistanceTraveled) {
 		this.xyzDistanceTraveled = xyzDistanceTraveled;
 	}

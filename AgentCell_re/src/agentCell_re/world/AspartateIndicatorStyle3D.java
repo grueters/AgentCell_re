@@ -3,11 +3,11 @@ package agentCell_re.world;
 import java.awt.Color;
 import java.awt.Font;
 
-import org.jogamp.java3d.Appearance;
-import org.jogamp.java3d.ColoringAttributes;
-import org.jogamp.java3d.Shape3D;
-import org.jogamp.java3d.TransparencyAttributes;
-import org.jogamp.vecmath.Color3f;
+import javax.media.j3d.Appearance;
+import javax.media.j3d.ColoringAttributes;
+import javax.media.j3d.Shape3D;
+import javax.media.j3d.TransparencyAttributes;
+import javax.vecmath.Color3f;
 
 import agentCell_re.models.AC_Parameters;
 import repast.simphony.engine.environment.RunEnvironment;
