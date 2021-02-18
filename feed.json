@@ -2,16 +2,16 @@
     "version": "https://jsonfeed.org/version/1",
     "title": "AgentCell_re",
     "description": "",
-    "home_page_url": "https://github.com/grueters/AgentCell_re/blob/publii",
-    "feed_url": "https://github.com/grueters/AgentCell_re/blob/publii/feed.json",
+    "home_page_url": "https://github.com/grueters/AgentCell_re",
+    "feed_url": "https://github.com/grueters/AgentCell_re/feed.json",
     "user_comment": "",
     "author": {
         "name": "Uwe Grueters"
     },
     "items": [
         {
-            "id": "https://github.com/grueters/AgentCell_re/blob/publii/agentcell_re-is-live.html",
-            "url": "https://github.com/grueters/AgentCell_re/blob/publii/agentcell_re-is-live.html",
+            "id": "https://github.com/grueters/AgentCell_re/agentcell_re-is-live.html",
+            "url": "https://github.com/grueters/AgentCell_re/agentcell_re-is-live.html",
             "title": "AgentCell_re is live!",
             "summary": " Uwe Grueters and Leon Metzger proudly present AgentCell_re (2021), a revitalization of the ancient Inidividual-based Chemotaxis Model AgentCell (2007) in RePast Simphony 2.8. As its predecessor AgentCell_re simulates movement of E. coli bacteria along an aspartate gradient using stochsim to resemble the metabolic receptor&hellip;",
             "content_html": "\n  <p>\n    Uwe Grueters and Leon Metzger proudly present AgentCell_re (2021), a revitalization of the ancient Inidividual-based Chemotaxis Model AgentCell (2007) in RePast Simphony 2.8. As its predecessor AgentCell_re simulates movement of E. coli bacteria along an aspartate gradient using stochsim to resemble the metabolic receptor network.&nbsp;&nbsp;\n  </p>",

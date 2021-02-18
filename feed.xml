@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>AgentCell_re</title>
-    <link href="https://github.com/grueters/AgentCell_re/blob/publii/feed.xml" rel="self" />
-    <link href="https://github.com/grueters/AgentCell_re/blob/publii" />
+    <link href="https://github.com/grueters/AgentCell_re/feed.xml" rel="self" />
+    <link href="https://github.com/grueters/AgentCell_re" />
     <updated>2021-02-18T14:30:51+01:00</updated>
     <author>
         <name>Uwe Grueters</name>
     </author>
-    <id>https://github.com/grueters/AgentCell_re/blob/publii</id>
+    <id>https://github.com/grueters/AgentCell_re</id>
 
     <entry>
         <title>AgentCell_re is live!</title>
         <author>
             <name>Uwe Grueters</name>
         </author>
-        <link href="https://github.com/grueters/AgentCell_re/blob/publii/agentcell_re-is-live.html"/>
-        <id>https://github.com/grueters/AgentCell_re/blob/publii/agentcell_re-is-live.html</id>
+        <link href="https://github.com/grueters/AgentCell_re/agentcell_re-is-live.html"/>
+        <id>https://github.com/grueters/AgentCell_re/agentcell_re-is-live.html</id>
 
         <updated>2021-02-18T14:30:51+01:00</updated>
             <summary>
