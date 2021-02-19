@@ -10,6 +10,20 @@
     },
     "items": [
         {
+            "id": "https://grueters.github.io/AgentCell_re/leon-metzger-on-board.html",
+            "url": "https://grueters.github.io/AgentCell_re/leon-metzger-on-board.html",
+            "title": "Leon Metzger on board",
+            "summary": "Hello, I am Leon Metzger the other developer of AgentCell_re. Nice to meet you!",
+            "content_html": "<p>Hello, I am Leon Metzger the other developer of AgentCell_re.<br>Nice to meet you!</p>",
+            "author": {
+                "name": "Uwe Grueters"
+            },
+            "tags": [
+            ],
+            "date_published": "2021-02-19T13:39:03+01:00",
+            "date_modified": "2021-02-19T13:39:03+01:00"
+        },
+        {
             "id": "https://grueters.github.io/AgentCell_re/agentcell_re-is-live.html",
             "url": "https://grueters.github.io/AgentCell_re/agentcell_re-is-live.html",
             "title": "AgentCell_re is live!",

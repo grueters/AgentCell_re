@@ -3,12 +3,32 @@
     <title>AgentCell_re</title>
     <link href="https://grueters.github.io/AgentCell_re/feed.xml" rel="self" />
     <link href="https://grueters.github.io/AgentCell_re" />
-    <updated>2021-02-18T14:30:51+01:00</updated>
+    <updated>2021-02-19T13:39:03+01:00</updated>
     <author>
         <name>Uwe Grueters</name>
     </author>
     <id>https://grueters.github.io/AgentCell_re</id>
 
+    <entry>
+        <title>Leon Metzger on board</title>
+        <author>
+            <name>Uwe Grueters</name>
+        </author>
+        <link href="https://grueters.github.io/AgentCell_re/leon-metzger-on-board.html"/>
+        <id>https://grueters.github.io/AgentCell_re/leon-metzger-on-board.html</id>
+
+        <updated>2021-02-19T13:39:03+01:00</updated>
+            <summary>
+                <![CDATA[
+                    Hello, I am Leon Metzger the other developer of AgentCell_re. Nice to meet you!
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>Hello, I am Leon Metzger the other developer of AgentCell_re.<br>Nice to meet you!</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>AgentCell_re is live!</title>
         <author>
