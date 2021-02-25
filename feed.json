@@ -5,7 +5,7 @@
     "home_page_url": "https://grueters.github.io/AgentCell_re",
     "feed_url": "https://grueters.github.io/AgentCell_re/feed.json",
     "user_comment": "",
-    "icon": "https://grueters.github.io/AgentCell_re/media/website/ACre_Logo5-2.png",
+    "icon": "https://grueters.github.io/AgentCell_re/media/website/ACre_Logo5.png",
     "author": {
         "name": "Uwe Grueters"
     },
@@ -28,15 +28,15 @@
             "id": "https://grueters.github.io/AgentCell_re/agentcell_re-is-live.html",
             "url": "https://grueters.github.io/AgentCell_re/agentcell_re-is-live.html",
             "title": "AgentCell_re is live!",
-            "summary": " E. coli bundled E. coli apart Uwe Grueters and Leon Metzger proudly present AgentCell_re (2021), a revitalization of the&hellip;",
-            "content_html": "\n  <div  class=\"gallery-wrapper gallery-wrapper--center\">\n    <div class=\"gallery\" data-columns=\"3\">\n      <figure class=\"gallery__item\">\n      <a href=\"https://grueters.github.io/AgentCell_re/media/posts/1/gallery/E_coli_bundled.PNG\" data-size=\"617x547\">\n        <img loading=\"lazy\" src=\"https://grueters.github.io/AgentCell_re/media/posts/1/gallery/E_coli_bundled-thumbnail.PNG\" height=\"547\" width=\"617\" alt=\"E. coli bundled\" />\n      </a>\n      <figcaption>E. coli bundled</figcaption>\n    </figure><figure class=\"gallery__item\">\n      <a href=\"https://grueters.github.io/AgentCell_re/media/posts/1/gallery/E_coli_apart.PNG\" data-size=\"850x770\">\n        <img loading=\"lazy\" src=\"https://grueters.github.io/AgentCell_re/media/posts/1/gallery/E_coli_apart-thumbnail.PNG\" height=\"652\" width=\"720\" alt=\"E. coli apart\" />\n      </a>\n      <figcaption>E. coli apart</figcaption>\n    </figure>\n    </div>\n  </div>\n\n  <p>\n    Uwe Grueters and Leon Metzger proudly present AgentCell_re (2021), a revitalization of the ancient Inidividual-based Chemotaxis Model AgentCell (2007) in RePast Simphony 2.8. As its predecessor AgentCell_re simulates movement of E. coli bacteria along an aspartate gradient using stochsim to resemble the metabolic receptor network. The Java/C++ code can be found at:&nbsp; <a href=\"https://github.com/grueters/AgentCell_re\" target=\"_blank\">https://github.com/grueters/AgentCell_re</a>&nbsp;&nbsp;\n  </p>\n\n  <p>\n    \n  </p>",
+            "summary": " E. coli bundled E. coli apart Uwe Grueters and Leon Metzger proudly present AgentCell_re (2021), a revitalization of the ancient Inidividual-based Chemotaxis Model AgentCell (2007) in RePast Simphony 2.8. As its predecessor AgentCell_re simulates movement of E. coli bacteria along an aspartate gradient using&hellip;",
+            "content_html": "\n  <div  class=\"gallery-wrapper gallery-wrapper--center\">\n    <div class=\"gallery\" data-columns=\"3\">\n      <figure class=\"gallery__item\">\n      <a href=\"https://grueters.github.io/AgentCell_re/media/posts/1/gallery/E_coli_bundled.PNG\" data-size=\"617x547\">\n        <img loading=\"lazy\" src=\"https://grueters.github.io/AgentCell_re/media/posts/1/gallery/E_coli_bundled-thumbnail.PNG\" height=\"547\" width=\"617\" alt=\"E. coli bundled\" />\n      </a>\n      <figcaption>E. coli bundled</figcaption>\n    </figure><figure class=\"gallery__item\">\n      <a href=\"https://grueters.github.io/AgentCell_re/media/posts/1/gallery/E_coli_apart.PNG\" data-size=\"850x770\">\n        <img loading=\"lazy\" src=\"https://grueters.github.io/AgentCell_re/media/posts/1/gallery/E_coli_apart-thumbnail.PNG\" height=\"652\" width=\"720\" alt=\"E. coli apart\" />\n      </a>\n      <figcaption>E. coli apart</figcaption>\n    </figure>\n    </div>\n  </div>\n\n  <p>\n    Uwe Grueters and Leon Metzger proudly present AgentCell_re (2021), a revitalization of the ancient Inidividual-based Chemotaxis Model AgentCell (2007) in RePast Simphony 2.8. As its predecessor AgentCell_re simulates movement of E. coli bacteria along an aspartate gradient using stochsim to resemble the metabolic receptor network. The Java/C++ code can be found at:&nbsp; <a href=\"https://github.com/grueters/AgentCell_re\" target=\"_blank\"><u><strong>https://github.com/grueters/AgentCell_re</strong></u></a>&nbsp;.\n  </p>\n\n  <p>\n    Do you need help with installing or running AgentCell_re or do you have further questions? We are more than happy to support you. Just write a message to:&nbsp;\n  </p>\n\n  <p>\n    <a href=\"mailto:Uwe.Grueters@bot2.bio.uni-giessen.de\" target=\"_blank\"><u><strong>Uwe.Grueters@bot2.bio.uni-giessen.de</strong></u></a> , <a href=\"mailto:Leon.Metzger@bioinfsys.uni-giessen.de\" target=\"_blank\">Leon.Metzger@bioinfsys.uni-giessen.de</a>\n  </p>\n\n  <p>\n    \n  </p>",
             "author": {
                 "name": "Uwe Grueters"
             },
             "tags": [
             ],
             "date_published": "2021-02-18T14:30:51+01:00",
-            "date_modified": "2021-02-25T16:50:47+01:00"
+            "date_modified": "2021-02-25T22:28:40+01:00"
         }
     ]
 }
