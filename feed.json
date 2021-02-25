@@ -5,6 +5,7 @@
     "home_page_url": "https://grueters.github.io/AgentCell_re",
     "feed_url": "https://grueters.github.io/AgentCell_re/feed.json",
     "user_comment": "",
+    "icon": "https://grueters.github.io/AgentCell_re/media/website/ACre_Logo5-2.png",
     "author": {
         "name": "Uwe Grueters"
     },
@@ -27,7 +28,7 @@
             "id": "https://grueters.github.io/AgentCell_re/agentcell_re-is-live.html",
             "url": "https://grueters.github.io/AgentCell_re/agentcell_re-is-live.html",
             "title": "AgentCell_re is live!",
-            "summary": " E. coli bundled E. coli apart Uwe Grueters and Leon Metzger proudly present AgentCell_re (2021), a revitalization of the ancient Inidividual-based Chemotaxis Model AgentCell (2007) in RePast Simphony 2.8. As its predecessor AgentCell_re simulates movement of E. coli bacteria along an aspartate gradient using&hellip;",
+            "summary": " E. coli bundled E. coli apart Uwe Grueters and Leon Metzger proudly present AgentCell_re (2021), a revitalization of the&hellip;",
             "content_html": "\n  <div  class=\"gallery-wrapper gallery-wrapper--center\">\n    <div class=\"gallery\" data-columns=\"3\">\n      <figure class=\"gallery__item\">\n      <a href=\"https://grueters.github.io/AgentCell_re/media/posts/1/gallery/E_coli_bundled.PNG\" data-size=\"617x547\">\n        <img loading=\"lazy\" src=\"https://grueters.github.io/AgentCell_re/media/posts/1/gallery/E_coli_bundled-thumbnail.PNG\" height=\"547\" width=\"617\" alt=\"E. coli bundled\" />\n      </a>\n      <figcaption>E. coli bundled</figcaption>\n    </figure><figure class=\"gallery__item\">\n      <a href=\"https://grueters.github.io/AgentCell_re/media/posts/1/gallery/E_coli_apart.PNG\" data-size=\"850x770\">\n        <img loading=\"lazy\" src=\"https://grueters.github.io/AgentCell_re/media/posts/1/gallery/E_coli_apart-thumbnail.PNG\" height=\"652\" width=\"720\" alt=\"E. coli apart\" />\n      </a>\n      <figcaption>E. coli apart</figcaption>\n    </figure>\n    </div>\n  </div>\n\n  <p>\n    Uwe Grueters and Leon Metzger proudly present AgentCell_re (2021), a revitalization of the ancient Inidividual-based Chemotaxis Model AgentCell (2007) in RePast Simphony 2.8. As its predecessor AgentCell_re simulates movement of E. coli bacteria along an aspartate gradient using stochsim to resemble the metabolic receptor network.&nbsp;&nbsp;\n  </p>\n\n  <p>\n    \n  </p>",
             "author": {
                 "name": "Uwe Grueters"
