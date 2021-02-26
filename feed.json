@@ -11,6 +11,114 @@
     },
     "items": [
         {
+            "id": "https://grueters.github.io/AgentCell_re/4-conclusions.html",
+            "url": "https://grueters.github.io/AgentCell_re/4-conclusions.html",
+            "title": "4. Conclusions",
+            "author": {
+                "name": "Uwe Grueters"
+            },
+            "tags": [
+                   "Conclusions"
+            ],
+            "date_published": "2021-02-26T12:25:05+01:00",
+            "date_modified": "2021-02-26T12:25:05+01:00"
+        },
+        {
+            "id": "https://grueters.github.io/AgentCell_re/3-discussion.html",
+            "url": "https://grueters.github.io/AgentCell_re/3-discussion.html",
+            "title": "3. Discussion",
+            "author": {
+                "name": "Uwe Grueters"
+            },
+            "tags": [
+                   "Discussion"
+            ],
+            "date_published": "2021-02-26T12:24:19+01:00",
+            "date_modified": "2021-02-26T12:24:19+01:00"
+        },
+        {
+            "id": "https://grueters.github.io/AgentCell_re/23-outcome-of-model-run.html",
+            "url": "https://grueters.github.io/AgentCell_re/23-outcome-of-model-run.html",
+            "title": "2.3 Outcome of Model Run",
+            "author": {
+                "name": "Uwe Grueters"
+            },
+            "tags": [
+                   "Results"
+            ],
+            "date_published": "2021-02-26T12:23:42+01:00",
+            "date_modified": "2021-02-26T12:23:42+01:00"
+        },
+        {
+            "id": "https://grueters.github.io/AgentCell_re/22-agentcell-agentcell_re-comparison.html",
+            "url": "https://grueters.github.io/AgentCell_re/22-agentcell-agentcell_re-comparison.html",
+            "title": "2.2 AgentCell - AgentCell_re Comparison",
+            "author": {
+                "name": "Uwe Grueters"
+            },
+            "tags": [
+                   "Results"
+            ],
+            "date_published": "2021-02-26T12:20:44+01:00",
+            "date_modified": "2021-02-26T12:20:44+01:00"
+        },
+        {
+            "id": "https://grueters.github.io/AgentCell_re/21-agentcell_re-model-description.html",
+            "url": "https://grueters.github.io/AgentCell_re/21-agentcell_re-model-description.html",
+            "title": "2.1 AgentCell_re Model Description",
+            "author": {
+                "name": "Uwe Grueters"
+            },
+            "tags": [
+                   "Results"
+            ],
+            "date_published": "2021-02-26T12:19:55+01:00",
+            "date_modified": "2021-02-26T12:19:55+01:00"
+        },
+        {
+            "id": "https://grueters.github.io/AgentCell_re/13-chemotaxis-models.html",
+            "url": "https://grueters.github.io/AgentCell_re/13-chemotaxis-models.html",
+            "title": "1.3 Chemotaxis Models",
+            "author": {
+                "name": "Uwe Grueters"
+            },
+            "tags": [
+                   "Background"
+            ],
+            "date_published": "2021-02-26T12:18:23+01:00",
+            "date_modified": "2021-02-26T12:18:23+01:00"
+        },
+        {
+            "id": "https://grueters.github.io/AgentCell_re/chemotaxis-experiments.html",
+            "url": "https://grueters.github.io/AgentCell_re/chemotaxis-experiments.html",
+            "title": "1.2 Chemotaxis Experiments",
+            "summary": "there was a lot of exp.",
+            "content_html": "<p>there was a lot of exp.</p>",
+            "author": {
+                "name": "Uwe Grueters"
+            },
+            "tags": [
+                   "Background"
+            ],
+            "date_published": "2021-02-26T11:51:26+01:00",
+            "date_modified": "2021-02-26T12:15:55+01:00"
+        },
+        {
+            "id": "https://grueters.github.io/AgentCell_re/background.html",
+            "url": "https://grueters.github.io/AgentCell_re/background.html",
+            "title": "1.1 E. coli as Model Organism ",
+            "summary": "test",
+            "content_html": "<p>test</p>",
+            "author": {
+                "name": "Uwe Grueters"
+            },
+            "tags": [
+                   "Background"
+            ],
+            "date_published": "2021-02-26T11:26:16+01:00",
+            "date_modified": "2021-02-26T12:15:41+01:00"
+        },
+        {
             "id": "https://grueters.github.io/AgentCell_re/leon-metzger-on-board.html",
             "url": "https://grueters.github.io/AgentCell_re/leon-metzger-on-board.html",
             "title": "Leon Metzger on board",
